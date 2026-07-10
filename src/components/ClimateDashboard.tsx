@@ -132,6 +132,19 @@ const HUMIDITY_COLORS: Record<string, string> = {
   oppressive: '#f472b6',
   miserable: '#ef4444',
 };
+const ABSOLUTE_TEMP_PIECES = [
+  { lt: -10, label: '< -10°C', color: '#313695' },
+  { gte: -10, lt: 0, label: '-10–0°C', color: '#4575b4' },
+  { gte: 0, lt: 5, label: '0–5°C', color: '#74add1' },
+  { gte: 5, lt: 10, label: '5–10°C', color: '#abd9e9' },
+  { gte: 10, lt: 15, label: '10–15°C', color: '#e0f3f8' },
+  { gte: 15, lt: 20, label: '15–20°C', color: '#d9ef8b' },
+  { gte: 20, lt: 24, label: '20–24°C', color: '#fee08b' },
+  { gte: 24, lt: 28, label: '24–28°C', color: '#fdae61' },
+  { gte: 28, lt: 32, label: '28–32°C', color: '#f46d43' },
+  { gte: 32, lt: 36, label: '32–36°C', color: '#d73027' },
+  { gte: 36, label: '≥ 36°C', color: '#a50026' },
+];
 
 function oneDecimal(value: number | undefined | null, suffix = '') {
   return value == null || Number.isNaN(Number(value)) ? '—' : `${Number(value).toFixed(1)}${suffix}`;
@@ -249,18 +262,25 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
 
   useEffect(() => {
     if (!hourlyHeatmapData.length) return;
-    const temps = hourlyHeatmapData.map(item => item[2]);
-    const min = Math.floor(Math.min(...temps));
-    const max = Math.ceil(Math.max(...temps));
     const hourLabels = Array.from({ length: 24 }, (_, idx) => `${23 - idx}时`);
     return chartLifecycle(hourlyChartRef, {
       backgroundColor: 'transparent',
       animationDuration: 420,
-      tooltip: { position: 'top', backgroundColor: 'rgba(2,6,23,.94)', borderColor: 'rgba(148,163,184,.18)', textStyle: { color: '#fff' }, formatter: (p: any) => `${MONTHS[p.data[0]]} ${23 - p.data[1]}时<br/>平均温度 ${p.data[2]}°C` },
-      grid: { left: 46, right: 18, top: 18, bottom: 62 },
+      tooltip: { position: 'top', backgroundColor: 'rgba(2,6,23,.94)', borderColor: 'rgba(148,163,184,.18)', textStyle: { color: '#fff' }, formatter: (p: any) => `${MONTHS[p.data[0]]} ${23 - p.data[1]}时<br/>平均温度 ${p.data[2]}°C<br/><span style="opacity:.72">固定绝对温度色阶</span>` },
+      grid: { left: 46, right: 18, top: 18, bottom: 96 },
       xAxis: { type: 'category', data: MONTHS, axisLabel: { color: '#94a3b8' }, splitArea: { show: false }, axisLine: { lineStyle: { color: 'rgba(148,163,184,.25)' } } },
       yAxis: { type: 'category', data: hourLabels, axisLabel: { color: '#94a3b8', interval: 1 }, axisLine: { lineStyle: { color: 'rgba(148,163,184,.25)' } } },
-      visualMap: { min, max, calculable: true, orient: 'horizontal', left: 'center', bottom: 4, textStyle: { color: '#cbd5e1' }, inRange: { color: ['#1e3a8a', '#2563eb', '#22c55e', '#fde047', '#fb923c', '#dc2626'] } },
+      visualMap: {
+        type: 'piecewise',
+        pieces: ABSOLUTE_TEMP_PIECES,
+        orient: 'horizontal',
+        left: 'center',
+        bottom: 2,
+        itemWidth: 16,
+        itemHeight: 10,
+        itemGap: 6,
+        textStyle: { color: '#cbd5e1', fontSize: 10 },
+      },
       series: [{ name: '小时温度', type: 'heatmap', data: hourlyHeatmapData, emphasis: { itemStyle: { borderColor: '#fff', borderWidth: 1 } } }],
     });
   }, [hourlyHeatmapData]);
@@ -444,8 +464,8 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
         <ChartCard eyebrow="1 · Temperature" title="平均高温 / 平均低温 / 平均体感" note="平均高低温按每日高低温再按月平均，避免把单月极端值误读为常态。">
           <div ref={tempChartRef} className="h-[260px] w-full sm:h-[320px]" />
         </ChartCard>
-        <ChartCard eyebrow="1b · Hourly temperature" title="一日内不同时段平均温度" note="横轴为月份，纵轴为小时；颜色表示该月该小时的多年典型平均温度。">
-          <div ref={hourlyChartRef} className="h-[330px] w-full sm:h-[390px]" />
+        <ChartCard eyebrow="1b · Hourly temperature" title="一日内不同时段平均温度" note="横轴为月份，纵轴为小时；颜色使用固定的绝对摄氏温度色阶，不随城市或月份范围自动拉伸，便于像 WeatherSpark 一样跨城市比较冷热。">
+          <div ref={hourlyChartRef} className="h-[360px] w-full sm:h-[420px]" />
         </ChartCard>
       </div>
 
