@@ -208,7 +208,7 @@ function App() {
                 <div className="mt-4 rounded-2xl border border-white/10 bg-gradient-to-br from-cyan-500/10 via-slate-900/30 to-indigo-500/10 p-4 text-sm leading-7 text-slate-300/90">
                   <div className="font-semibold text-white">页面目标</div>
                   <div className="mt-1">
-                    对齐 WeatherSpark 的信息层次：先给全年概览，再给月度曲线、极值、最佳访问时间与补充说明。
+                    对齐 WeatherSpark 的信息层次：先给全年概览，再拆分高低温、小时温度、云量、降水、湿度体感、风速风向与旅游指数。
                   </div>
                 </div>
               </div>
@@ -283,8 +283,8 @@ function App() {
                 <div className="mt-1 break-words text-xl font-black text-white">{selectedStation ? `${selectedStation.city}` : '—'}</div>
                 <div className="mt-4 space-y-3 break-words text-sm leading-7 text-slate-300/90">
                   <div>· 这是一页静态气候图谱，适合做“先概览、后细节”的城市气候说明。</div>
-                  <div>· 如果你想进一步贴近 WeatherSpark，我可以继续补“月均高低温 + 降水排行 + 最佳访问期”专题块。</div>
-                  <div>· 当前页面已经具备站点切换、月份切换、年度曲线和地图浏览四层交互。</div>
+                  <div>· 页面已覆盖温度、小时温度、云量、降水、湿度体感、风速风向和旅游指数方法。</div>
+                  <div>· 当前页面保留站点切换、月份切换、年度曲线、数据表和地图浏览四层交互。</div>
                 </div>
               </section>
             </aside>
