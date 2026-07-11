@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import json
 import glob
+from pathlib import Path
 import math
 import re
 from typing import Dict, Iterable, Tuple
@@ -9,6 +10,7 @@ from typing import Dict, Iterable, Tuple
 RAW_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "raw")
 PROCESSED_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "processed")
 PUBLIC_DIR = os.path.join(os.path.dirname(__file__), "..", "public", "data")
+CATALOG_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "china_prefecture_units.json")
 
 CLOUD_CATEGORIES = [
     ("clear", "晴天", 0, 20),
@@ -26,6 +28,35 @@ DEWPOINT_CATEGORIES = [
     ("oppressive", "闷热难受", 21, 24),
     ("miserable", "极为难受", 24, 100),
 ]
+
+
+def load_prefecture_names() -> set[str]:
+    """Load allowed mainland prefecture-level display names without suffixes.
+
+    The website should expose prefecture-level units only. EPW files may contain
+    airport, district, county, or county-level city names, so processed stations
+    are filtered against this catalog after normalization.
+    """
+    with open(CATALOG_PATH, encoding='utf-8') as f:
+        payload = json.load(f)
+    names = set()
+    for unit in payload['units']:
+        name = unit['name']
+        names.add(name)
+        for suffix in ('市', '地区', '盟', '自治州'):
+            if name.endswith(suffix):
+                names.add(name[:-len(suffix)])
+                break
+    return names
+
+
+def reset_output_dir(path: str) -> None:
+    os.makedirs(path, exist_ok=True)
+    for item in Path(path).glob('*.json'):
+        item.unlink()
+    stations = Path(path) / 'stations.geojson'
+    if stations.exists():
+        stations.unlink()
 
 DIRECTION_LABELS = [
     "北", "东北偏北", "东北", "东北偏东", "东", "东南偏东", "东南", "东南偏南",
@@ -101,7 +132,12 @@ def normalize_city_name(raw_city):
     }
     normalized = city.lower().replace("'", '')
     for old, new in zh_aliases.items():
-        if old.lower().replace("'", '') in normalized:
+        old_norm = old.lower().replace("'", '')
+        if old_norm == 'huang':
+            if normalized.startswith('huang'):
+                return new
+            continue
+        if old_norm in normalized:
             return new
     aliases = {
         'Peking': 'Beijing',
@@ -368,6 +404,7 @@ def process_station(epw_path):
     print(f"Processing {epw_path}...")
     metadata, df = parse_epw(epw_path)
     station_id = metadata['wmo']
+    metadata['city'] = normalize_city_name(metadata['city'])
     if df.empty:
         return None
 
@@ -517,7 +554,7 @@ def process_station(epw_path):
         },
         'properties': {
             'id': station_id,
-            'city': normalize_city_name(metadata['city']),
+            'city': metadata['city'],
             'province': metadata['state'],
             **yearly_stats,
         },
@@ -525,8 +562,7 @@ def process_station(epw_path):
 
 
 def sync_public_outputs():
-    if not os.path.exists(PUBLIC_DIR):
-        os.makedirs(PUBLIC_DIR, exist_ok=True)
+    reset_output_dir(PUBLIC_DIR)
 
     for filename in os.listdir(PROCESSED_DIR):
         src = os.path.join(PROCESSED_DIR, filename)
@@ -537,8 +573,8 @@ def sync_public_outputs():
 
 
 def main():
-    if not os.path.exists(PROCESSED_DIR):
-        os.makedirs(PROCESSED_DIR, exist_ok=True)
+    reset_output_dir(PROCESSED_DIR)
+    prefecture_names = load_prefecture_names()
 
     epw_files = sorted(glob.glob(os.path.join(RAW_DIR, "**", "*.epw"), recursive=True))
     features_by_id = {}
@@ -546,6 +582,13 @@ def main():
     for epw in epw_files:
         feat = process_station(epw)
         if feat:
+            city = feat['properties']['city']
+            if city not in prefecture_names:
+                out = os.path.join(PROCESSED_DIR, f"{feat['properties']['id']}.json")
+                if os.path.exists(out):
+                    os.remove(out)
+                print(f"Skipping non-prefecture station {city} ({feat['properties']['id']}).")
+                continue
             features_by_id[feat['properties']['id']] = feat
 
     geojson = {

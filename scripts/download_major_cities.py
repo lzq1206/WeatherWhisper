@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import argparse
 import io
 import os
+import time
 import zipfile
 from dataclasses import dataclass
 from pathlib import Path
@@ -67,6 +69,16 @@ def download_bytes(url: str) -> bytes:
         return resp.read()
 
 
+def existing_raw_files_for(target: TargetZip) -> list[Path]:
+    """Return already-extracted files for a target by matching the ZIP stem.
+
+    This keeps reruns idempotent and avoids unnecessary network requests while
+    expanding coverage in batches.
+    """
+    stem = Path(target.url).stem
+    return sorted(RAW_DIR.glob(f"{stem}.*"))
+
+
 def extract_zip(content: bytes, source_label: str) -> int:
     count = 0
     with zipfile.ZipFile(io.BytesIO(content)) as zf:
@@ -87,11 +99,38 @@ def extract_zip(content: bytes, source_label: str) -> int:
     return count
 
 
+def select_batch(targets: list[TargetZip], batch_size: int | None, batch_index: int) -> list[TargetZip]:
+    if batch_size is None:
+        return targets
+    if batch_size <= 0:
+        raise ValueError('--batch-size must be positive')
+    if batch_index < 0:
+        raise ValueError('--batch-index must be zero or positive')
+    start = batch_index * batch_size
+    return targets[start:start + batch_size]
+
+
 def main() -> int:
+    parser = argparse.ArgumentParser(description='Download selected OneBuilding climate ZIPs in polite batches.')
+    parser.add_argument('--batch-size', type=int, default=None, help='Number of city ZIPs to process in this run.')
+    parser.add_argument('--batch-index', type=int, default=0, help='Zero-based batch index when --batch-size is set.')
+    parser.add_argument('--delay', type=float, default=2.0, help='Seconds to wait between network requests.')
+    parser.add_argument('--force', action='store_true', help='Re-download even when extracted files already exist.')
+    args = parser.parse_args()
+
     ensure_dir(RAW_DIR)
+    selected = select_batch(TARGETS, args.batch_size, args.batch_index)
+    if not selected:
+        print('No targets selected for this batch.')
+        return 0
+
     total = 0
-    for target in TARGETS:
-        print(f'Fetching {target.name}...')
+    for offset, target in enumerate(selected, start=1):
+        existing = existing_raw_files_for(target)
+        if existing and not args.force:
+            print(f'Skipping {target.name}: {len(existing)} existing climate files found.')
+            continue
+        print(f'Fetching {target.name} ({offset}/{len(selected)})...')
         try:
             content = download_bytes(target.url)
         except Exception as e:
@@ -101,6 +140,8 @@ def main() -> int:
             total += extract_zip(content, target.name)
         except Exception as e:
             print(f'  extract failed: {e}')
+        if offset < len(selected) and args.delay > 0:
+            time.sleep(args.delay)
     print(f'Done. Total extracted files: {total}')
     return 0
 
