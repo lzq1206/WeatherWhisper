@@ -50,6 +50,27 @@ Tourism score = 0.50 * apparent-temperature score
 
 Daytime hours are 08:00–21:00 local time. Temperature thresholds follow the reference screenshot: below 10°C = 0, 18°C = 9, 24°C = 10, 27°C = 9, 32°C and above = 1, with linear interpolation between points.
 
+
+## Nationwide China coverage plan
+
+The repository now keeps a validated catalog of mainland China prefecture-level administrative units in `data/china_prefecture_units.json`. The catalog contains 337 entries: 4 municipalities plus the 333 non-municipality prefecture-level units requested for nationwide coverage. It intentionally excludes city districts, counties, and county-level cities so station expansion does not accidentally duplicate district-level names as prefecture-level cities.
+
+Validate the catalog before adding more stations:
+
+```bash
+python3 scripts/validate_prefecture_units.py
+```
+
+Download climate ZIPs in small, polite batches to avoid rate limiting. Existing extracted `.epw`/`.stat` files are skipped by default, so reruns are safe:
+
+```bash
+python3 scripts/download_major_cities.py --batch-size 10 --batch-index 0 --delay 5
+python3 scripts/download_major_cities.py --batch-size 10 --batch-index 1 --delay 5
+python3 scripts/processor.py
+```
+
+When expanding the `TARGETS` list, map one representative OneBuilding station ZIP to each prefecture-level unit from the catalog and prefer the unit's principal urban weather station. Do not add district names (for example `东城`, `宝山`, `双流`) as separate cities; those may appear in station filenames but should be normalized to their parent prefecture-level unit for display.
+
 ## Local development
 
 ```bash
