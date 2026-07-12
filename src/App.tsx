@@ -48,6 +48,7 @@ function App() {
   const [selectedStationId, setSelectedStationId] = useState<string>('');
   const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth() + 1);
   const [query, setQuery] = useState('');
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   useEffect(() => {
     fetch(`${BASE_PATH}/data/stations.geojson`)
@@ -86,20 +87,32 @@ function App() {
     [stations, selectedStationId]
   );
 
-  const filteredStations = useMemo(() => {
+  const searchMatches = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return stations;
+    if (!q) return [];
     return stations.filter(item => {
       const hay = `${item.city} ${item.city_en || ''} ${item.province || ''} ${item.province_en || ''} ${item.id} ${item.source_station_id || ''} ${item.source_station_name || ''} ${item.station_match_quality || ''} ${item.best_time || ''} ${item.overview || ''}`.toLowerCase();
       return hay.includes(q);
-    });
+    }).slice(0, 10);
   }, [stations, query]);
 
-  const stationOptions = useMemo(() => {
-    if (!selectedStation) return filteredStations;
-    if (filteredStations.some(item => item.id === selectedStation.id)) return filteredStations;
-    return [selectedStation, ...filteredStations];
-  }, [filteredStations, selectedStation]);
+  const groupedStationOptions = useMemo(() => {
+    const groups = new Map<string, StationListItem[]>();
+    stations.forEach(item => {
+      const province = item.province || '其他地区';
+      if (!groups.has(province)) groups.set(province, []);
+      groups.get(province)!.push(item);
+    });
+    return Array.from(groups.entries()).map(([province, items]) => ({ province, items }));
+  }, [stations]);
+
+  const showSearchSuggestions = isSearchFocused && query.trim().length > 0;
+
+  const handleSearchSelect = (item: StationListItem) => {
+    setSelectedStationId(item.id);
+    setQuery(item.province ? `${item.province} · ${item.city}` : item.city);
+    setIsSearchFocused(false);
+  };
 
   const heroChips = useMemo(() => {
     if (!selectedStation) return [];
@@ -180,30 +193,60 @@ function App() {
                   <CalendarDays className="text-cyan-300" size={18} />
                 </div>
 
-                <label className="mt-4 block">
+                <div className="mt-4 block">
                   <span className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-slate-400">Search / 查找地级行政区</span>
-                  <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/6 px-3 py-2.5">
-                    <Search size={16} className="text-slate-400" />
-                    <input
-                      value={query}
-                      onChange={e => setQuery(e.target.value)}
-                      placeholder="输入地级行政区、省份、气象站或描述"
-                      className="w-full bg-transparent text-sm outline-none placeholder:text-slate-500"
-                    />
+                  <div className="relative">
+                    <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/6 px-3 py-2.5">
+                      <Search size={16} className="text-slate-400" />
+                      <input
+                        value={query}
+                        onFocus={() => setIsSearchFocused(true)}
+                        onBlur={() => window.setTimeout(() => setIsSearchFocused(false), 120)}
+                        onChange={e => setQuery(e.target.value)}
+                        placeholder="输入地级行政区、省份、气象站或描述"
+                        className="w-full bg-transparent text-sm outline-none placeholder:text-slate-500"
+                      />
+                    </div>
+
+                    {showSearchSuggestions ? (
+                      <div className="absolute left-0 right-0 top-[calc(100%+.5rem)] z-40 max-h-72 overflow-auto rounded-2xl border border-white/10 bg-slate-950/95 p-2 shadow-2xl shadow-black/40 backdrop-blur-xl">
+                        {searchMatches.length ? searchMatches.map(item => (
+                          <button
+                            key={item.id}
+                            type="button"
+                            onMouseDown={e => e.preventDefault()}
+                            onClick={() => handleSearchSelect(item)}
+                            className="block w-full rounded-xl px-3 py-2.5 text-left text-sm text-slate-200 transition hover:bg-cyan-400/10 hover:text-white"
+                          >
+                            <span className="font-semibold text-white">{item.city}</span>
+                            <span className="ml-2 text-xs text-slate-400">{item.province || '其他地区'} · 气象站 {item.source_station_id || item.id}</span>
+                          </button>
+                        )) : (
+                          <div className="px-3 py-3 text-sm text-slate-400">没有匹配的地级行政区</div>
+                        )}
+                      </div>
+                    ) : null}
                   </div>
-                </label>
+                </div>
 
                 <label className="mt-4 block">
-                  <span className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-slate-400">Prefecture-level admin unit / 地级行政区</span>
+                  <span className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-slate-400">Province / City selector · 省级 / 市级选择</span>
                   <select
                     value={selectedStationId}
-                    onChange={e => setSelectedStationId(e.target.value)}
+                    onChange={e => {
+                      setSelectedStationId(e.target.value);
+                      setQuery('');
+                    }}
                     className="w-full rounded-2xl border border-white/10 bg-slate-950/70 px-3 py-3 text-sm text-white outline-none"
                   >
-                    {stationOptions.map(item => (
-                      <option key={item.id} value={item.id}>
-                        {item.province ? `${item.province} · ${item.city}` : item.city} ({item.id})
-                      </option>
+                    {groupedStationOptions.map(group => (
+                      <optgroup key={group.province} label={group.province}>
+                        {group.items.map(item => (
+                          <option key={item.id} value={item.id}>
+                            {item.city} ({item.source_station_id || item.id})
+                          </option>
+                        ))}
+                      </optgroup>
                     ))}
                   </select>
                 </label>
