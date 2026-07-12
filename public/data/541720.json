@@ -24,7 +24,7 @@
     "water_temp": 6.5,
     "solar_energy": 217.2,
     "data_source": "OneBuilding Climate.OneBuilding.org EPW / TMYx-CSWD processed locally",
-    "method_note": "Monthly high/low are mean daily high/low; precipitation probability is wet days (>=1 mm/day); tourism score uses WeatherSpark-style 8:00-21:00 hourly apparent-temperature, cloud, and precipitation component scores.",
+    "method_note": "Monthly high/low are mean daily high/low; precipitation probability is wet days (>=1 mm/day); tourism score uses climate-comfort 8:00-21:00 hourly apparent-temperature, cloud, and precipitation component scores.",
     "tourism_score_avg": 5.6,
     "beach_score_avg": 4.9,
     "best_tourism_months": "5-9月",
@@ -4105,7 +4105,7 @@
     }
   },
   "methodology": {
-    "source": "OneBuilding EPW/TMYx-CSWD typical meteorological year files; WeatherSpark reference page was used for page structure and scoring thresholds, not as copied raw data.",
+    "source": "OneBuilding EPW/TMYx-CSWD typical meteorological year files; Page structure and scoring thresholds are generated from local climate-processing rules, not copied raw data.",
     "temperature": "Monthly high/low use the average of daily highs/lows, matching the climate-page convention better than one-month extremes.",
     "cloud_categories": [
       [

@@ -425,7 +425,7 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
     <section className="min-w-0 overflow-hidden rounded-[24px] border border-white/10 bg-white/6 p-4 shadow-[0_24px_80px_rgba(0,0,0,.30)] backdrop-blur-2xl sm:p-5 md:p-6">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div className="min-w-0">
-          <div className="text-[11px] uppercase tracking-[0.24em] text-slate-400">WeatherSpark-style annual climate page</div>
+          <div className="text-[11px] uppercase tracking-[0.24em] text-slate-400">climate-comfort annual climate page</div>
           <h2 className="mt-1 break-words text-2xl font-black text-white sm:text-3xl">{data.metadata.city}</h2>
           <p className="mt-2 break-words text-sm text-slate-300/90">
             {data.metadata.state} · WMO {data.metadata.wmo}
@@ -464,7 +464,7 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
         <ChartCard eyebrow="1 · Temperature" title="平均高温 / 平均低温 / 平均体感" note="平均高低温按每日高低温再按月平均，避免把单月极端值误读为常态。">
           <div ref={tempChartRef} className="h-[260px] w-full sm:h-[320px]" />
         </ChartCard>
-        <ChartCard eyebrow="1b · Hourly temperature" title="一日内不同时段平均温度" note="横轴为月份，纵轴为小时；颜色使用固定的绝对摄氏温度色阶，不随城市或月份范围自动拉伸，便于像 WeatherSpark 一样跨城市比较冷热。">
+        <ChartCard eyebrow="1b · Hourly temperature" title="一日内不同时段平均温度" note="横轴为月份，纵轴为小时；颜色使用固定的绝对摄氏温度色阶，不随城市或月份范围自动拉伸，便于像 climate atlas 一样跨城市比较冷热。">
           <div ref={hourlyChartRef} className="h-[360px] w-full sm:h-[420px]" />
         </ChartCard>
       </div>
@@ -504,7 +504,7 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
             <p>综合公式：<span className="font-semibold text-white">0.50 × 体感温度得分 + 0.25 × 云量得分 + 0.25 × 降水得分</span>。</p>
             <p>温度得分按图示阈值线性插值：低于 10°C 为 0；18°C 为 9；24°C 为 10；27°C 为 9；32°C 及以上为 1。</p>
             <p>云量得分：完全晴朗 10，大部分晴朗约 9，阴天 1，中间线性下降。降水得分：无降水 10，微量降水约 9，≥1mm/h 为 0。</p>
-            <p className="text-xs text-slate-400">数据源：{data.yearly.data_source || 'OneBuilding EPW/TMYx-CSWD 本地处理'}。参考 WeatherSpark 的模块结构和阈值方法，不直接复制其专有原始数据。</p>
+            <p className="text-xs text-slate-400">数据源：{data.yearly.data_source || 'OneBuilding EPW/TMYx-CSWD 本地处理'}。参考 climate atlas 的模块结构和阈值方法，不直接复制其专有原始数据。</p>
           </div>
         </section>
       </div>

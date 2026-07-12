@@ -1,6 +1,6 @@
 # WeatherWhisper
 
-WeatherWhisper is a China climate visualization site designed as a WeatherSpark-style annual climate page.
+WeatherWhisper is a China climate visualization site designed as a climate-comfort annual climate page.
 
 ## Current scope
 The site now uses a catalog of **333 mainland Chinese prefecture-level administrative units（地级行政区划单位）**: 293 prefecture-level cities, 7 prefectures, 30 autonomous prefectures and 3 leagues. The catalog deliberately excludes urban districts, counties, county-level cities, province-level municipalities and special administrative regions.
@@ -26,7 +26,7 @@ The repository uses locally processed EPW weather files from OneBuilding / Clima
 - `public/data/`: static JSON served by Vite / GitHub Pages
 - `audits/prefecture_admin_unit_expansion_20260711/`: validation outputs and match audit
 
-The WeatherSpark reference page is used for information architecture and scoring-threshold inspiration. The project does **not** copy WeatherSpark proprietary raw data.
+The climate atlas reference page is used for information architecture and scoring-threshold inspiration. The project does **not** copy climate atlas proprietary raw data.
 
 ## Processing method
 Run the full 333-unit rebuild:
@@ -49,7 +49,7 @@ The processor derives:
 - monthly cloudiness category percentages
 - wet-day precipitation probability (`daily precipitation >= 1 mm`)
 - monthly wind speed and vector-averaged dominant wind direction
-- WeatherSpark-style tourism scores from daytime hourly apparent temperature, cloud score, and precipitation score
+- climate-comfort tourism scores from daytime hourly apparent temperature, cloud score, and precipitation score
 
 Tourism score formula:
 

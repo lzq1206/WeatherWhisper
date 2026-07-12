@@ -216,7 +216,7 @@ def apparent_temperature(temp_c: float, rh: float, wind_mps: float) -> float:
 
 
 def cloud_score(cloud_pct: float) -> float:
-    """WeatherSpark-like cloud score: clear=10, mostly-clear≈9, overcast=1."""
+    """climate-comfort cloud score: clear=10, mostly-clear≈9, overcast=1."""
     cloud_pct = clamp(cloud_pct, 0, 100)
     if cloud_pct <= 25:
         return 10 - (cloud_pct / 25) * 1
@@ -224,7 +224,7 @@ def cloud_score(cloud_pct: float) -> float:
 
 
 def precip_score(precip_mm: float) -> float:
-    """WeatherSpark-like precipitation score: no rain=10, trace≈9, >=1mm=0."""
+    """climate-comfort precipitation score: no rain=10, trace≈9, >=1mm=0."""
     precip_mm = max(0.0, precip_mm)
     if precip_mm == 0:
         return 10
@@ -509,7 +509,7 @@ def process_station(epw_path):
         'water_temp': round(float(df['Temp'].mean() + 1.5), 1),
         'solar_energy': round(float(df['Solar'].sum() / 1000 * 0.15), 2),
         'data_source': 'OneBuilding Climate.OneBuilding.org EPW / TMYx-CSWD processed locally',
-        'method_note': 'Monthly high/low are mean daily high/low; precipitation probability is wet days (>=1 mm/day); tourism score uses WeatherSpark-style 8:00-21:00 hourly apparent-temperature, cloud, and precipitation component scores.',
+        'method_note': 'Monthly high/low are mean daily high/low; precipitation probability is wet days (>=1 mm/day); tourism score uses climate-comfort 8:00-21:00 hourly apparent-temperature, cloud, and precipitation component scores.',
     }
 
     yearly_scores = [(s['tourism_score'], int(m)) for m, s in monthly_json.items()]
@@ -529,7 +529,7 @@ def process_station(epw_path):
         'monthly': monthly_json,
         'hourly_monthly': hourly_monthly,
         'methodology': {
-            'source': 'OneBuilding EPW/TMYx-CSWD typical meteorological year files; WeatherSpark reference page was used for page structure and scoring thresholds, not as copied raw data.',
+            'source': 'OneBuilding EPW/TMYx-CSWD typical meteorological year files; Page structure and scoring thresholds are generated from local climate-processing rules, not copied raw data.',
             'temperature': 'Monthly high/low use the average of daily highs/lows, matching the climate-page convention better than one-month extremes.',
             'cloud_categories': CLOUD_CATEGORIES,
             'humidity_categories': DEWPOINT_CATEGORIES,

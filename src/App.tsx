@@ -137,8 +137,8 @@ function App() {
 
   const heroTitle = selectedStation ? `${selectedStation.city} · 气候年鉴` : 'WeatherWhisper · 中国气候页';
   const heroSubtitle = selectedStation
-    ? `${selectedStation.overview || '以月份为轴展示全年气候节律、温度带、降水峰值和最佳访问时间。'} 这里的页面风格对齐 WeatherSpark：先给结论，再给月度曲线和细节拆解。`
-    : '以 WeatherSpark 的信息组织方式展示中国站点的全年气候：先看概览，再看月度曲线、年度平均和最佳访问时间。';
+    ? `${selectedStation.overview || '以月份为轴展示全年气候节律、温度带、降水峰值和最佳访问时间。'} 这里的页面采用气候年鉴式信息组织：先给结论，再给月度曲线和细节拆解。`
+    : '以气候年鉴式的信息组织方式展示中国站点的全年气候：先看概览，再看月度曲线、年度平均和最佳访问时间。';
 
   return (
     <div className="min-h-screen text-slate-100 relative overflow-x-hidden">
@@ -150,7 +150,7 @@ function App() {
           <section className="min-w-0 overflow-hidden rounded-[24px] border border-white/10 bg-white/6 p-4 shadow-[0_24px_80px_rgba(0,0,0,.35)] backdrop-blur-2xl sm:p-5 md:p-7">
             <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.28em] text-cyan-200/80">
               <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1">WeatherWhisper</span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">WeatherSpark-style climate page</span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">China climate atlas page</span>
               <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">333 prefecture-level admin units</span>
             </div>
 
@@ -254,7 +254,7 @@ function App() {
                 <div className="mt-4 rounded-2xl border border-white/10 bg-gradient-to-br from-cyan-500/10 via-slate-900/30 to-indigo-500/10 p-4 text-sm leading-7 text-slate-300/90">
                   <div className="font-semibold text-white">页面目标</div>
                   <div className="mt-1">
-                    对齐 WeatherSpark 的信息层次：先给全年概览，再拆分高低温、小时温度、云量、降水、湿度体感、风速风向与旅游指数。
+                    采用气候年鉴式的信息层次：先给全年概览，再拆分高低温、小时温度、云量、降水、湿度体感、风速风向与旅游指数。
                   </div>
                 </div>
               </div>
