@@ -37,7 +37,9 @@ const BASE_PATH = import.meta.env.BASE_URL;
 const MONTH_LABELS = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
 
 function pickLeadStation(stations: StationListItem[]) {
-  const preferred = stations.find(item => item.id === '583620');
+  const preferred = stations.find(item => item.id === 'prefecture-guangzhou')
+    ?? stations.find(item => item.id === 'prefecture-shijiazhuang')
+    ?? stations.find(item => item.id === '583620');
   return preferred ?? stations[0] ?? null;
 }
 
@@ -88,7 +90,7 @@ function App() {
     const q = query.trim().toLowerCase();
     if (!q) return stations;
     return stations.filter(item => {
-      const hay = `${item.city} ${item.province || ''} ${item.id} ${item.best_time || ''} ${item.overview || ''}`.toLowerCase();
+      const hay = `${item.city} ${item.city_en || ''} ${item.province || ''} ${item.province_en || ''} ${item.id} ${item.source_station_id || ''} ${item.source_station_name || ''} ${item.station_match_quality || ''} ${item.best_time || ''} ${item.overview || ''}`.toLowerCase();
       return hay.includes(q);
     });
   }, [stations, query]);
@@ -103,7 +105,8 @@ function App() {
     if (!selectedStation) return [];
     return [
       selectedStation.province ? `${selectedStation.province} · ${selectedStation.city}` : selectedStation.city,
-      `WMO ${selectedStation.id}`,
+      selectedStation.admin_level ? `${selectedStation.admin_level}口径` : '地级行政区口径',
+      `气象站 ${selectedStation.source_station_id || selectedStation.id}`,
       selectedStation.best_time ? `最佳访问 ${selectedStation.best_time}` : '全年气候页',
       selectedStation.overview || '中国区域气候概览',
     ];
@@ -135,7 +138,7 @@ function App() {
             <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.28em] text-cyan-200/80">
               <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1">WeatherWhisper</span>
               <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">WeatherSpark-style climate page</span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">China station atlas</span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">333 prefecture-level admin units</span>
             </div>
 
             <div className="mt-5 grid min-w-0 gap-6 xl:grid-cols-[1.15fr_.85fr] xl:items-end">
@@ -171,27 +174,27 @@ function App() {
               <div className="min-w-0 overflow-hidden rounded-[24px] border border-white/10 bg-black/20 p-4 shadow-2xl shadow-black/20 sm:p-5">
                 <div className="flex items-center justify-between gap-4">
                   <div className="min-w-0">
-                    <div className="text-[11px] uppercase tracking-[0.24em] text-slate-400">Station switcher</div>
-                    <div className="mt-1 break-words text-base font-bold text-white sm:text-lg">选择一个站点</div>
+                    <div className="text-[11px] uppercase tracking-[0.24em] text-slate-400">Admin-unit switcher</div>
+                    <div className="mt-1 break-words text-base font-bold text-white sm:text-lg">选择一个地级行政区</div>
                   </div>
                   <CalendarDays className="text-cyan-300" size={18} />
                 </div>
 
                 <label className="mt-4 block">
-                  <span className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-slate-400">Search / 查找站点</span>
+                  <span className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-slate-400">Search / 查找地级行政区</span>
                   <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/6 px-3 py-2.5">
                     <Search size={16} className="text-slate-400" />
                     <input
                       value={query}
                       onChange={e => setQuery(e.target.value)}
-                      placeholder="输入城市、代码或描述"
+                      placeholder="输入地级行政区、省份、气象站或描述"
                       className="w-full bg-transparent text-sm outline-none placeholder:text-slate-500"
                     />
                   </div>
                 </label>
 
                 <label className="mt-4 block">
-                  <span className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-slate-400">Station / 站点</span>
+                  <span className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-slate-400">Prefecture-level admin unit / 地级行政区</span>
                   <select
                     value={selectedStationId}
                     onChange={e => setSelectedStationId(e.target.value)}
@@ -231,7 +234,8 @@ function App() {
                 {selectedStation ? [
                   ['城市', selectedStation.city],
                   ['省份', selectedStation.province || '—'],
-                  ['WMO', selectedStation.id],
+                  ['行政级别', selectedStation.admin_level || '地级行政区'],
+                  ['气象站', selectedStation.source_station_id || selectedStation.id],
                   ['最佳时段', selectedStation.best_time || '—'],
                 ].map(([k, v]) => (
                   <div key={k} className="min-w-0 rounded-2xl border border-white/10 bg-black/20 p-3 sm:p-4">
@@ -261,7 +265,7 @@ function App() {
           <div className="grid gap-6 xl:grid-cols-[1.35fr_.65fr]">
             <div className="space-y-6 min-w-0">
               <ClimateDashboard
-                stationId={selectedStationId || '583620'}
+                stationId={selectedStationId || selectedStation?.id || 'prefecture-guangzhou'}
                 selectedMonth={selectedMonth}
               />
 
