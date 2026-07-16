@@ -41,14 +41,103 @@ RAW_DIR = ROOT / 'data' / 'raw'
 PROCESSED_DIR = ROOT / 'data' / 'processed'
 PUBLIC_DIR = ROOT / 'public' / 'data'
 CATALOG_DIR = ROOT / 'data' / 'prefecture_city_catalog'
-RUN_DATE = '20260711'
+RUN_DATE = '20260716'
 AUDIT_DIR = ROOT / 'audits' / f'prefecture_admin_unit_expansion_{RUN_DATE}'
 
 PREFECTURE_LIST_URL = 'https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD%E5%9C%B0%E7%BA%A7%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%97%E8%A1%A8'
 ONEBUILDING_CHINA_URL = 'https://climate.onebuilding.org/WMO_Region_2_Asia/CHN_China/'
+ONEBUILDING_HONG_KONG_URL = 'https://climate.onebuilding.org/WMO_Region_2_Asia/HKG_Hong_Kong/'
+ONEBUILDING_MACAU_URL = 'https://climate.onebuilding.org/WMO_Region_2_Asia/MAC_Macau/'
 
 SESSION = requests.Session()
 SESSION.headers.update({'User-Agent': 'WeatherWhisper/OpenClaw prefecture-city catalog builder'})
+
+SUPPLEMENTAL_WEB_UNITS = [
+    {
+        'province_zh': '北京市',
+        'province_en': 'Beijing',
+        'city_zh': '北京市',
+        'city_short_zh': '北京',
+        'admin_type_zh': '直辖市',
+        'division_code': '110000',
+        'city_en': 'Beijing',
+        'wiki_title_zh': '北京市',
+        'wiki_title_en': 'Beijing',
+        'lat': 39.9042,
+        'lon': 116.4074,
+        'slug': 'beijing',
+    },
+    {
+        'province_zh': '天津市',
+        'province_en': 'Tianjin',
+        'city_zh': '天津市',
+        'city_short_zh': '天津',
+        'admin_type_zh': '直辖市',
+        'division_code': '120000',
+        'city_en': 'Tianjin',
+        'wiki_title_zh': '天津市',
+        'wiki_title_en': 'Tianjin',
+        'lat': 39.0842,
+        'lon': 117.2009,
+        'slug': 'tianjin',
+    },
+    {
+        'province_zh': '上海市',
+        'province_en': 'Shanghai',
+        'city_zh': '上海市',
+        'city_short_zh': '上海',
+        'admin_type_zh': '直辖市',
+        'division_code': '310000',
+        'city_en': 'Shanghai',
+        'wiki_title_zh': '上海市',
+        'wiki_title_en': 'Shanghai',
+        'lat': 31.2304,
+        'lon': 121.4737,
+        'slug': 'shanghai',
+    },
+    {
+        'province_zh': '重庆市',
+        'province_en': 'Chongqing',
+        'city_zh': '重庆市',
+        'city_short_zh': '重庆',
+        'admin_type_zh': '直辖市',
+        'division_code': '500000',
+        'city_en': 'Chongqing',
+        'wiki_title_zh': '重庆市',
+        'wiki_title_en': 'Chongqing',
+        'lat': 29.4316,
+        'lon': 106.9123,
+        'slug': 'chongqing',
+    },
+    {
+        'province_zh': '香港特别行政区',
+        'province_en': 'Hong Kong',
+        'city_zh': '香港',
+        'city_short_zh': '香港',
+        'admin_type_zh': '特别行政区',
+        'division_code': '810000',
+        'city_en': 'Hong Kong',
+        'wiki_title_zh': '香港',
+        'wiki_title_en': 'Hong Kong',
+        'lat': 22.3193,
+        'lon': 114.1694,
+        'slug': 'hong-kong',
+    },
+    {
+        'province_zh': '澳门特别行政区',
+        'province_en': 'Macau',
+        'city_zh': '澳门',
+        'city_short_zh': '澳门',
+        'admin_type_zh': '特别行政区',
+        'division_code': '820000',
+        'city_en': 'Macau',
+        'wiki_title_zh': '澳门',
+        'wiki_title_en': 'Macau',
+        'lat': 22.1987,
+        'lon': 113.5439,
+        'slug': 'macau',
+    },
+]
 
 PROVINCE_ZH_TO_EN = {
     '河北省': 'Hebei', '山西省': 'Shanxi', '内蒙古自治区': 'Inner Mongolia',
@@ -60,6 +149,23 @@ PROVINCE_ZH_TO_EN = {
     '四川省': 'Sichuan', '贵州省': 'Guizhou', '云南省': 'Yunnan',
     '西藏自治区': 'Tibet', '陕西省': 'Shaanxi', '甘肃省': 'Gansu',
     '青海省': 'Qinghai', '宁夏回族自治区': 'Ningxia', '新疆维吾尔自治区': 'Xinjiang',
+}
+
+# OneBuilding encodes the province/region in the second filename component.
+# Restrict matching to that component so same-name cities (for example 玉林/榆林)
+# cannot silently borrow a station from another province.
+PROVINCE_STATION_CODES = {
+    '北京市': {'BJ'}, '天津市': {'TJ'}, '上海市': {'SH'}, '重庆市': {'CQ'},
+    '河北省': {'HE'}, '山西省': {'SX'}, '内蒙古自治区': {'NM'},
+    '辽宁省': {'LN'}, '吉林省': {'JL'}, '黑龙江省': {'HL'},
+    '江苏省': {'JS'}, '浙江省': {'ZJ'}, '安徽省': {'AH'},
+    '福建省': {'FJ'}, '江西省': {'JX'}, '山东省': {'SD'},
+    '河南省': {'HA'}, '湖北省': {'HB'}, '湖南省': {'HN'},
+    '广东省': {'GD'}, '广西壮族自治区': {'GX'}, '海南省': {'HI'},
+    '四川省': {'SC'}, '贵州省': {'GZ'}, '云南省': {'YN'},
+    '西藏自治区': {'XJ'}, '陕西省': {'SN'}, '甘肃省': {'GS'},
+    '青海省': {'QH'}, '宁夏回族自治区': {'NX'}, '新疆维吾尔自治区': {'XZ'},
+    '香港特别行政区': {'HKI'}, '澳门特别行政区': {'MA'},
 }
 
 PROVINCE_FALLBACK_CITY = {
@@ -294,6 +400,7 @@ class StationZip:
     norm_name: str
     wmo: str
     preference: int
+    region_code: str
 
 
 def ensure_dir(path: Path) -> None:
@@ -499,19 +606,37 @@ def wiki_query_batch(titles: list[str]) -> dict[str, dict[str, Any]]:
     params = {
         'action': 'query', 'format': 'json', 'redirects': 1,
         'prop': 'langlinks|coordinates', 'titles': '|'.join(titles),
-        'lllang': 'en', 'lllimit': 10, 'colimit': 50,
+        'lllang': 'en', 'lllimit': 'max', 'colimit': 'max',
     }
     last_exc: Exception | None = None
     for attempt in range(1, 6):
         try:
-            resp = SESSION.get('https://zh.wikipedia.org/w/api.php', params=params, timeout=45)
-            if resp.status_code == 429:
-                retry_after = float(resp.headers.get('Retry-After') or (5 * attempt))
-                time.sleep(retry_after)
-                continue
-            resp.raise_for_status()
-            pages = resp.json().get('query', {}).get('pages', {})
-            return {page.get('title', ''): page for page in pages.values() if page.get('title')}
+            next_params = dict(params)
+            merged: dict[str, dict[str, Any]] = {}
+            while True:
+                resp = SESSION.get('https://zh.wikipedia.org/w/api.php', params=next_params, timeout=45)
+                if resp.status_code == 429:
+                    retry_after = float(resp.headers.get('Retry-After') or (5 * attempt))
+                    time.sleep(retry_after)
+                    raise RuntimeError('Wikipedia API rate limited during batch query')
+                resp.raise_for_status()
+                payload = resp.json()
+                pages = payload.get('query', {}).get('pages', {})
+                for page in pages.values():
+                    title = page.get('title', '')
+                    if not title:
+                        continue
+                    existing = merged.get(title, {})
+                    if page.get('langlinks'):
+                        existing['langlinks'] = page['langlinks']
+                    if page.get('coordinates'):
+                        existing['coordinates'] = page['coordinates']
+                    existing.update({k: v for k, v in page.items() if k not in {'langlinks', 'coordinates'}})
+                    merged[title] = existing
+                cont = payload.get('continue')
+                if not cont:
+                    return merged
+                next_params = {**next_params, **cont}
         except Exception as exc:
             last_exc = exc
             time.sleep(2.0 * attempt)
@@ -567,10 +692,28 @@ def assign_unique_slugs(cities: list[PrefectureCity]) -> None:
         city.slug = slug
 
 
-def fetch_onebuilding_inventory() -> list[StationZip]:
-    html = get_text_with_retries(ONEBUILDING_CHINA_URL, timeout=90)
+def supplemental_web_units(start_index: int) -> list[PrefectureCity]:
+    units: list[PrefectureCity] = []
+    for offset, item in enumerate(SUPPLEMENTAL_WEB_UNITS, start=1):
+        units.append(PrefectureCity(index=start_index + offset, **item))
+    return units
+
+
+def fetch_inventory_from_index(index_url: str) -> list[str]:
+    html = get_text_with_retries(urljoin(index_url, 'index.html'), timeout=90)
     soup = BeautifulSoup(html, 'html.parser')
-    urls = [urljoin(ONEBUILDING_CHINA_URL, a['href']) for a in soup.find_all('a', href=True) if a['href'].lower().endswith('.zip')]
+    return [urljoin(index_url, a['href']) for a in soup.find_all('a', href=True) if a['href'].lower().endswith('.zip')]
+
+
+def fetch_onebuilding_inventory() -> list[StationZip]:
+    urls: list[str] = []
+    seen_urls: set[str] = set()
+    for index_url in [ONEBUILDING_CHINA_URL, ONEBUILDING_HONG_KONG_URL, ONEBUILDING_MACAU_URL]:
+        for url in fetch_inventory_from_index(index_url):
+            if url in seen_urls:
+                continue
+            seen_urls.add(url)
+            urls.append(url)
     inventory: list[StationZip] = []
     for url in urls:
         file = url.rsplit('/', 1)[-1]
@@ -583,6 +726,7 @@ def fetch_onebuilding_inventory() -> list[StationZip]:
             norm_name=normalize_name(station),
             wmo=wmo_match.group(1) if wmo_match else '',
             preference=station_preference(file),
+            region_code=file.split('_', 2)[1] if file.count('_') >= 2 else '',
         ))
     return inventory
 
@@ -597,39 +741,61 @@ def best_by_norm(inventory: list[StationZip]) -> dict[str, StationZip]:
     return best
 
 
-def find_station_by_candidates(candidates: list[str], best_norm: dict[str, StationZip], inventory: list[StationZip]) -> StationZip | None:
+def best_by_wmo(inventory: list[StationZip]) -> dict[str, StationZip]:
+    best: dict[str, StationZip] = {}
+    for item in inventory:
+        if not item.wmo:
+            continue
+        if item.wmo not in best or item.preference > best[item.wmo].preference:
+            best[item.wmo] = item
+    return best
+
+
+def find_station_by_candidates(
+    candidates: list[str],
+    best_norm: dict[str, StationZip],
+    inventory: list[StationZip],
+    allowed_region_codes: set[str] | None = None,
+) -> StationZip | None:
+    pool = [
+        item for item in inventory
+        if not allowed_region_codes or item.region_code in allowed_region_codes
+    ]
     for candidate in candidates:
         key = normalize_name(candidate)
-        if key in best_norm:
-            return best_norm[key]
+        hits = [item for item in pool if item.norm_name == key]
+        if hits:
+            return max(hits, key=lambda item: item.preference)
     for candidate in candidates:
-        hits = [item for item in inventory if station_word_match(candidate, item.station_name)]
+        hits = [item for item in pool if station_word_match(candidate, item.station_name)]
         if hits:
             hits.sort(key=lambda item: (item.preference, -len(item.station_name)), reverse=True)
             return hits[0]
     return None
 
 
-def match_city(city: PrefectureCity, best_norm: dict[str, StationZip], inventory: list[StationZip]) -> tuple[StationZip, str]:
+def match_city(city: PrefectureCity, best_norm: dict[str, StationZip], best_wmo: dict[str, StationZip], inventory: list[StationZip]) -> tuple[StationZip, str]:
+    region_codes = PROVINCE_STATION_CODES.get(city.province_zh)
     direct_candidates = []
     for candidate in english_candidates(city):
         if candidate in CITY_STATION_ALIASES.get(city.city_zh, []):
             continue
         direct_candidates.append(candidate)
-    direct = find_station_by_candidates(direct_candidates, best_norm, inventory)
+    direct = find_station_by_candidates(direct_candidates, best_norm, inventory, region_codes)
     if direct:
         return direct, 'direct'
 
-    alias = find_station_by_candidates(CITY_STATION_ALIASES.get(city.city_zh, []), best_norm, inventory)
+    alias = find_station_by_candidates(CITY_STATION_ALIASES.get(city.city_zh, []), best_norm, inventory, region_codes)
     if alias:
         return alias, 'city_alias_fallback'
 
-    fallback = find_station_by_candidates([PROVINCE_FALLBACK_CITY.get(city.province_zh, '')], best_norm, inventory)
+    fallback = find_station_by_candidates([PROVINCE_FALLBACK_CITY.get(city.province_zh, '')], best_norm, inventory, region_codes)
     if fallback:
         return fallback, 'province_capital_fallback'
 
     # Last resort: best available China station. Should not occur with the fallback map.
-    return sorted(inventory, key=lambda item: item.preference, reverse=True)[0], 'global_fallback'
+    fallback = sorted(inventory, key=lambda item: item.preference, reverse=True)[0]
+    return fallback, 'global_fallback'
 
 
 def download_zip(item: StationZip) -> int:
@@ -707,6 +873,10 @@ def create_prefecture_aliases(cities: list[PrefectureCity], matches: dict[str, t
         lon = city.lon if city.lon is not None else station_lon
         city_id = f'prefecture-{city.slug}'
 
+        catalog_type = 'prefecture_level_admin_unit'
+        if city.admin_type_zh in {'直辖市', '特别行政区'}:
+            catalog_type = 'supplemental_admin_unit'
+
         payload = json.loads(json.dumps(station_data, ensure_ascii=False))
         payload['metadata'] = {
             **base_metadata,
@@ -726,6 +896,7 @@ def create_prefecture_aliases(cities: list[PrefectureCity], matches: dict[str, t
             'source_station_lat': station_lat,
             'source_station_lon': station_lon,
             'station_match_quality': quality,
+            'catalog_type': catalog_type,
         }
         payload['yearly'] = {
             **payload.get('yearly', {}),
@@ -735,14 +906,16 @@ def create_prefecture_aliases(cities: list[PrefectureCity], matches: dict[str, t
             'source_station_id': station.wmo,
             'source_station_name': base_metadata.get('city'),
             'station_match_quality': quality,
+            'catalog_type': catalog_type,
         }
         payload.setdefault('methodology', {})['prefecture_city_catalog'] = {
             'city_list_source': PREFECTURE_LIST_URL,
-            'station_source': ONEBUILDING_CHINA_URL,
+            'station_source': 'OneBuilding Asia index pages for China / Hong Kong / Macau',
             'admin_level': city.admin_type_zh,
             'source_station_file': station.file,
             'source_station_wmo': station.wmo,
             'station_match_quality': quality,
+            'catalog_type': catalog_type,
         }
         write_json_both(f'{city_id}.json', payload)
 
@@ -754,7 +927,7 @@ def create_prefecture_aliases(cities: list[PrefectureCity], matches: dict[str, t
             'province': city.province_zh,
             'province_en': city.province_en,
             'admin_level': city.admin_type_zh,
-            'catalog_type': 'prefecture_level_admin_unit',
+            'catalog_type': catalog_type,
             'prefecture_index': city.index,
             'division_code': city.division_code,
             'source_station_id': station.wmo,
@@ -798,13 +971,15 @@ def main() -> int:
     ensure_dir(CATALOG_DIR)
     ensure_dir(AUDIT_DIR)
     cities = fetch_prefecture_cities()
+    web_units = [*cities, *supplemental_web_units(len(cities))]
     inventory = fetch_onebuilding_inventory()
     best_norm = best_by_norm(inventory)
+    best_wmo = best_by_wmo(inventory)
 
     matches: dict[str, tuple[StationZip, str]] = {}
     selected_zips: dict[str, StationZip] = {}
-    for city in cities:
-        station, quality = match_city(city, best_norm, inventory)
+    for city in web_units:
+        station, quality = match_city(city, best_norm, best_wmo, inventory)
         matches[city.city_zh] = (station, quality)
         selected_zips[station.file] = station
 
@@ -821,7 +996,7 @@ def main() -> int:
             time.sleep(4.0)
 
     run_processor()
-    rows = create_prefecture_aliases(cities, matches)
+    rows = create_prefecture_aliases(web_units, matches)
     write_csv(CATALOG_DIR / f'prefecture_admin_unit_list_333_{RUN_DATE}.csv', [asdict(city) for city in cities])
     write_csv(AUDIT_DIR / f'prefecture_admin_unit_list_333_{RUN_DATE}.csv', [asdict(city) for city in cities])
     write_csv(CATALOG_DIR / f'prefecture_admin_unit_station_matches_{RUN_DATE}.csv', rows)
@@ -832,13 +1007,16 @@ def main() -> int:
         quality_counts[quality] = quality_counts.get(quality, 0) + 1
     summary = {
         'prefecture_admin_unit_count': len(cities),
+        'web_catalog_entry_count': len(web_units),
+        'supplemental_unit_count': len(web_units) - len(cities),
         'unique_admin_unit_names': len({city.city_zh for city in cities}),
         'admin_type_counts': {key: sum(1 for city in cities if city.admin_type_zh == key) for key in ['地级市', '地区', '自治州', '盟']},
         'unique_source_stations': len({station.wmo for station, _ in matches.values()}),
+        'source_station_reuse_count': len(web_units) - len({station.wmo for station, _ in matches.values()}),
         'match_quality_counts': quality_counts,
         'new_files_extracted': extracted,
         'city_list_source': PREFECTURE_LIST_URL,
-        'station_source': ONEBUILDING_CHINA_URL,
+        'station_source': [ONEBUILDING_CHINA_URL, ONEBUILDING_HONG_KONG_URL, ONEBUILDING_MACAU_URL],
     }
     (CATALOG_DIR / f'summary_{RUN_DATE}.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding='utf-8')
     (AUDIT_DIR / 'summary.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding='utf-8')

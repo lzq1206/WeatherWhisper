@@ -1,0 +1,4188 @@
+{
+  "metadata": {
+    "city": "Lijiang",
+    "state": "YN",
+    "country": "CHN",
+    "wmo": "566510",
+    "lat": 26.8476,
+    "lon": 100.218,
+    "tz": 8.0,
+    "elev": 2396.0
+  },
+  "yearly": {
+    "avg_temp": 13.38,
+    "total_precip": 1302.7,
+    "avg_humidity": 64.2,
+    "avg_wind": 2.68,
+    "total_solar": 1774.87,
+    "avg_cloud": 48.5,
+    "avg_opaque_cloud": 51.9,
+    "avg_visibility": 7.0,
+    "avg_apparent_temp": 12.84,
+    "avg_dew_point": 6.02,
+    "growing_season": 344,
+    "water_temp": 14.9,
+    "solar_energy": 266.23,
+    "data_source": "OneBuilding Climate.OneBuilding.org EPW / TMYx-CSWD processed locally",
+    "method_note": "Monthly high/low are mean daily high/low; precipitation probability is wet days (>=1 mm/day); tourism score uses climate-comfort 8:00-21:00 hourly apparent-temperature, cloud, and precipitation component scores.",
+    "tourism_score_avg": 6.8,
+    "beach_score_avg": 4.8,
+    "best_tourism_months": "3-11月",
+    "best_time": "3-11月",
+    "tourism_peak_month": 5,
+    "overview": "温带气候，四季分明。 湿润多雨。"
+  },
+  "monthly": {
+    "1": {
+      "temp_avg": 5.86,
+      "temp_max": 14.9,
+      "temp_min": -0.73,
+      "apparent_temp_avg": 4.39,
+      "dew_point_avg": -2.78,
+      "humidity": 56.26,
+      "wind": 3.03,
+      "wind_dir": 254.4,
+      "wind_dir_text": "西南偏西",
+      "precip": 1.2,
+      "precip_days": 1,
+      "precip_probability": 3.2,
+      "solar": 133047.0,
+      "cloud": 27.3,
+      "opaque_cloud": 36.8,
+      "visibility": 7.3,
+      "sunny_rate": 63.2,
+      "cloud_score": 8.7,
+      "precip_score": 10.0,
+      "tourism_temp_score": 1.4,
+      "tourism_score": 5.4,
+      "beach_score": 4.7,
+      "comfort_label": "可接受",
+      "cloud_categories": {
+        "clear": {
+          "label": "晴天",
+          "pct": 50.5
+        },
+        "mostly_clear": {
+          "label": "大部分晴天",
+          "pct": 13.4
+        },
+        "partly_cloudy": {
+          "label": "部分多云",
+          "pct": 14.2
+        },
+        "mostly_cloudy": {
+          "label": "大部分多云",
+          "pct": 13.0
+        },
+        "overcast": {
+          "label": "阴天",
+          "pct": 8.7
+        }
+      },
+      "humidity_comfort": {
+        "dry": {
+          "label": "干燥",
+          "pct": 100.0
+        },
+        "comfortable": {
+          "label": "舒适",
+          "pct": 0.0
+        },
+        "humid": {
+          "label": "潮湿",
+          "pct": 0.0
+        },
+        "muggy": {
+          "label": "闷热",
+          "pct": 0.0
+        },
+        "oppressive": {
+          "label": "闷热难受",
+          "pct": 0.0
+        },
+        "miserable": {
+          "label": "极为难受",
+          "pct": 0.0
+        }
+      }
+    },
+    "2": {
+      "temp_avg": 7.56,
+      "temp_max": 15.38,
+      "temp_min": 1.06,
+      "apparent_temp_avg": 5.6,
+      "dew_point_avg": -2.14,
+      "humidity": 53.96,
+      "wind": 4.2,
+      "wind_dir": 259.4,
+      "wind_dir_text": "西",
+      "precip": 22.9,
+      "precip_days": 3,
+      "precip_probability": 10.7,
+      "solar": 135801.0,
+      "cloud": 30.7,
+      "opaque_cloud": 35.2,
+      "visibility": 0.8,
+      "sunny_rate": 64.8,
+      "cloud_score": 8.3,
+      "precip_score": 9.5,
+      "tourism_temp_score": 2.2,
+      "tourism_score": 5.5,
+      "beach_score": 4.5,
+      "comfort_label": "可接受",
+      "cloud_categories": {
+        "clear": {
+          "label": "晴天",
+          "pct": 48.1
+        },
+        "mostly_clear": {
+          "label": "大部分晴天",
+          "pct": 12.8
+        },
+        "partly_cloudy": {
+          "label": "部分多云",
+          "pct": 11.9
+        },
+        "mostly_cloudy": {
+          "label": "大部分多云",
+          "pct": 12.5
+        },
+        "overcast": {
+          "label": "阴天",
+          "pct": 14.7
+        }
+      },
+      "humidity_comfort": {
+        "dry": {
+          "label": "干燥",
+          "pct": 100.0
+        },
+        "comfortable": {
+          "label": "舒适",
+          "pct": 0.0
+        },
+        "humid": {
+          "label": "潮湿",
+          "pct": 0.0
+        },
+        "muggy": {
+          "label": "闷热",
+          "pct": 0.0
+        },
+        "oppressive": {
+          "label": "闷热难受",
+          "pct": 0.0
+        },
+        "miserable": {
+          "label": "极为难受",
+          "pct": 0.0
+        }
+      }
+    },
+    "3": {
+      "temp_avg": 10.5,
+      "temp_max": 18.63,
+      "temp_min": 2.97,
+      "apparent_temp_avg": 9.48,
+      "dew_point_avg": 0.0,
+      "humidity": 51.72,
+      "wind": 3.53,
+      "wind_dir": 262.8,
+      "wind_dir_text": "西",
+      "precip": 18.9,
+      "precip_days": 7,
+      "precip_probability": 22.6,
+      "solar": 183671.0,
+      "cloud": 33.7,
+      "opaque_cloud": 35.8,
+      "visibility": 6.0,
+      "sunny_rate": 64.2,
+      "cloud_score": 8.3,
+      "precip_score": 9.4,
+      "tourism_temp_score": 4.8,
+      "tourism_score": 6.8,
+      "beach_score": 4.8,
+      "comfort_label": "舒适",
+      "cloud_categories": {
+        "clear": {
+          "label": "晴天",
+          "pct": 42.2
+        },
+        "mostly_clear": {
+          "label": "大部分晴天",
+          "pct": 15.5
+        },
+        "partly_cloudy": {
+          "label": "部分多云",
+          "pct": 14.8
+        },
+        "mostly_cloudy": {
+          "label": "大部分多云",
+          "pct": 11.2
+        },
+        "overcast": {
+          "label": "阴天",
+          "pct": 16.4
+        }
+      },
+      "humidity_comfort": {
+        "dry": {
+          "label": "干燥",
+          "pct": 100.0
+        },
+        "comfortable": {
+          "label": "舒适",
+          "pct": 0.0
+        },
+        "humid": {
+          "label": "潮湿",
+          "pct": 0.0
+        },
+        "muggy": {
+          "label": "闷热",
+          "pct": 0.0
+        },
+        "oppressive": {
+          "label": "闷热难受",
+          "pct": 0.0
+        },
+        "miserable": {
+          "label": "极为难受",
+          "pct": 0.0
+        }
+      }
+    },
+    "4": {
+      "temp_avg": 13.56,
+      "temp_max": 20.34,
+      "temp_min": 6.69,
+      "apparent_temp_avg": 13.01,
+      "dew_point_avg": 2.62,
+      "humidity": 51.25,
+      "wind": 3.34,
+      "wind_dir": 256.2,
+      "wind_dir_text": "西南偏西",
+      "precip": 38.9,
+      "precip_days": 6,
+      "precip_probability": 20.0,
+      "solar": 184355.0,
+      "cloud": 37.8,
+      "opaque_cloud": 38.9,
+      "visibility": 8.9,
+      "sunny_rate": 61.1,
+      "cloud_score": 7.6,
+      "precip_score": 9.2,
+      "tourism_temp_score": 6.9,
+      "tourism_score": 7.7,
+      "beach_score": 5.0,
+      "comfort_label": "最佳",
+      "cloud_categories": {
+        "clear": {
+          "label": "晴天",
+          "pct": 36.2
+        },
+        "mostly_clear": {
+          "label": "大部分晴天",
+          "pct": 16.9
+        },
+        "partly_cloudy": {
+          "label": "部分多云",
+          "pct": 13.6
+        },
+        "mostly_cloudy": {
+          "label": "大部分多云",
+          "pct": 12.4
+        },
+        "overcast": {
+          "label": "阴天",
+          "pct": 20.8
+        }
+      },
+      "humidity_comfort": {
+        "dry": {
+          "label": "干燥",
+          "pct": 100.0
+        },
+        "comfortable": {
+          "label": "舒适",
+          "pct": 0.0
+        },
+        "humid": {
+          "label": "潮湿",
+          "pct": 0.0
+        },
+        "muggy": {
+          "label": "闷热",
+          "pct": 0.0
+        },
+        "oppressive": {
+          "label": "闷热难受",
+          "pct": 0.0
+        },
+        "miserable": {
+          "label": "极为难受",
+          "pct": 0.0
+        }
+      }
+    },
+    "5": {
+      "temp_avg": 18.21,
+      "temp_max": 23.69,
+      "temp_min": 12.16,
+      "apparent_temp_avg": 18.14,
+      "dew_point_avg": 8.38,
+      "humidity": 54.78,
+      "wind": 3.32,
+      "wind_dir": 249.2,
+      "wind_dir_text": "西南偏西",
+      "precip": 63.8,
+      "precip_days": 10,
+      "precip_probability": 32.3,
+      "solar": 184345.0,
+      "cloud": 32.3,
+      "opaque_cloud": 32.9,
+      "visibility": 8.3,
+      "sunny_rate": 67.1,
+      "cloud_score": 8.9,
+      "precip_score": 9.1,
+      "tourism_temp_score": 8.8,
+      "tourism_score": 8.9,
+      "beach_score": 6.7,
+      "comfort_label": "最佳",
+      "cloud_categories": {
+        "clear": {
+          "label": "晴天",
+          "pct": 36.2
+        },
+        "mostly_clear": {
+          "label": "大部分晴天",
+          "pct": 23.8
+        },
+        "partly_cloudy": {
+          "label": "部分多云",
+          "pct": 15.7
+        },
+        "mostly_cloudy": {
+          "label": "大部分多云",
+          "pct": 14.4
+        },
+        "overcast": {
+          "label": "阴天",
+          "pct": 9.9
+        }
+      },
+      "humidity_comfort": {
+        "dry": {
+          "label": "干燥",
+          "pct": 89.0
+        },
+        "comfortable": {
+          "label": "舒适",
+          "pct": 8.3
+        },
+        "humid": {
+          "label": "潮湿",
+          "pct": 2.4
+        },
+        "muggy": {
+          "label": "闷热",
+          "pct": 0.3
+        },
+        "oppressive": {
+          "label": "闷热难受",
+          "pct": 0.0
+        },
+        "miserable": {
+          "label": "极为难受",
+          "pct": 0.0
+        }
+      }
+    },
+    "6": {
+      "temp_avg": 19.56,
+      "temp_max": 23.89,
+      "temp_min": 15.37,
+      "apparent_temp_avg": 19.55,
+      "dew_point_avg": 12.66,
+      "humidity": 67.06,
+      "wind": 2.45,
+      "wind_dir": 224.6,
+      "wind_dir_text": "西南",
+      "precip": 230.2,
+      "precip_days": 21,
+      "precip_probability": 70.0,
+      "solar": 163235.0,
+      "cloud": 58.8,
+      "opaque_cloud": 58.9,
+      "visibility": 8.7,
+      "sunny_rate": 41.1,
+      "cloud_score": 6.0,
+      "precip_score": 7.0,
+      "tourism_temp_score": 9.2,
+      "tourism_score": 7.9,
+      "beach_score": 5.8,
+      "comfort_label": "最佳",
+      "cloud_categories": {
+        "clear": {
+          "label": "晴天",
+          "pct": 12.2
+        },
+        "mostly_clear": {
+          "label": "大部分晴天",
+          "pct": 15.0
+        },
+        "partly_cloudy": {
+          "label": "部分多云",
+          "pct": 14.7
+        },
+        "mostly_cloudy": {
+          "label": "大部分多云",
+          "pct": 17.8
+        },
+        "overcast": {
+          "label": "阴天",
+          "pct": 40.3
+        }
+      },
+      "humidity_comfort": {
+        "dry": {
+          "label": "干燥",
+          "pct": 44.4
+        },
+        "comfortable": {
+          "label": "舒适",
+          "pct": 46.5
+        },
+        "humid": {
+          "label": "潮湿",
+          "pct": 7.9
+        },
+        "muggy": {
+          "label": "闷热",
+          "pct": 1.1
+        },
+        "oppressive": {
+          "label": "闷热难受",
+          "pct": 0.0
+        },
+        "miserable": {
+          "label": "极为难受",
+          "pct": 0.0
+        }
+      }
+    },
+    "7": {
+      "temp_avg": 18.83,
+      "temp_max": 22.56,
+      "temp_min": 16.14,
+      "apparent_temp_avg": 18.83,
+      "dew_point_avg": 15.24,
+      "humidity": 81.09,
+      "wind": 1.95,
+      "wind_dir": 171.4,
+      "wind_dir_text": "南",
+      "precip": 323.3,
+      "precip_days": 29,
+      "precip_probability": 93.5,
+      "solar": 144811.0,
+      "cloud": 79.4,
+      "opaque_cloud": 79.4,
+      "visibility": 7.0,
+      "sunny_rate": 20.6,
+      "cloud_score": 4.0,
+      "precip_score": 5.8,
+      "tourism_temp_score": 9.1,
+      "tourism_score": 7.0,
+      "beach_score": 4.2,
+      "comfort_label": "舒适",
+      "cloud_categories": {
+        "clear": {
+          "label": "晴天",
+          "pct": 0.0
+        },
+        "mostly_clear": {
+          "label": "大部分晴天",
+          "pct": 4.3
+        },
+        "partly_cloudy": {
+          "label": "部分多云",
+          "pct": 12.9
+        },
+        "mostly_cloudy": {
+          "label": "大部分多云",
+          "pct": 13.7
+        },
+        "overcast": {
+          "label": "阴天",
+          "pct": 69.1
+        }
+      },
+      "humidity_comfort": {
+        "dry": {
+          "label": "干燥",
+          "pct": 4.6
+        },
+        "comfortable": {
+          "label": "舒适",
+          "pct": 68.0
+        },
+        "humid": {
+          "label": "潮湿",
+          "pct": 26.9
+        },
+        "muggy": {
+          "label": "闷热",
+          "pct": 0.5
+        },
+        "oppressive": {
+          "label": "闷热难受",
+          "pct": 0.0
+        },
+        "miserable": {
+          "label": "极为难受",
+          "pct": 0.0
+        }
+      }
+    },
+    "8": {
+      "temp_avg": 18.55,
+      "temp_max": 23.04,
+      "temp_min": 15.19,
+      "apparent_temp_avg": 18.55,
+      "dew_point_avg": 14.53,
+      "humidity": 78.96,
+      "wind": 1.75,
+      "wind_dir": 122.5,
+      "wind_dir_text": "东南偏东",
+      "precip": 248.0,
+      "precip_days": 31,
+      "precip_probability": 100.0,
+      "solar": 155865.0,
+      "cloud": 76.3,
+      "opaque_cloud": 76.3,
+      "visibility": 7.2,
+      "sunny_rate": 23.7,
+      "cloud_score": 4.7,
+      "precip_score": 6.5,
+      "tourism_temp_score": 9.2,
+      "tourism_score": 7.4,
+      "beach_score": 4.6,
+      "comfort_label": "舒适",
+      "cloud_categories": {
+        "clear": {
+          "label": "晴天",
+          "pct": 0.4
+        },
+        "mostly_clear": {
+          "label": "大部分晴天",
+          "pct": 5.2
+        },
+        "partly_cloudy": {
+          "label": "部分多云",
+          "pct": 14.4
+        },
+        "mostly_cloudy": {
+          "label": "大部分多云",
+          "pct": 17.3
+        },
+        "overcast": {
+          "label": "阴天",
+          "pct": 62.6
+        }
+      },
+      "humidity_comfort": {
+        "dry": {
+          "label": "干燥",
+          "pct": 10.2
+        },
+        "comfortable": {
+          "label": "舒适",
+          "pct": 84.1
+        },
+        "humid": {
+          "label": "潮湿",
+          "pct": 5.5
+        },
+        "muggy": {
+          "label": "闷热",
+          "pct": 0.1
+        },
+        "oppressive": {
+          "label": "闷热难受",
+          "pct": 0.0
+        },
+        "miserable": {
+          "label": "极为难受",
+          "pct": 0.0
+        }
+      }
+    },
+    "9": {
+      "temp_avg": 17.43,
+      "temp_max": 22.02,
+      "temp_min": 13.95,
+      "apparent_temp_avg": 17.43,
+      "dew_point_avg": 13.74,
+      "humidity": 80.32,
+      "wind": 1.71,
+      "wind_dir": 157.0,
+      "wind_dir_text": "东南偏南",
+      "precip": 256.1,
+      "precip_days": 29,
+      "precip_probability": 96.7,
+      "solar": 127916.0,
+      "cloud": 75.9,
+      "opaque_cloud": 75.9,
+      "visibility": 8.0,
+      "sunny_rate": 24.1,
+      "cloud_score": 4.3,
+      "precip_score": 6.3,
+      "tourism_temp_score": 8.7,
+      "tourism_score": 7.0,
+      "beach_score": 3.9,
+      "comfort_label": "舒适",
+      "cloud_categories": {
+        "clear": {
+          "label": "晴天",
+          "pct": 2.4
+        },
+        "mostly_clear": {
+          "label": "大部分晴天",
+          "pct": 5.7
+        },
+        "partly_cloudy": {
+          "label": "部分多云",
+          "pct": 10.4
+        },
+        "mostly_cloudy": {
+          "label": "大部分多云",
+          "pct": 16.1
+        },
+        "overcast": {
+          "label": "阴天",
+          "pct": 65.4
+        }
+      },
+      "humidity_comfort": {
+        "dry": {
+          "label": "干燥",
+          "pct": 24.2
+        },
+        "comfortable": {
+          "label": "舒适",
+          "pct": 73.9
+        },
+        "humid": {
+          "label": "潮湿",
+          "pct": 1.7
+        },
+        "muggy": {
+          "label": "闷热",
+          "pct": 0.3
+        },
+        "oppressive": {
+          "label": "闷热难受",
+          "pct": 0.0
+        },
+        "miserable": {
+          "label": "极为难受",
+          "pct": 0.0
+        }
+      }
+    },
+    "10": {
+      "temp_avg": 14.37,
+      "temp_max": 20.1,
+      "temp_min": 9.42,
+      "apparent_temp_avg": 14.24,
+      "dew_point_avg": 8.86,
+      "humidity": 71.56,
+      "wind": 2.12,
+      "wind_dir": 233.0,
+      "wind_dir_text": "西南",
+      "precip": 82.4,
+      "precip_days": 19,
+      "precip_probability": 61.3,
+      "solar": 124928.0,
+      "cloud": 62.7,
+      "opaque_cloud": 62.3,
+      "visibility": 8.1,
+      "sunny_rate": 37.7,
+      "cloud_score": 6.1,
+      "precip_score": 8.4,
+      "tourism_temp_score": 6.9,
+      "tourism_score": 7.1,
+      "beach_score": 4.2,
+      "comfort_label": "舒适",
+      "cloud_categories": {
+        "clear": {
+          "label": "晴天",
+          "pct": 7.9
+        },
+        "mostly_clear": {
+          "label": "大部分晴天",
+          "pct": 12.6
+        },
+        "partly_cloudy": {
+          "label": "部分多云",
+          "pct": 17.9
+        },
+        "mostly_cloudy": {
+          "label": "大部分多云",
+          "pct": 19.5
+        },
+        "overcast": {
+          "label": "阴天",
+          "pct": 42.1
+        }
+      },
+      "humidity_comfort": {
+        "dry": {
+          "label": "干燥",
+          "pct": 89.4
+        },
+        "comfortable": {
+          "label": "舒适",
+          "pct": 10.6
+        },
+        "humid": {
+          "label": "潮湿",
+          "pct": 0.0
+        },
+        "muggy": {
+          "label": "闷热",
+          "pct": 0.0
+        },
+        "oppressive": {
+          "label": "闷热难受",
+          "pct": 0.0
+        },
+        "miserable": {
+          "label": "极为难受",
+          "pct": 0.0
+        }
+      }
+    },
+    "11": {
+      "temp_avg": 9.4,
+      "temp_max": 17.94,
+      "temp_min": 2.74,
+      "apparent_temp_avg": 8.72,
+      "dew_point_avg": 1.57,
+      "humidity": 61.03,
+      "wind": 2.75,
+      "wind_dir": 251.7,
+      "wind_dir_text": "西南偏西",
+      "precip": 8.4,
+      "precip_days": 2,
+      "precip_probability": 6.7,
+      "solar": 125157.0,
+      "cloud": 31.4,
+      "opaque_cloud": 43.8,
+      "visibility": 7.2,
+      "sunny_rate": 56.2,
+      "cloud_score": 8.0,
+      "precip_score": 9.8,
+      "tourism_temp_score": 3.6,
+      "tourism_score": 6.3,
+      "beach_score": 4.6,
+      "comfort_label": "舒适",
+      "cloud_categories": {
+        "clear": {
+          "label": "晴天",
+          "pct": 47.8
+        },
+        "mostly_clear": {
+          "label": "大部分晴天",
+          "pct": 11.9
+        },
+        "partly_cloudy": {
+          "label": "部分多云",
+          "pct": 11.5
+        },
+        "mostly_cloudy": {
+          "label": "大部分多云",
+          "pct": 12.8
+        },
+        "overcast": {
+          "label": "阴天",
+          "pct": 16.0
+        }
+      },
+      "humidity_comfort": {
+        "dry": {
+          "label": "干燥",
+          "pct": 100.0
+        },
+        "comfortable": {
+          "label": "舒适",
+          "pct": 0.0
+        },
+        "humid": {
+          "label": "潮湿",
+          "pct": 0.0
+        },
+        "muggy": {
+          "label": "闷热",
+          "pct": 0.0
+        },
+        "oppressive": {
+          "label": "闷热难受",
+          "pct": 0.0
+        },
+        "miserable": {
+          "label": "极为难受",
+          "pct": 0.0
+        }
+      }
+    },
+    "12": {
+      "temp_avg": 6.44,
+      "temp_max": 14.24,
+      "temp_min": 0.28,
+      "apparent_temp_avg": 5.7,
+      "dew_point_avg": -1.01,
+      "humidity": 61.47,
+      "wind": 2.13,
+      "wind_dir": 242.0,
+      "wind_dir_text": "西南偏西",
+      "precip": 8.6,
+      "precip_days": 2,
+      "precip_probability": 6.5,
+      "solar": 111743.0,
+      "cloud": 33.8,
+      "opaque_cloud": 44.9,
+      "visibility": 6.5,
+      "sunny_rate": 55.1,
+      "cloud_score": 8.0,
+      "precip_score": 9.7,
+      "tourism_temp_score": 1.5,
+      "tourism_score": 5.2,
+      "beach_score": 4.5,
+      "comfort_label": "可接受",
+      "cloud_categories": {
+        "clear": {
+          "label": "晴天",
+          "pct": 44.2
+        },
+        "mostly_clear": {
+          "label": "大部分晴天",
+          "pct": 13.3
+        },
+        "partly_cloudy": {
+          "label": "部分多云",
+          "pct": 12.4
+        },
+        "mostly_cloudy": {
+          "label": "大部分多云",
+          "pct": 12.1
+        },
+        "overcast": {
+          "label": "阴天",
+          "pct": 18.0
+        }
+      },
+      "humidity_comfort": {
+        "dry": {
+          "label": "干燥",
+          "pct": 100.0
+        },
+        "comfortable": {
+          "label": "舒适",
+          "pct": 0.0
+        },
+        "humid": {
+          "label": "潮湿",
+          "pct": 0.0
+        },
+        "muggy": {
+          "label": "闷热",
+          "pct": 0.0
+        },
+        "oppressive": {
+          "label": "闷热难受",
+          "pct": 0.0
+        },
+        "miserable": {
+          "label": "极为难受",
+          "pct": 0.0
+        }
+      }
+    }
+  },
+  "hourly_monthly": {
+    "1": {
+      "0": {
+        "temp": 2.01,
+        "apparent_temp": -0.06,
+        "humidity": 66.5,
+        "dew_point": -3.35,
+        "cloud": 32.3,
+        "opaque_cloud": 51.6,
+        "wind": 2.49,
+        "precip": 0.003,
+        "tourism_score": 4.0
+      },
+      "1": {
+        "temp": 1.55,
+        "apparent_temp": -0.61,
+        "humidity": 69.2,
+        "dew_point": -3.17,
+        "cloud": 31.6,
+        "opaque_cloud": 56.1,
+        "wind": 2.5,
+        "precip": 0.003,
+        "tourism_score": 3.9
+      },
+      "2": {
+        "temp": 1.06,
+        "apparent_temp": -1.1,
+        "humidity": 70.7,
+        "dew_point": -3.15,
+        "cloud": 32.9,
+        "opaque_cloud": 58.7,
+        "wind": 2.45,
+        "precip": 0.003,
+        "tourism_score": 3.8
+      },
+      "3": {
+        "temp": 1.52,
+        "apparent_temp": -0.26,
+        "humidity": 74.8,
+        "dew_point": -2.27,
+        "cloud": 39.0,
+        "opaque_cloud": 66.8,
+        "wind": 2.38,
+        "precip": 0.003,
+        "tourism_score": 3.6
+      },
+      "4": {
+        "temp": 1.65,
+        "apparent_temp": 0.08,
+        "humidity": 76.4,
+        "dew_point": -1.82,
+        "cloud": 40.6,
+        "opaque_cloud": 68.7,
+        "wind": 2.32,
+        "precip": 0.003,
+        "tourism_score": 3.6
+      },
+      "5": {
+        "temp": 1.36,
+        "apparent_temp": -0.29,
+        "humidity": 77.7,
+        "dew_point": -2.08,
+        "cloud": 39.0,
+        "opaque_cloud": 71.0,
+        "wind": 2.29,
+        "precip": 0.003,
+        "tourism_score": 3.5
+      },
+      "6": {
+        "temp": 1.18,
+        "apparent_temp": -0.33,
+        "humidity": 80.6,
+        "dew_point": -1.78,
+        "cloud": 41.0,
+        "opaque_cloud": 74.5,
+        "wind": 2.24,
+        "precip": 0.003,
+        "tourism_score": 3.4
+      },
+      "7": {
+        "temp": 1.18,
+        "apparent_temp": -0.31,
+        "humidity": 81.9,
+        "dew_point": -1.57,
+        "cloud": 45.8,
+        "opaque_cloud": 77.1,
+        "wind": 2.27,
+        "precip": 0.0,
+        "tourism_score": 3.4
+      },
+      "8": {
+        "temp": 2.23,
+        "apparent_temp": 0.43,
+        "humidity": 76.4,
+        "dew_point": -1.37,
+        "cloud": 50.6,
+        "opaque_cloud": 68.1,
+        "wind": 2.5,
+        "precip": 0.0,
+        "tourism_score": 3.6
+      },
+      "9": {
+        "temp": 5.03,
+        "apparent_temp": 3.15,
+        "humidity": 59.1,
+        "dew_point": -2.21,
+        "cloud": 31.0,
+        "opaque_cloud": 39.0,
+        "wind": 2.75,
+        "precip": 0.0,
+        "tourism_score": 4.4
+      },
+      "10": {
+        "temp": 5.84,
+        "apparent_temp": 3.99,
+        "humidity": 53.7,
+        "dew_point": -2.05,
+        "cloud": 29.0,
+        "opaque_cloud": 31.0,
+        "wind": 2.97,
+        "precip": 0.0,
+        "tourism_score": 4.5
+      },
+      "11": {
+        "temp": 6.5,
+        "apparent_temp": 4.33,
+        "humidity": 53.0,
+        "dew_point": -2.37,
+        "cloud": 27.7,
+        "opaque_cloud": 30.0,
+        "wind": 3.45,
+        "precip": 0.003,
+        "tourism_score": 4.6
+      },
+      "12": {
+        "temp": 12.02,
+        "apparent_temp": 11.59,
+        "humidity": 35.2,
+        "dew_point": -2.91,
+        "cloud": 16.1,
+        "opaque_cloud": 4.8,
+        "wind": 3.93,
+        "precip": 0.003,
+        "tourism_score": 6.1
+      },
+      "13": {
+        "temp": 12.65,
+        "apparent_temp": 12.28,
+        "humidity": 33.0,
+        "dew_point": -3.17,
+        "cloud": 11.3,
+        "opaque_cloud": 3.5,
+        "wind": 4.42,
+        "precip": 0.006,
+        "tourism_score": 6.4
+      },
+      "14": {
+        "temp": 12.54,
+        "apparent_temp": 12.1,
+        "humidity": 32.2,
+        "dew_point": -3.45,
+        "cloud": 12.3,
+        "opaque_cloud": 3.2,
+        "wind": 4.4,
+        "precip": 0.0,
+        "tourism_score": 6.4
+      },
+      "15": {
+        "temp": 14.31,
+        "apparent_temp": 14.19,
+        "humidity": 29.1,
+        "dew_point": -3.41,
+        "cloud": 11.3,
+        "opaque_cloud": 1.9,
+        "wind": 4.39,
+        "precip": 0.0,
+        "tourism_score": 7.2
+      },
+      "16": {
+        "temp": 14.11,
+        "apparent_temp": 14.04,
+        "humidity": 29.0,
+        "dew_point": -3.45,
+        "cloud": 11.9,
+        "opaque_cloud": 1.3,
+        "wind": 4.37,
+        "precip": 0.0,
+        "tourism_score": 7.1
+      },
+      "17": {
+        "temp": 8.78,
+        "apparent_temp": 6.96,
+        "humidity": 42.8,
+        "dew_point": -3.32,
+        "cloud": 14.2,
+        "opaque_cloud": 14.5,
+        "wind": 3.87,
+        "precip": 0.0,
+        "tourism_score": 5.2
+      },
+      "18": {
+        "temp": 8.08,
+        "apparent_temp": 6.33,
+        "humidity": 45.0,
+        "dew_point": -2.66,
+        "cloud": 18.4,
+        "opaque_cloud": 16.1,
+        "wind": 3.37,
+        "precip": 0.0,
+        "tourism_score": 5.0
+      },
+      "19": {
+        "temp": 7.94,
+        "apparent_temp": 6.54,
+        "humidity": 45.5,
+        "dew_point": -2.95,
+        "cloud": 19.0,
+        "opaque_cloud": 17.1,
+        "wind": 2.89,
+        "precip": 0.0,
+        "tourism_score": 5.0
+      },
+      "20": {
+        "temp": 7.35,
+        "apparent_temp": 5.97,
+        "humidity": 46.5,
+        "dew_point": -3.46,
+        "cloud": 24.8,
+        "opaque_cloud": 19.4,
+        "wind": 2.79,
+        "precip": 0.0,
+        "tourism_score": 4.9
+      },
+      "21": {
+        "temp": 5.86,
+        "apparent_temp": 4.23,
+        "humidity": 50.0,
+        "dew_point": -3.65,
+        "cloud": 16.8,
+        "opaque_cloud": 23.9,
+        "wind": 2.66,
+        "precip": 0.0,
+        "tourism_score": 4.7
+      },
+      "22": {
+        "temp": 3.06,
+        "apparent_temp": 1.16,
+        "humidity": 60.3,
+        "dew_point": -3.58,
+        "cloud": 27.1,
+        "opaque_cloud": 41.3,
+        "wind": 2.53,
+        "precip": 0.0,
+        "tourism_score": 4.3
+      },
+      "23": {
+        "temp": 2.81,
+        "apparent_temp": 0.95,
+        "humidity": 61.6,
+        "dew_point": -3.55,
+        "cloud": 30.6,
+        "opaque_cloud": 43.5,
+        "wind": 2.51,
+        "precip": 0.003,
+        "tourism_score": 4.2
+      }
+    },
+    "2": {
+      "0": {
+        "temp": 4.17,
+        "apparent_temp": 1.14,
+        "humidity": 61.8,
+        "dew_point": -2.54,
+        "cloud": 28.6,
+        "opaque_cloud": 43.2,
+        "wind": 3.81,
+        "precip": 0.025,
+        "tourism_score": 4.2
+      },
+      "1": {
+        "temp": 4.06,
+        "apparent_temp": 1.01,
+        "humidity": 64.7,
+        "dew_point": -2.18,
+        "cloud": 36.8,
+        "opaque_cloud": 48.2,
+        "wind": 3.84,
+        "precip": 0.025,
+        "tourism_score": 4.0
+      },
+      "2": {
+        "temp": 3.5,
+        "apparent_temp": 0.29,
+        "humidity": 67.9,
+        "dew_point": -1.9,
+        "cloud": 37.1,
+        "opaque_cloud": 53.9,
+        "wind": 3.84,
+        "precip": 0.025,
+        "tourism_score": 3.9
+      },
+      "3": {
+        "temp": 3.13,
+        "apparent_temp": 0.01,
+        "humidity": 73.5,
+        "dew_point": -1.11,
+        "cloud": 41.4,
+        "opaque_cloud": 62.1,
+        "wind": 3.85,
+        "precip": 0.021,
+        "tourism_score": 3.7
+      },
+      "4": {
+        "temp": 2.9,
+        "apparent_temp": -0.15,
+        "humidity": 74.9,
+        "dew_point": -1.02,
+        "cloud": 51.1,
+        "opaque_cloud": 65.4,
+        "wind": 3.84,
+        "precip": 0.018,
+        "tourism_score": 3.6
+      },
+      "5": {
+        "temp": 2.41,
+        "apparent_temp": -0.67,
+        "humidity": 78.8,
+        "dew_point": -0.81,
+        "cloud": 57.9,
+        "opaque_cloud": 72.5,
+        "wind": 3.64,
+        "precip": 0.025,
+        "tourism_score": 3.4
+      },
+      "6": {
+        "temp": 2.77,
+        "apparent_temp": -0.0,
+        "humidity": 79.2,
+        "dew_point": -0.26,
+        "cloud": 56.8,
+        "opaque_cloud": 72.9,
+        "wind": 3.45,
+        "precip": 0.025,
+        "tourism_score": 3.4
+      },
+      "7": {
+        "temp": 2.31,
+        "apparent_temp": -0.3,
+        "humidity": 82.4,
+        "dew_point": -0.27,
+        "cloud": 29.6,
+        "opaque_cloud": 29.6,
+        "wind": 3.25,
+        "precip": 0.025,
+        "tourism_score": 4.3
+      },
+      "8": {
+        "temp": 2.44,
+        "apparent_temp": -0.74,
+        "humidity": 77.4,
+        "dew_point": -1.1,
+        "cloud": 57.9,
+        "opaque_cloud": 70.7,
+        "wind": 3.68,
+        "precip": 0.025,
+        "tourism_score": 3.4
+      },
+      "9": {
+        "temp": 6.77,
+        "apparent_temp": 4.29,
+        "humidity": 58.5,
+        "dew_point": -0.78,
+        "cloud": 31.1,
+        "opaque_cloud": 37.9,
+        "wind": 4.11,
+        "precip": 0.036,
+        "tourism_score": 4.3
+      },
+      "10": {
+        "temp": 7.54,
+        "apparent_temp": 5.05,
+        "humidity": 54.0,
+        "dew_point": -1.26,
+        "cloud": 31.1,
+        "opaque_cloud": 31.1,
+        "wind": 4.54,
+        "precip": 0.036,
+        "tourism_score": 4.3
+      },
+      "11": {
+        "temp": 8.19,
+        "apparent_temp": 5.99,
+        "humidity": 46.6,
+        "dew_point": -2.44,
+        "cloud": 18.2,
+        "opaque_cloud": 18.6,
+        "wind": 4.51,
+        "precip": 0.054,
+        "tourism_score": 4.7
+      },
+      "12": {
+        "temp": 12.85,
+        "apparent_temp": 12.55,
+        "humidity": 33.0,
+        "dew_point": -3.25,
+        "cloud": 7.5,
+        "opaque_cloud": 4.6,
+        "wind": 4.49,
+        "precip": 0.089,
+        "tourism_score": 6.4
+      },
+      "13": {
+        "temp": 13.95,
+        "apparent_temp": 13.65,
+        "humidity": 31.4,
+        "dew_point": -2.96,
+        "cloud": 35.7,
+        "opaque_cloud": 35.7,
+        "wind": 4.46,
+        "precip": 0.068,
+        "tourism_score": 6.4
+      },
+      "14": {
+        "temp": 13.9,
+        "apparent_temp": 13.6,
+        "humidity": 31.3,
+        "dew_point": -3.48,
+        "cloud": 8.6,
+        "opaque_cloud": 6.1,
+        "wind": 4.85,
+        "precip": 0.057,
+        "tourism_score": 7.1
+      },
+      "15": {
+        "temp": 14.86,
+        "apparent_temp": 14.63,
+        "humidity": 29.6,
+        "dew_point": -3.49,
+        "cloud": 5.0,
+        "opaque_cloud": 5.0,
+        "wind": 5.23,
+        "precip": 0.029,
+        "tourism_score": 7.6
+      },
+      "16": {
+        "temp": 15.01,
+        "apparent_temp": 14.78,
+        "humidity": 28.8,
+        "dew_point": -3.69,
+        "cloud": 33.2,
+        "opaque_cloud": 33.2,
+        "wind": 5.61,
+        "precip": 0.046,
+        "tourism_score": 7.0
+      },
+      "17": {
+        "temp": 11.02,
+        "apparent_temp": 10.24,
+        "humidity": 34.5,
+        "dew_point": -4.19,
+        "cloud": 11.4,
+        "opaque_cloud": 5.7,
+        "wind": 5.22,
+        "precip": 0.025,
+        "tourism_score": 5.7
+      },
+      "18": {
+        "temp": 10.96,
+        "apparent_temp": 10.16,
+        "humidity": 38.1,
+        "dew_point": -2.8,
+        "cloud": 16.1,
+        "opaque_cloud": 8.6,
+        "wind": 4.81,
+        "precip": 0.029,
+        "tourism_score": 5.7
+      },
+      "19": {
+        "temp": 10.19,
+        "apparent_temp": 8.88,
+        "humidity": 41.8,
+        "dew_point": -2.4,
+        "cloud": 31.4,
+        "opaque_cloud": 31.4,
+        "wind": 4.39,
+        "precip": 0.021,
+        "tourism_score": 5.0
+      },
+      "20": {
+        "temp": 9.68,
+        "apparent_temp": 8.38,
+        "humidity": 42.9,
+        "dew_point": -2.49,
+        "cloud": 27.1,
+        "opaque_cloud": 13.6,
+        "wind": 4.15,
+        "precip": 0.025,
+        "tourism_score": 5.2
+      },
+      "21": {
+        "temp": 8.29,
+        "apparent_temp": 6.49,
+        "humidity": 48.1,
+        "dew_point": -2.18,
+        "cloud": 24.6,
+        "opaque_cloud": 20.7,
+        "wind": 3.93,
+        "precip": 0.029,
+        "tourism_score": 4.7
+      },
+      "22": {
+        "temp": 5.41,
+        "apparent_temp": 2.74,
+        "humidity": 56.2,
+        "dew_point": -2.56,
+        "cloud": 30.7,
+        "opaque_cloud": 33.9,
+        "wind": 3.7,
+        "precip": 0.032,
+        "tourism_score": 4.4
+      },
+      "23": {
+        "temp": 5.02,
+        "apparent_temp": 2.3,
+        "humidity": 59.8,
+        "dew_point": -2.19,
+        "cloud": 28.9,
+        "opaque_cloud": 40.0,
+        "wind": 3.71,
+        "precip": 0.029,
+        "tourism_score": 4.2
+      }
+    },
+    "3": {
+      "0": {
+        "temp": 6.78,
+        "apparent_temp": 4.86,
+        "humidity": 62.3,
+        "dew_point": 0.48,
+        "cloud": 36.8,
+        "opaque_cloud": 44.2,
+        "wind": 3.2,
+        "precip": 0.003,
+        "tourism_score": 4.3
+      },
+      "1": {
+        "temp": 6.35,
+        "apparent_temp": 4.38,
+        "humidity": 63.3,
+        "dew_point": 0.7,
+        "cloud": 40.0,
+        "opaque_cloud": 44.2,
+        "wind": 3.21,
+        "precip": 0.0,
+        "tourism_score": 4.3
+      },
+      "2": {
+        "temp": 6.16,
+        "apparent_temp": 4.22,
+        "humidity": 66.4,
+        "dew_point": 0.81,
+        "cloud": 41.9,
+        "opaque_cloud": 51.3,
+        "wind": 3.08,
+        "precip": 0.0,
+        "tourism_score": 4.1
+      },
+      "3": {
+        "temp": 4.58,
+        "apparent_temp": 2.43,
+        "humidity": 74.3,
+        "dew_point": 0.92,
+        "cloud": 53.9,
+        "opaque_cloud": 64.2,
+        "wind": 2.92,
+        "precip": 0.0,
+        "tourism_score": 3.8
+      },
+      "4": {
+        "temp": 4.08,
+        "apparent_temp": 2.06,
+        "humidity": 76.5,
+        "dew_point": 0.73,
+        "cloud": 51.6,
+        "opaque_cloud": 67.7,
+        "wind": 2.8,
+        "precip": 0.0,
+        "tourism_score": 3.6
+      },
+      "5": {
+        "temp": 3.28,
+        "apparent_temp": 1.13,
+        "humidity": 80.1,
+        "dew_point": 0.37,
+        "cloud": 51.6,
+        "opaque_cloud": 74.8,
+        "wind": 2.82,
+        "precip": 0.003,
+        "tourism_score": 3.4
+      },
+      "6": {
+        "temp": 3.4,
+        "apparent_temp": 1.29,
+        "humidity": 81.5,
+        "dew_point": 0.71,
+        "cloud": 57.7,
+        "opaque_cloud": 76.5,
+        "wind": 2.82,
+        "precip": 0.003,
+        "tourism_score": 3.4
+      },
+      "7": {
+        "temp": 3.55,
+        "apparent_temp": 1.61,
+        "humidity": 80.4,
+        "dew_point": 0.65,
+        "cloud": 37.1,
+        "opaque_cloud": 39.0,
+        "wind": 2.84,
+        "precip": 0.003,
+        "tourism_score": 4.3
+      },
+      "8": {
+        "temp": 4.18,
+        "apparent_temp": 1.84,
+        "humidity": 75.5,
+        "dew_point": 0.61,
+        "cloud": 58.1,
+        "opaque_cloud": 66.5,
+        "wind": 3.19,
+        "precip": 0.0,
+        "tourism_score": 3.6
+      },
+      "9": {
+        "temp": 10.96,
+        "apparent_temp": 10.35,
+        "humidity": 50.8,
+        "dew_point": 1.07,
+        "cloud": 24.8,
+        "opaque_cloud": 24.8,
+        "wind": 3.55,
+        "precip": 0.0,
+        "tourism_score": 5.6
+      },
+      "10": {
+        "temp": 12.05,
+        "apparent_temp": 11.32,
+        "humidity": 44.8,
+        "dew_point": 0.59,
+        "cloud": 34.5,
+        "opaque_cloud": 34.5,
+        "wind": 3.91,
+        "precip": 0.016,
+        "tourism_score": 5.7
+      },
+      "11": {
+        "temp": 12.64,
+        "apparent_temp": 12.28,
+        "humidity": 40.7,
+        "dew_point": -0.05,
+        "cloud": 10.6,
+        "opaque_cloud": 9.4,
+        "wind": 3.99,
+        "precip": 0.052,
+        "tourism_score": 6.2
+      },
+      "12": {
+        "temp": 16.27,
+        "apparent_temp": 16.27,
+        "humidity": 29.1,
+        "dew_point": -1.77,
+        "cloud": 3.9,
+        "opaque_cloud": 1.3,
+        "wind": 4.05,
+        "precip": 0.074,
+        "tourism_score": 7.9
+      },
+      "13": {
+        "temp": 17.45,
+        "apparent_temp": 17.45,
+        "humidity": 27.6,
+        "dew_point": -1.57,
+        "cloud": 57.1,
+        "opaque_cloud": 52.3,
+        "wind": 4.13,
+        "precip": 0.058,
+        "tourism_score": 7.5
+      },
+      "14": {
+        "temp": 17.77,
+        "apparent_temp": 17.77,
+        "humidity": 27.7,
+        "dew_point": -1.31,
+        "cloud": 5.8,
+        "opaque_cloud": 1.0,
+        "wind": 4.28,
+        "precip": 0.058,
+        "tourism_score": 8.6
+      },
+      "15": {
+        "temp": 18.11,
+        "apparent_temp": 18.11,
+        "humidity": 26.5,
+        "dew_point": -1.63,
+        "cloud": 6.1,
+        "opaque_cloud": 1.0,
+        "wind": 4.45,
+        "precip": 0.068,
+        "tourism_score": 8.7
+      },
+      "16": {
+        "temp": 18.27,
+        "apparent_temp": 18.18,
+        "humidity": 27.0,
+        "dew_point": -1.44,
+        "cloud": 56.5,
+        "opaque_cloud": 56.5,
+        "wind": 4.59,
+        "precip": 0.139,
+        "tourism_score": 7.4
+      },
+      "17": {
+        "temp": 15.23,
+        "apparent_temp": 14.99,
+        "humidity": 33.3,
+        "dew_point": -0.99,
+        "cloud": 12.3,
+        "opaque_cloud": 5.5,
+        "wind": 4.27,
+        "precip": 0.09,
+        "tourism_score": 7.4
+      },
+      "18": {
+        "temp": 15.17,
+        "apparent_temp": 15.08,
+        "humidity": 35.0,
+        "dew_point": -0.61,
+        "cloud": 18.1,
+        "opaque_cloud": 6.8,
+        "wind": 3.94,
+        "precip": 0.032,
+        "tourism_score": 7.5
+      },
+      "19": {
+        "temp": 14.12,
+        "apparent_temp": 14.0,
+        "humidity": 39.7,
+        "dew_point": 0.36,
+        "cloud": 42.3,
+        "opaque_cloud": 42.3,
+        "wind": 3.57,
+        "precip": 0.006,
+        "tourism_score": 6.5
+      },
+      "20": {
+        "temp": 13.32,
+        "apparent_temp": 13.19,
+        "humidity": 42.0,
+        "dew_point": 0.47,
+        "cloud": 23.5,
+        "opaque_cloud": 12.3,
+        "wind": 3.45,
+        "precip": 0.003,
+        "tourism_score": 6.7
+      },
+      "21": {
+        "temp": 12.16,
+        "apparent_temp": 11.85,
+        "humidity": 45.5,
+        "dew_point": 0.65,
+        "cloud": 26.1,
+        "opaque_cloud": 15.5,
+        "wind": 3.33,
+        "precip": 0.0,
+        "tourism_score": 6.2
+      },
+      "22": {
+        "temp": 8.22,
+        "apparent_temp": 6.76,
+        "humidity": 54.6,
+        "dew_point": 0.01,
+        "cloud": 27.4,
+        "opaque_cloud": 31.0,
+        "wind": 3.22,
+        "precip": 0.0,
+        "tourism_score": 4.8
+      },
+      "23": {
+        "temp": 7.88,
+        "apparent_temp": 6.17,
+        "humidity": 56.8,
+        "dew_point": 0.24,
+        "cloud": 31.0,
+        "opaque_cloud": 35.8,
+        "wind": 3.22,
+        "precip": 0.0,
+        "tourism_score": 4.6
+      }
+    },
+    "4": {
+      "0": {
+        "temp": 10.16,
+        "apparent_temp": 9.47,
+        "humidity": 60.1,
+        "dew_point": 2.93,
+        "cloud": 33.7,
+        "opaque_cloud": 40.0,
+        "wind": 3.03,
+        "precip": 0.037,
+        "tourism_score": 4.8
+      },
+      "1": {
+        "temp": 9.94,
+        "apparent_temp": 9.17,
+        "humidity": 60.4,
+        "dew_point": 3.0,
+        "cloud": 36.3,
+        "opaque_cloud": 41.7,
+        "wind": 2.97,
+        "precip": 0.037,
+        "tourism_score": 4.8
+      },
+      "2": {
+        "temp": 9.7,
+        "apparent_temp": 8.92,
+        "humidity": 62.1,
+        "dew_point": 3.09,
+        "cloud": 43.0,
+        "opaque_cloud": 44.3,
+        "wind": 2.9,
+        "precip": 0.037,
+        "tourism_score": 4.6
+      },
+      "3": {
+        "temp": 7.85,
+        "apparent_temp": 6.23,
+        "humidity": 68.2,
+        "dew_point": 3.01,
+        "cloud": 46.3,
+        "opaque_cloud": 55.0,
+        "wind": 2.83,
+        "precip": 0.027,
+        "tourism_score": 4.0
+      },
+      "4": {
+        "temp": 7.44,
+        "apparent_temp": 5.8,
+        "humidity": 71.6,
+        "dew_point": 2.97,
+        "cloud": 49.3,
+        "opaque_cloud": 59.0,
+        "wind": 2.78,
+        "precip": 0.02,
+        "tourism_score": 3.8
+      },
+      "5": {
+        "temp": 7.22,
+        "apparent_temp": 5.58,
+        "humidity": 73.5,
+        "dew_point": 2.9,
+        "cloud": 57.3,
+        "opaque_cloud": 64.0,
+        "wind": 2.77,
+        "precip": 0.017,
+        "tourism_score": 3.7
+      },
+      "6": {
+        "temp": 7.07,
+        "apparent_temp": 5.45,
+        "humidity": 76.3,
+        "dew_point": 3.14,
+        "cloud": 62.0,
+        "opaque_cloud": 67.0,
+        "wind": 2.74,
+        "precip": 0.01,
+        "tourism_score": 3.6
+      },
+      "7": {
+        "temp": 8.14,
+        "apparent_temp": 6.93,
+        "humidity": 73.3,
+        "dew_point": 3.46,
+        "cloud": 55.0,
+        "opaque_cloud": 55.0,
+        "wind": 2.73,
+        "precip": 0.01,
+        "tourism_score": 4.0
+      },
+      "8": {
+        "temp": 9.12,
+        "apparent_temp": 8.03,
+        "humidity": 66.6,
+        "dew_point": 3.2,
+        "cloud": 48.3,
+        "opaque_cloud": 51.7,
+        "wind": 3.08,
+        "precip": 0.01,
+        "tourism_score": 4.3
+      },
+      "9": {
+        "temp": 14.5,
+        "apparent_temp": 14.39,
+        "humidity": 45.9,
+        "dew_point": 2.65,
+        "cloud": 24.3,
+        "opaque_cloud": 18.3,
+        "wind": 3.43,
+        "precip": 0.03,
+        "tourism_score": 7.3
+      },
+      "10": {
+        "temp": 15.94,
+        "apparent_temp": 15.82,
+        "humidity": 42.3,
+        "dew_point": 2.86,
+        "cloud": 59.3,
+        "opaque_cloud": 59.3,
+        "wind": 3.78,
+        "precip": 0.047,
+        "tourism_score": 7.0
+      },
+      "11": {
+        "temp": 16.85,
+        "apparent_temp": 16.75,
+        "humidity": 40.9,
+        "dew_point": 2.93,
+        "cloud": 12.7,
+        "opaque_cloud": 12.7,
+        "wind": 3.74,
+        "precip": 0.06,
+        "tourism_score": 8.3
+      },
+      "12": {
+        "temp": 18.3,
+        "apparent_temp": 18.17,
+        "humidity": 35.0,
+        "dew_point": 2.06,
+        "cloud": 10.0,
+        "opaque_cloud": 6.7,
+        "wind": 3.74,
+        "precip": 0.087,
+        "tourism_score": 8.7
+      },
+      "13": {
+        "temp": 19.35,
+        "apparent_temp": 19.21,
+        "humidity": 33.6,
+        "dew_point": 2.06,
+        "cloud": 68.3,
+        "opaque_cloud": 68.3,
+        "wind": 3.7,
+        "precip": 0.077,
+        "tourism_score": 7.5
+      },
+      "14": {
+        "temp": 19.55,
+        "apparent_temp": 19.47,
+        "humidity": 33.2,
+        "dew_point": 1.95,
+        "cloud": 7.7,
+        "opaque_cloud": 7.7,
+        "wind": 3.83,
+        "precip": 0.063,
+        "tourism_score": 8.9
+      },
+      "15": {
+        "temp": 19.6,
+        "apparent_temp": 19.45,
+        "humidity": 32.4,
+        "dew_point": 1.53,
+        "cloud": 6.7,
+        "opaque_cloud": 6.7,
+        "wind": 3.97,
+        "precip": 0.087,
+        "tourism_score": 8.9
+      },
+      "16": {
+        "temp": 19.73,
+        "apparent_temp": 19.59,
+        "humidity": 32.6,
+        "dew_point": 1.47,
+        "cloud": 78.0,
+        "opaque_cloud": 78.0,
+        "wind": 4.1,
+        "precip": 0.087,
+        "tourism_score": 7.5
+      },
+      "17": {
+        "temp": 18.22,
+        "apparent_temp": 18.06,
+        "humidity": 37.0,
+        "dew_point": 2.21,
+        "cloud": 14.7,
+        "opaque_cloud": 11.3,
+        "wind": 3.9,
+        "precip": 0.167,
+        "tourism_score": 8.5
+      },
+      "18": {
+        "temp": 17.15,
+        "apparent_temp": 17.03,
+        "humidity": 38.3,
+        "dew_point": 1.76,
+        "cloud": 22.0,
+        "opaque_cloud": 12.7,
+        "wind": 3.7,
+        "precip": 0.12,
+        "tourism_score": 8.4
+      },
+      "19": {
+        "temp": 16.2,
+        "apparent_temp": 16.07,
+        "humidity": 42.1,
+        "dew_point": 2.41,
+        "cloud": 60.7,
+        "opaque_cloud": 60.7,
+        "wind": 3.52,
+        "precip": 0.077,
+        "tourism_score": 7.1
+      },
+      "20": {
+        "temp": 15.51,
+        "apparent_temp": 15.4,
+        "humidity": 44.1,
+        "dew_point": 2.47,
+        "cloud": 18.3,
+        "opaque_cloud": 18.3,
+        "wind": 3.42,
+        "precip": 0.067,
+        "tourism_score": 7.8
+      },
+      "21": {
+        "temp": 14.54,
+        "apparent_temp": 14.42,
+        "humidity": 47.8,
+        "dew_point": 2.88,
+        "cloud": 28.7,
+        "opaque_cloud": 23.3,
+        "wind": 3.3,
+        "precip": 0.05,
+        "tourism_score": 7.2
+      },
+      "22": {
+        "temp": 11.93,
+        "apparent_temp": 11.65,
+        "humidity": 55.6,
+        "dew_point": 2.92,
+        "cloud": 29.0,
+        "opaque_cloud": 34.3,
+        "wind": 3.17,
+        "precip": 0.04,
+        "tourism_score": 5.8
+      },
+      "23": {
+        "temp": 11.48,
+        "apparent_temp": 11.08,
+        "humidity": 57.1,
+        "dew_point": 3.01,
+        "cloud": 35.3,
+        "opaque_cloud": 37.0,
+        "wind": 3.09,
+        "precip": 0.037,
+        "tourism_score": 5.5
+      }
+    },
+    "5": {
+      "0": {
+        "temp": 14.98,
+        "apparent_temp": 14.91,
+        "humidity": 63.4,
+        "dew_point": 8.39,
+        "cloud": 41.0,
+        "opaque_cloud": 45.8,
+        "wind": 3.17,
+        "precip": 0.048,
+        "tourism_score": 6.6
+      },
+      "1": {
+        "temp": 14.82,
+        "apparent_temp": 14.76,
+        "humidity": 66.4,
+        "dew_point": 8.73,
+        "cloud": 49.7,
+        "opaque_cloud": 51.6,
+        "wind": 3.19,
+        "precip": 0.061,
+        "tourism_score": 6.4
+      },
+      "2": {
+        "temp": 14.45,
+        "apparent_temp": 14.4,
+        "humidity": 67.9,
+        "dew_point": 8.71,
+        "cloud": 51.0,
+        "opaque_cloud": 54.8,
+        "wind": 3.08,
+        "precip": 0.055,
+        "tourism_score": 6.2
+      },
+      "3": {
+        "temp": 13.06,
+        "apparent_temp": 12.8,
+        "humidity": 72.5,
+        "dew_point": 8.62,
+        "cloud": 53.2,
+        "opaque_cloud": 61.6,
+        "wind": 2.96,
+        "precip": 0.042,
+        "tourism_score": 5.4
+      },
+      "4": {
+        "temp": 13.05,
+        "apparent_temp": 12.67,
+        "humidity": 72.5,
+        "dew_point": 8.61,
+        "cloud": 54.2,
+        "opaque_cloud": 61.6,
+        "wind": 2.86,
+        "precip": 0.039,
+        "tourism_score": 5.4
+      },
+      "5": {
+        "temp": 13.25,
+        "apparent_temp": 12.86,
+        "humidity": 73.0,
+        "dew_point": 8.88,
+        "cloud": 56.5,
+        "opaque_cloud": 62.3,
+        "wind": 2.83,
+        "precip": 0.029,
+        "tourism_score": 5.6
+      },
+      "6": {
+        "temp": 13.48,
+        "apparent_temp": 13.09,
+        "humidity": 74.9,
+        "dew_point": 9.26,
+        "cloud": 62.9,
+        "opaque_cloud": 65.5,
+        "wind": 2.78,
+        "precip": 0.019,
+        "tourism_score": 5.6
+      },
+      "7": {
+        "temp": 14.16,
+        "apparent_temp": 14.01,
+        "humidity": 69.6,
+        "dew_point": 8.92,
+        "cloud": 57.7,
+        "opaque_cloud": 56.8,
+        "wind": 2.75,
+        "precip": 0.013,
+        "tourism_score": 6.1
+      },
+      "8": {
+        "temp": 14.85,
+        "apparent_temp": 14.85,
+        "humidity": 63.8,
+        "dew_point": 8.65,
+        "cloud": 46.1,
+        "opaque_cloud": 47.1,
+        "wind": 3.05,
+        "precip": 0.013,
+        "tourism_score": 6.6
+      },
+      "9": {
+        "temp": 19.16,
+        "apparent_temp": 19.16,
+        "humidity": 50.7,
+        "dew_point": 8.48,
+        "cloud": 38.1,
+        "opaque_cloud": 26.5,
+        "wind": 3.34,
+        "precip": 0.029,
+        "tourism_score": 8.9
+      },
+      "10": {
+        "temp": 20.56,
+        "apparent_temp": 20.56,
+        "humidity": 46.2,
+        "dew_point": 8.37,
+        "cloud": 17.4,
+        "opaque_cloud": 17.4,
+        "wind": 3.65,
+        "precip": 0.042,
+        "tourism_score": 9.2
+      },
+      "11": {
+        "temp": 21.23,
+        "apparent_temp": 21.23,
+        "humidity": 44.0,
+        "dew_point": 8.27,
+        "cloud": 14.5,
+        "opaque_cloud": 14.5,
+        "wind": 3.63,
+        "precip": 0.065,
+        "tourism_score": 9.2
+      },
+      "12": {
+        "temp": 22.07,
+        "apparent_temp": 22.07,
+        "humidity": 40.5,
+        "dew_point": 7.74,
+        "cloud": 9.7,
+        "opaque_cloud": 9.7,
+        "wind": 3.63,
+        "precip": 0.081,
+        "tourism_score": 9.3
+      },
+      "13": {
+        "temp": 22.75,
+        "apparent_temp": 22.77,
+        "humidity": 39.1,
+        "dew_point": 7.75,
+        "cloud": 9.0,
+        "opaque_cloud": 9.0,
+        "wind": 3.61,
+        "precip": 0.058,
+        "tourism_score": 9.3
+      },
+      "14": {
+        "temp": 22.94,
+        "apparent_temp": 22.96,
+        "humidity": 38.6,
+        "dew_point": 7.68,
+        "cloud": 9.0,
+        "opaque_cloud": 9.0,
+        "wind": 3.67,
+        "precip": 0.068,
+        "tourism_score": 9.3
+      },
+      "15": {
+        "temp": 23.13,
+        "apparent_temp": 23.13,
+        "humidity": 37.9,
+        "dew_point": 7.49,
+        "cloud": 8.4,
+        "opaque_cloud": 8.4,
+        "wind": 3.73,
+        "precip": 0.216,
+        "tourism_score": 9.2
+      },
+      "16": {
+        "temp": 23.18,
+        "apparent_temp": 23.18,
+        "humidity": 39.9,
+        "dew_point": 8.02,
+        "cloud": 11.9,
+        "opaque_cloud": 11.9,
+        "wind": 3.79,
+        "precip": 0.474,
+        "tourism_score": 8.9
+      },
+      "17": {
+        "temp": 21.94,
+        "apparent_temp": 21.94,
+        "humidity": 44.0,
+        "dew_point": 8.42,
+        "cloud": 16.8,
+        "opaque_cloud": 16.8,
+        "wind": 3.72,
+        "precip": 0.345,
+        "tourism_score": 8.8
+      },
+      "18": {
+        "temp": 21.2,
+        "apparent_temp": 21.2,
+        "humidity": 44.8,
+        "dew_point": 8.17,
+        "cloud": 19.0,
+        "opaque_cloud": 16.8,
+        "wind": 3.64,
+        "precip": 0.116,
+        "tourism_score": 9.1
+      },
+      "19": {
+        "temp": 20.47,
+        "apparent_temp": 20.47,
+        "humidity": 47.1,
+        "dew_point": 8.24,
+        "cloud": 24.8,
+        "opaque_cloud": 19.7,
+        "wind": 3.56,
+        "precip": 0.039,
+        "tourism_score": 9.1
+      },
+      "20": {
+        "temp": 19.6,
+        "apparent_temp": 19.6,
+        "humidity": 48.2,
+        "dew_point": 7.95,
+        "cloud": 22.9,
+        "opaque_cloud": 21.0,
+        "wind": 3.43,
+        "precip": 0.035,
+        "tourism_score": 9.0
+      },
+      "21": {
+        "temp": 18.86,
+        "apparent_temp": 18.86,
+        "humidity": 52.0,
+        "dew_point": 8.42,
+        "cloud": 29.4,
+        "opaque_cloud": 26.8,
+        "wind": 3.3,
+        "precip": 0.065,
+        "tourism_score": 8.8
+      },
+      "22": {
+        "temp": 17.17,
+        "apparent_temp": 17.17,
+        "humidity": 56.8,
+        "dew_point": 8.53,
+        "cloud": 32.6,
+        "opaque_cloud": 34.2,
+        "wind": 3.15,
+        "precip": 0.065,
+        "tourism_score": 7.9
+      },
+      "23": {
+        "temp": 16.75,
+        "apparent_temp": 16.75,
+        "humidity": 60.7,
+        "dew_point": 8.82,
+        "cloud": 39.7,
+        "opaque_cloud": 41.0,
+        "wind": 3.17,
+        "precip": 0.042,
+        "tourism_score": 7.6
+      }
+    },
+    "6": {
+      "0": {
+        "temp": 17.37,
+        "apparent_temp": 17.37,
+        "humidity": 74.8,
+        "dew_point": 12.87,
+        "cloud": 63.0,
+        "opaque_cloud": 64.7,
+        "wind": 2.07,
+        "precip": 0.293,
+        "tourism_score": 6.8
+      },
+      "1": {
+        "temp": 17.1,
+        "apparent_temp": 17.1,
+        "humidity": 75.8,
+        "dew_point": 12.72,
+        "cloud": 64.7,
+        "opaque_cloud": 67.0,
+        "wind": 1.92,
+        "precip": 0.207,
+        "tourism_score": 6.8
+      },
+      "2": {
+        "temp": 16.87,
+        "apparent_temp": 16.87,
+        "humidity": 76.5,
+        "dew_point": 12.55,
+        "cloud": 64.0,
+        "opaque_cloud": 68.0,
+        "wind": 1.9,
+        "precip": 0.19,
+        "tourism_score": 6.7
+      },
+      "3": {
+        "temp": 16.11,
+        "apparent_temp": 16.08,
+        "humidity": 79.4,
+        "dew_point": 12.57,
+        "cloud": 71.3,
+        "opaque_cloud": 73.3,
+        "wind": 1.9,
+        "precip": 0.123,
+        "tourism_score": 6.4
+      },
+      "4": {
+        "temp": 15.86,
+        "apparent_temp": 15.83,
+        "humidity": 82.0,
+        "dew_point": 12.75,
+        "cloud": 77.0,
+        "opaque_cloud": 77.3,
+        "wind": 1.89,
+        "precip": 0.11,
+        "tourism_score": 6.3
+      },
+      "5": {
+        "temp": 16.2,
+        "apparent_temp": 16.18,
+        "humidity": 82.2,
+        "dew_point": 13.19,
+        "cloud": 81.0,
+        "opaque_cloud": 78.7,
+        "wind": 1.89,
+        "precip": 0.083,
+        "tourism_score": 6.4
+      },
+      "6": {
+        "temp": 16.25,
+        "apparent_temp": 16.25,
+        "humidity": 81.6,
+        "dew_point": 13.24,
+        "cloud": 78.7,
+        "opaque_cloud": 77.3,
+        "wind": 1.87,
+        "precip": 0.057,
+        "tourism_score": 6.6
+      },
+      "7": {
+        "temp": 17.06,
+        "apparent_temp": 17.06,
+        "humidity": 77.2,
+        "dew_point": 12.92,
+        "cloud": 69.0,
+        "opaque_cloud": 69.0,
+        "wind": 1.89,
+        "precip": 0.067,
+        "tourism_score": 7.1
+      },
+      "8": {
+        "temp": 18.47,
+        "apparent_temp": 18.47,
+        "humidity": 71.6,
+        "dew_point": 13.02,
+        "cloud": 57.7,
+        "opaque_cloud": 60.3,
+        "wind": 2.19,
+        "precip": 0.09,
+        "tourism_score": 7.7
+      },
+      "9": {
+        "temp": 20.08,
+        "apparent_temp": 20.08,
+        "humidity": 62.9,
+        "dew_point": 12.47,
+        "cloud": 44.7,
+        "opaque_cloud": 45.7,
+        "wind": 2.51,
+        "precip": 0.183,
+        "tourism_score": 8.2
+      },
+      "10": {
+        "temp": 21.2,
+        "apparent_temp": 21.2,
+        "humidity": 59.1,
+        "dew_point": 12.34,
+        "cloud": 66.7,
+        "opaque_cloud": 66.7,
+        "wind": 2.82,
+        "precip": 0.31,
+        "tourism_score": 7.4
+      },
+      "11": {
+        "temp": 21.5,
+        "apparent_temp": 21.5,
+        "humidity": 57.9,
+        "dew_point": 12.48,
+        "cloud": 38.3,
+        "opaque_cloud": 36.3,
+        "wind": 2.9,
+        "precip": 0.353,
+        "tourism_score": 8.1
+      },
+      "12": {
+        "temp": 22.43,
+        "apparent_temp": 22.43,
+        "humidity": 55.0,
+        "dew_point": 12.25,
+        "cloud": 33.7,
+        "opaque_cloud": 33.7,
+        "wind": 2.99,
+        "precip": 0.367,
+        "tourism_score": 8.3
+      },
+      "13": {
+        "temp": 22.88,
+        "apparent_temp": 22.88,
+        "humidity": 54.6,
+        "dew_point": 12.46,
+        "cloud": 81.3,
+        "opaque_cloud": 81.3,
+        "wind": 3.07,
+        "precip": 0.46,
+        "tourism_score": 7.1
+      },
+      "14": {
+        "temp": 23.04,
+        "apparent_temp": 23.04,
+        "humidity": 54.4,
+        "dew_point": 12.48,
+        "cloud": 31.7,
+        "opaque_cloud": 31.7,
+        "wind": 3.07,
+        "precip": 0.453,
+        "tourism_score": 8.3
+      },
+      "15": {
+        "temp": 23.01,
+        "apparent_temp": 23.01,
+        "humidity": 53.7,
+        "dew_point": 12.21,
+        "cloud": 31.7,
+        "opaque_cloud": 31.7,
+        "wind": 3.08,
+        "precip": 0.933,
+        "tourism_score": 8.2
+      },
+      "16": {
+        "temp": 23.09,
+        "apparent_temp": 23.09,
+        "humidity": 53.8,
+        "dew_point": 11.99,
+        "cloud": 78.0,
+        "opaque_cloud": 78.0,
+        "wind": 3.08,
+        "precip": 0.787,
+        "tourism_score": 7.0
+      },
+      "17": {
+        "temp": 22.24,
+        "apparent_temp": 22.24,
+        "humidity": 58.3,
+        "dew_point": 12.76,
+        "cloud": 38.3,
+        "opaque_cloud": 38.3,
+        "wind": 2.9,
+        "precip": 0.56,
+        "tourism_score": 8.0
+      },
+      "18": {
+        "temp": 21.8,
+        "apparent_temp": 21.8,
+        "humidity": 58.9,
+        "dew_point": 12.61,
+        "cloud": 39.7,
+        "opaque_cloud": 39.3,
+        "wind": 2.76,
+        "precip": 0.247,
+        "tourism_score": 8.3
+      },
+      "19": {
+        "temp": 21.04,
+        "apparent_temp": 21.04,
+        "humidity": 63.6,
+        "dew_point": 13.23,
+        "cloud": 71.7,
+        "opaque_cloud": 71.7,
+        "wind": 2.62,
+        "precip": 0.157,
+        "tourism_score": 7.7
+      },
+      "20": {
+        "temp": 20.28,
+        "apparent_temp": 20.28,
+        "humidity": 63.6,
+        "dew_point": 12.41,
+        "cloud": 49.7,
+        "opaque_cloud": 46.0,
+        "wind": 2.52,
+        "precip": 0.317,
+        "tourism_score": 8.0
+      },
+      "21": {
+        "temp": 19.51,
+        "apparent_temp": 19.51,
+        "humidity": 66.3,
+        "dew_point": 12.36,
+        "cloud": 52.7,
+        "opaque_cloud": 51.7,
+        "wind": 2.44,
+        "precip": 0.513,
+        "tourism_score": 7.6
+      },
+      "22": {
+        "temp": 18.16,
+        "apparent_temp": 18.16,
+        "humidity": 72.7,
+        "dew_point": 13.0,
+        "cloud": 64.7,
+        "opaque_cloud": 63.0,
+        "wind": 2.33,
+        "precip": 0.43,
+        "tourism_score": 6.8
+      },
+      "23": {
+        "temp": 17.77,
+        "apparent_temp": 17.77,
+        "humidity": 73.6,
+        "dew_point": 12.95,
+        "cloud": 62.0,
+        "opaque_cloud": 63.3,
+        "wind": 2.17,
+        "precip": 0.383,
+        "tourism_score": 6.8
+      }
+    },
+    "7": {
+      "0": {
+        "temp": 17.23,
+        "apparent_temp": 17.23,
+        "humidity": 88.5,
+        "dew_point": 15.22,
+        "cloud": 88.1,
+        "opaque_cloud": 88.1,
+        "wind": 1.61,
+        "precip": 0.477,
+        "tourism_score": 5.9
+      },
+      "1": {
+        "temp": 16.93,
+        "apparent_temp": 16.93,
+        "humidity": 89.6,
+        "dew_point": 15.11,
+        "cloud": 90.6,
+        "opaque_cloud": 90.6,
+        "wind": 1.63,
+        "precip": 0.461,
+        "tourism_score": 5.8
+      },
+      "2": {
+        "temp": 16.76,
+        "apparent_temp": 16.76,
+        "humidity": 89.4,
+        "dew_point": 14.88,
+        "cloud": 90.0,
+        "opaque_cloud": 90.0,
+        "wind": 1.54,
+        "precip": 0.413,
+        "tourism_score": 5.7
+      },
+      "3": {
+        "temp": 16.59,
+        "apparent_temp": 16.59,
+        "humidity": 89.9,
+        "dew_point": 14.82,
+        "cloud": 90.0,
+        "opaque_cloud": 90.0,
+        "wind": 1.45,
+        "precip": 0.397,
+        "tourism_score": 5.7
+      },
+      "4": {
+        "temp": 16.42,
+        "apparent_temp": 16.42,
+        "humidity": 91.1,
+        "dew_point": 14.88,
+        "cloud": 91.3,
+        "opaque_cloud": 91.3,
+        "wind": 1.35,
+        "precip": 0.29,
+        "tourism_score": 5.8
+      },
+      "5": {
+        "temp": 16.49,
+        "apparent_temp": 16.49,
+        "humidity": 91.9,
+        "dew_point": 15.1,
+        "cloud": 93.5,
+        "opaque_cloud": 93.5,
+        "wind": 1.37,
+        "precip": 0.287,
+        "tourism_score": 5.7
+      },
+      "6": {
+        "temp": 16.5,
+        "apparent_temp": 16.5,
+        "humidity": 91.3,
+        "dew_point": 14.99,
+        "cloud": 92.6,
+        "opaque_cloud": 92.6,
+        "wind": 1.38,
+        "precip": 0.2,
+        "tourism_score": 5.9
+      },
+      "7": {
+        "temp": 16.55,
+        "apparent_temp": 16.55,
+        "humidity": 91.3,
+        "dew_point": 15.04,
+        "cloud": 90.0,
+        "opaque_cloud": 90.0,
+        "wind": 1.41,
+        "precip": 0.171,
+        "tourism_score": 6.1
+      },
+      "8": {
+        "temp": 17.65,
+        "apparent_temp": 17.65,
+        "humidity": 84.8,
+        "dew_point": 14.95,
+        "cloud": 81.9,
+        "opaque_cloud": 81.9,
+        "wind": 1.6,
+        "precip": 0.161,
+        "tourism_score": 6.8
+      },
+      "9": {
+        "temp": 18.79,
+        "apparent_temp": 18.79,
+        "humidity": 79.5,
+        "dew_point": 15.02,
+        "cloud": 72.6,
+        "opaque_cloud": 72.6,
+        "wind": 1.79,
+        "precip": 0.213,
+        "tourism_score": 7.2
+      },
+      "10": {
+        "temp": 19.89,
+        "apparent_temp": 19.89,
+        "humidity": 74.8,
+        "dew_point": 15.08,
+        "cloud": 85.5,
+        "opaque_cloud": 85.5,
+        "wind": 2.02,
+        "precip": 0.316,
+        "tourism_score": 6.8
+      },
+      "11": {
+        "temp": 20.63,
+        "apparent_temp": 20.63,
+        "humidity": 72.1,
+        "dew_point": 15.19,
+        "cloud": 61.6,
+        "opaque_cloud": 61.6,
+        "wind": 2.32,
+        "precip": 0.439,
+        "tourism_score": 7.4
+      },
+      "12": {
+        "temp": 21.35,
+        "apparent_temp": 21.35,
+        "humidity": 69.5,
+        "dew_point": 15.29,
+        "cloud": 55.5,
+        "opaque_cloud": 55.5,
+        "wind": 2.64,
+        "precip": 0.423,
+        "tourism_score": 7.6
+      },
+      "13": {
+        "temp": 22.08,
+        "apparent_temp": 22.08,
+        "humidity": 66.6,
+        "dew_point": 15.28,
+        "cloud": 85.8,
+        "opaque_cloud": 85.8,
+        "wind": 2.94,
+        "precip": 0.471,
+        "tourism_score": 6.8
+      },
+      "14": {
+        "temp": 21.82,
+        "apparent_temp": 21.82,
+        "humidity": 68.3,
+        "dew_point": 15.41,
+        "cloud": 54.8,
+        "opaque_cloud": 54.8,
+        "wind": 2.83,
+        "precip": 0.819,
+        "tourism_score": 7.4
+      },
+      "15": {
+        "temp": 21.55,
+        "apparent_temp": 21.55,
+        "humidity": 69.5,
+        "dew_point": 15.42,
+        "cloud": 56.8,
+        "opaque_cloud": 56.8,
+        "wind": 2.73,
+        "precip": 1.068,
+        "tourism_score": 7.0
+      },
+      "16": {
+        "temp": 21.29,
+        "apparent_temp": 21.29,
+        "humidity": 70.9,
+        "dew_point": 15.44,
+        "cloud": 86.1,
+        "opaque_cloud": 86.1,
+        "wind": 2.62,
+        "precip": 0.8,
+        "tourism_score": 6.2
+      },
+      "17": {
+        "temp": 20.74,
+        "apparent_temp": 20.74,
+        "humidity": 74.5,
+        "dew_point": 15.81,
+        "cloud": 65.2,
+        "opaque_cloud": 65.2,
+        "wind": 2.42,
+        "precip": 0.526,
+        "tourism_score": 7.1
+      },
+      "18": {
+        "temp": 20.17,
+        "apparent_temp": 20.17,
+        "humidity": 76.5,
+        "dew_point": 15.7,
+        "cloud": 68.1,
+        "opaque_cloud": 68.1,
+        "wind": 2.22,
+        "precip": 0.494,
+        "tourism_score": 7.0
+      },
+      "19": {
+        "temp": 19.64,
+        "apparent_temp": 19.64,
+        "humidity": 79.2,
+        "dew_point": 15.78,
+        "cloud": 81.6,
+        "opaque_cloud": 81.6,
+        "wind": 2.02,
+        "precip": 0.329,
+        "tourism_score": 6.9
+      },
+      "20": {
+        "temp": 19.04,
+        "apparent_temp": 19.04,
+        "humidity": 80.8,
+        "dew_point": 15.52,
+        "cloud": 75.8,
+        "opaque_cloud": 75.8,
+        "wind": 1.87,
+        "precip": 0.277,
+        "tourism_score": 7.1
+      },
+      "21": {
+        "temp": 18.45,
+        "apparent_temp": 18.45,
+        "humidity": 83.3,
+        "dew_point": 15.41,
+        "cloud": 80.0,
+        "opaque_cloud": 80.0,
+        "wind": 1.74,
+        "precip": 0.419,
+        "tourism_score": 6.7
+      },
+      "22": {
+        "temp": 17.85,
+        "apparent_temp": 17.85,
+        "humidity": 85.9,
+        "dew_point": 15.33,
+        "cloud": 83.9,
+        "opaque_cloud": 83.9,
+        "wind": 1.6,
+        "precip": 0.497,
+        "tourism_score": 6.2
+      },
+      "23": {
+        "temp": 17.56,
+        "apparent_temp": 17.56,
+        "humidity": 86.9,
+        "dew_point": 15.22,
+        "cloud": 85.5,
+        "opaque_cloud": 85.5,
+        "wind": 1.63,
+        "precip": 0.481,
+        "tourism_score": 6.0
+      }
+    },
+    "8": {
+      "0": {
+        "temp": 16.55,
+        "apparent_temp": 16.55,
+        "humidity": 89.4,
+        "dew_point": 14.77,
+        "cloud": 90.3,
+        "opaque_cloud": 90.3,
+        "wind": 1.3,
+        "precip": 0.265,
+        "tourism_score": 5.9
+      },
+      "1": {
+        "temp": 16.18,
+        "apparent_temp": 16.18,
+        "humidity": 91.3,
+        "dew_point": 14.74,
+        "cloud": 93.2,
+        "opaque_cloud": 93.2,
+        "wind": 1.29,
+        "precip": 0.313,
+        "tourism_score": 5.6
+      },
+      "2": {
+        "temp": 15.97,
+        "apparent_temp": 15.97,
+        "humidity": 91.7,
+        "dew_point": 14.59,
+        "cloud": 93.5,
+        "opaque_cloud": 93.5,
+        "wind": 1.29,
+        "precip": 0.31,
+        "tourism_score": 5.6
+      },
+      "3": {
+        "temp": 15.74,
+        "apparent_temp": 15.74,
+        "humidity": 93.1,
+        "dew_point": 14.61,
+        "cloud": 96.1,
+        "opaque_cloud": 96.1,
+        "wind": 1.32,
+        "precip": 0.235,
+        "tourism_score": 5.4
+      },
+      "4": {
+        "temp": 15.4,
+        "apparent_temp": 15.4,
+        "humidity": 93.8,
+        "dew_point": 14.4,
+        "cloud": 97.7,
+        "opaque_cloud": 97.7,
+        "wind": 1.35,
+        "precip": 0.216,
+        "tourism_score": 5.2
+      },
+      "5": {
+        "temp": 15.46,
+        "apparent_temp": 15.46,
+        "humidity": 93.5,
+        "dew_point": 14.41,
+        "cloud": 96.5,
+        "opaque_cloud": 96.5,
+        "wind": 1.36,
+        "precip": 0.135,
+        "tourism_score": 5.5
+      },
+      "6": {
+        "temp": 15.5,
+        "apparent_temp": 15.5,
+        "humidity": 93.5,
+        "dew_point": 14.44,
+        "cloud": 96.8,
+        "opaque_cloud": 96.8,
+        "wind": 1.36,
+        "precip": 0.165,
+        "tourism_score": 5.5
+      },
+      "7": {
+        "temp": 15.68,
+        "apparent_temp": 15.68,
+        "humidity": 92.6,
+        "dew_point": 14.45,
+        "cloud": 82.9,
+        "opaque_cloud": 82.9,
+        "wind": 1.3,
+        "precip": 0.113,
+        "tourism_score": 6.1
+      },
+      "8": {
+        "temp": 17.01,
+        "apparent_temp": 17.01,
+        "humidity": 85.8,
+        "dew_point": 14.59,
+        "cloud": 84.2,
+        "opaque_cloud": 84.2,
+        "wind": 1.39,
+        "precip": 0.132,
+        "tourism_score": 6.7
+      },
+      "9": {
+        "temp": 18.6,
+        "apparent_temp": 18.6,
+        "humidity": 77.3,
+        "dew_point": 14.47,
+        "cloud": 70.3,
+        "opaque_cloud": 70.3,
+        "wind": 1.46,
+        "precip": 0.226,
+        "tourism_score": 7.4
+      },
+      "10": {
+        "temp": 20.06,
+        "apparent_temp": 20.06,
+        "humidity": 70.5,
+        "dew_point": 14.41,
+        "cloud": 76.5,
+        "opaque_cloud": 76.5,
+        "wind": 1.64,
+        "precip": 0.342,
+        "tourism_score": 7.2
+      },
+      "11": {
+        "temp": 20.79,
+        "apparent_temp": 20.79,
+        "humidity": 67.6,
+        "dew_point": 14.42,
+        "cloud": 53.9,
+        "opaque_cloud": 53.9,
+        "wind": 1.99,
+        "precip": 0.429,
+        "tourism_score": 7.7
+      },
+      "12": {
+        "temp": 21.5,
+        "apparent_temp": 21.5,
+        "humidity": 64.2,
+        "dew_point": 14.27,
+        "cloud": 48.1,
+        "opaque_cloud": 48.1,
+        "wind": 2.36,
+        "precip": 0.423,
+        "tourism_score": 7.9
+      },
+      "13": {
+        "temp": 22.23,
+        "apparent_temp": 22.23,
+        "humidity": 62.3,
+        "dew_point": 14.43,
+        "cloud": 83.2,
+        "opaque_cloud": 83.2,
+        "wind": 2.74,
+        "precip": 0.406,
+        "tourism_score": 7.0
+      },
+      "14": {
+        "temp": 22.31,
+        "apparent_temp": 22.31,
+        "humidity": 61.3,
+        "dew_point": 14.29,
+        "cloud": 43.2,
+        "opaque_cloud": 43.2,
+        "wind": 2.7,
+        "precip": 0.542,
+        "tourism_score": 8.0
+      },
+      "15": {
+        "temp": 22.4,
+        "apparent_temp": 22.4,
+        "humidity": 60.8,
+        "dew_point": 14.26,
+        "cloud": 42.3,
+        "opaque_cloud": 42.3,
+        "wind": 2.64,
+        "precip": 0.519,
+        "tourism_score": 8.0
+      },
+      "16": {
+        "temp": 22.47,
+        "apparent_temp": 22.47,
+        "humidity": 60.6,
+        "dew_point": 14.26,
+        "cloud": 73.5,
+        "opaque_cloud": 73.5,
+        "wind": 2.6,
+        "precip": 0.765,
+        "tourism_score": 6.9
+      },
+      "17": {
+        "temp": 20.98,
+        "apparent_temp": 20.98,
+        "humidity": 67.6,
+        "dew_point": 14.77,
+        "cloud": 52.6,
+        "opaque_cloud": 52.6,
+        "wind": 2.36,
+        "precip": 0.41,
+        "tourism_score": 7.7
+      },
+      "18": {
+        "temp": 20.37,
+        "apparent_temp": 20.37,
+        "humidity": 69.8,
+        "dew_point": 14.55,
+        "cloud": 56.5,
+        "opaque_cloud": 56.5,
+        "wind": 2.09,
+        "precip": 0.219,
+        "tourism_score": 7.9
+      },
+      "19": {
+        "temp": 19.35,
+        "apparent_temp": 19.35,
+        "humidity": 75.0,
+        "dew_point": 14.7,
+        "cloud": 80.6,
+        "opaque_cloud": 80.6,
+        "wind": 1.88,
+        "precip": 0.248,
+        "tourism_score": 7.1
+      },
+      "20": {
+        "temp": 18.63,
+        "apparent_temp": 18.63,
+        "humidity": 78.5,
+        "dew_point": 14.72,
+        "cloud": 70.6,
+        "opaque_cloud": 70.6,
+        "wind": 1.66,
+        "precip": 0.239,
+        "tourism_score": 7.4
+      },
+      "21": {
+        "temp": 17.95,
+        "apparent_temp": 17.95,
+        "humidity": 81.9,
+        "dew_point": 14.73,
+        "cloud": 77.4,
+        "opaque_cloud": 77.4,
+        "wind": 1.45,
+        "precip": 0.465,
+        "tourism_score": 6.7
+      },
+      "22": {
+        "temp": 17.24,
+        "apparent_temp": 17.24,
+        "humidity": 85.5,
+        "dew_point": 14.73,
+        "cloud": 83.2,
+        "opaque_cloud": 83.2,
+        "wind": 1.26,
+        "precip": 0.51,
+        "tourism_score": 6.1
+      },
+      "23": {
+        "temp": 16.85,
+        "apparent_temp": 16.85,
+        "humidity": 87.3,
+        "dew_point": 14.69,
+        "cloud": 87.4,
+        "opaque_cloud": 87.4,
+        "wind": 1.26,
+        "precip": 0.374,
+        "tourism_score": 6.0
+      }
+    },
+    "9": {
+      "0": {
+        "temp": 15.38,
+        "apparent_temp": 15.38,
+        "humidity": 89.4,
+        "dew_point": 13.6,
+        "cloud": 91.0,
+        "opaque_cloud": 91.0,
+        "wind": 0.83,
+        "precip": 0.483,
+        "tourism_score": 5.0
+      },
+      "1": {
+        "temp": 15.13,
+        "apparent_temp": 15.13,
+        "humidity": 90.1,
+        "dew_point": 13.51,
+        "cloud": 79.0,
+        "opaque_cloud": 79.0,
+        "wind": 0.7,
+        "precip": 0.313,
+        "tourism_score": 5.3
+      },
+      "2": {
+        "temp": 15.02,
+        "apparent_temp": 15.02,
+        "humidity": 90.7,
+        "dew_point": 13.5,
+        "cloud": 93.0,
+        "opaque_cloud": 93.0,
+        "wind": 0.78,
+        "precip": 0.237,
+        "tourism_score": 5.1
+      },
+      "3": {
+        "temp": 14.64,
+        "apparent_temp": 14.64,
+        "humidity": 91.3,
+        "dew_point": 13.23,
+        "cloud": 93.7,
+        "opaque_cloud": 93.7,
+        "wind": 0.86,
+        "precip": 0.177,
+        "tourism_score": 5.0
+      },
+      "4": {
+        "temp": 14.41,
+        "apparent_temp": 14.41,
+        "humidity": 91.9,
+        "dew_point": 13.12,
+        "cloud": 76.7,
+        "opaque_cloud": 76.7,
+        "wind": 0.93,
+        "precip": 0.193,
+        "tourism_score": 5.3
+      },
+      "5": {
+        "temp": 14.5,
+        "apparent_temp": 14.5,
+        "humidity": 92.0,
+        "dew_point": 13.23,
+        "cloud": 95.0,
+        "opaque_cloud": 95.0,
+        "wind": 0.96,
+        "precip": 0.173,
+        "tourism_score": 5.0
+      },
+      "6": {
+        "temp": 14.43,
+        "apparent_temp": 14.43,
+        "humidity": 92.6,
+        "dew_point": 13.21,
+        "cloud": 95.7,
+        "opaque_cloud": 95.7,
+        "wind": 0.98,
+        "precip": 0.17,
+        "tourism_score": 5.0
+      },
+      "7": {
+        "temp": 14.39,
+        "apparent_temp": 14.39,
+        "humidity": 92.8,
+        "dew_point": 13.23,
+        "cloud": 77.0,
+        "opaque_cloud": 77.0,
+        "wind": 1.0,
+        "precip": 0.16,
+        "tourism_score": 5.4
+      },
+      "8": {
+        "temp": 16.0,
+        "apparent_temp": 16.0,
+        "humidity": 83.8,
+        "dew_point": 13.24,
+        "cloud": 80.3,
+        "opaque_cloud": 80.3,
+        "wind": 1.39,
+        "precip": 0.19,
+        "tourism_score": 6.1
+      },
+      "9": {
+        "temp": 17.82,
+        "apparent_temp": 17.82,
+        "humidity": 76.0,
+        "dew_point": 13.45,
+        "cloud": 67.7,
+        "opaque_cloud": 67.7,
+        "wind": 1.78,
+        "precip": 0.197,
+        "tourism_score": 7.2
+      },
+      "10": {
+        "temp": 19.4,
+        "apparent_temp": 19.4,
+        "humidity": 69.9,
+        "dew_point": 13.71,
+        "cloud": 76.0,
+        "opaque_cloud": 76.0,
+        "wind": 2.17,
+        "precip": 0.297,
+        "tourism_score": 6.9
+      },
+      "11": {
+        "temp": 20.03,
+        "apparent_temp": 20.03,
+        "humidity": 68.8,
+        "dew_point": 14.08,
+        "cloud": 56.0,
+        "opaque_cloud": 56.0,
+        "wind": 2.54,
+        "precip": 0.36,
+        "tourism_score": 7.4
+      },
+      "12": {
+        "temp": 20.81,
+        "apparent_temp": 20.81,
+        "humidity": 64.8,
+        "dew_point": 13.61,
+        "cloud": 48.7,
+        "opaque_cloud": 48.7,
+        "wind": 2.9,
+        "precip": 0.42,
+        "tourism_score": 7.6
+      },
+      "13": {
+        "temp": 21.46,
+        "apparent_temp": 21.46,
+        "humidity": 64.7,
+        "dew_point": 14.22,
+        "cloud": 79.3,
+        "opaque_cloud": 79.3,
+        "wind": 3.27,
+        "precip": 0.483,
+        "tourism_score": 6.9
+      },
+      "14": {
+        "temp": 21.19,
+        "apparent_temp": 21.19,
+        "humidity": 64.7,
+        "dew_point": 13.91,
+        "cloud": 49.3,
+        "opaque_cloud": 49.3,
+        "wind": 3.15,
+        "precip": 0.637,
+        "tourism_score": 7.6
+      },
+      "15": {
+        "temp": 20.9,
+        "apparent_temp": 20.9,
+        "humidity": 66.9,
+        "dew_point": 14.2,
+        "cloud": 53.0,
+        "opaque_cloud": 53.0,
+        "wind": 3.05,
+        "precip": 0.907,
+        "tourism_score": 7.3
+      },
+      "16": {
+        "temp": 20.63,
+        "apparent_temp": 20.63,
+        "humidity": 68.2,
+        "dew_point": 14.22,
+        "cloud": 79.0,
+        "opaque_cloud": 79.0,
+        "wind": 2.93,
+        "precip": 0.883,
+        "tourism_score": 6.5
+      },
+      "17": {
+        "temp": 19.58,
+        "apparent_temp": 19.58,
+        "humidity": 73.0,
+        "dew_point": 14.39,
+        "cloud": 62.7,
+        "opaque_cloud": 62.7,
+        "wind": 2.48,
+        "precip": 0.69,
+        "tourism_score": 7.0
+      },
+      "18": {
+        "temp": 18.84,
+        "apparent_temp": 18.84,
+        "humidity": 75.9,
+        "dew_point": 14.34,
+        "cloud": 67.0,
+        "opaque_cloud": 67.0,
+        "wind": 2.0,
+        "precip": 0.243,
+        "tourism_score": 7.3
+      },
+      "19": {
+        "temp": 17.99,
+        "apparent_temp": 17.99,
+        "humidity": 79.0,
+        "dew_point": 14.16,
+        "cloud": 78.7,
+        "opaque_cloud": 78.7,
+        "wind": 1.55,
+        "precip": 0.25,
+        "tourism_score": 6.8
+      },
+      "20": {
+        "temp": 17.33,
+        "apparent_temp": 17.33,
+        "humidity": 81.6,
+        "dew_point": 14.09,
+        "cloud": 77.7,
+        "opaque_cloud": 77.7,
+        "wind": 1.39,
+        "precip": 0.237,
+        "tourism_score": 6.8
+      },
+      "21": {
+        "temp": 16.71,
+        "apparent_temp": 16.71,
+        "humidity": 84.4,
+        "dew_point": 14.0,
+        "cloud": 82.3,
+        "opaque_cloud": 82.3,
+        "wind": 1.26,
+        "precip": 0.203,
+        "tourism_score": 6.4
+      },
+      "22": {
+        "temp": 15.92,
+        "apparent_temp": 15.92,
+        "humidity": 87.3,
+        "dew_point": 13.76,
+        "cloud": 73.3,
+        "opaque_cloud": 73.3,
+        "wind": 1.11,
+        "precip": 0.273,
+        "tourism_score": 6.0
+      },
+      "23": {
+        "temp": 15.7,
+        "apparent_temp": 15.7,
+        "humidity": 87.9,
+        "dew_point": 13.67,
+        "cloud": 88.7,
+        "opaque_cloud": 88.7,
+        "wind": 0.99,
+        "precip": 0.36,
+        "tourism_score": 5.3
+      }
+    },
+    "10": {
+      "0": {
+        "temp": 11.69,
+        "apparent_temp": 11.44,
+        "humidity": 82.8,
+        "dew_point": 8.94,
+        "cloud": 79.0,
+        "opaque_cloud": 78.7,
+        "wind": 1.65,
+        "precip": 0.087,
+        "tourism_score": 4.1
+      },
+      "1": {
+        "temp": 11.32,
+        "apparent_temp": 11.09,
+        "humidity": 84.8,
+        "dew_point": 8.83,
+        "cloud": 83.2,
+        "opaque_cloud": 80.6,
+        "wind": 1.59,
+        "precip": 0.103,
+        "tourism_score": 3.9
+      },
+      "2": {
+        "temp": 11.19,
+        "apparent_temp": 11.0,
+        "humidity": 85.8,
+        "dew_point": 8.7,
+        "cloud": 82.6,
+        "opaque_cloud": 82.6,
+        "wind": 1.57,
+        "precip": 0.103,
+        "tourism_score": 3.8
+      },
+      "3": {
+        "temp": 10.67,
+        "apparent_temp": 10.37,
+        "humidity": 86.8,
+        "dew_point": 8.48,
+        "cloud": 84.2,
+        "opaque_cloud": 84.2,
+        "wind": 1.54,
+        "precip": 0.071,
+        "tourism_score": 3.7
+      },
+      "4": {
+        "temp": 10.4,
+        "apparent_temp": 10.09,
+        "humidity": 87.6,
+        "dew_point": 8.45,
+        "cloud": 87.1,
+        "opaque_cloud": 85.5,
+        "wind": 1.51,
+        "precip": 0.052,
+        "tourism_score": 3.7
+      },
+      "5": {
+        "temp": 10.12,
+        "apparent_temp": 9.73,
+        "humidity": 87.3,
+        "dew_point": 8.34,
+        "cloud": 84.8,
+        "opaque_cloud": 84.5,
+        "wind": 1.54,
+        "precip": 0.045,
+        "tourism_score": 3.6
+      },
+      "6": {
+        "temp": 10.33,
+        "apparent_temp": 9.97,
+        "humidity": 86.8,
+        "dew_point": 8.33,
+        "cloud": 83.2,
+        "opaque_cloud": 84.5,
+        "wind": 1.58,
+        "precip": 0.039,
+        "tourism_score": 3.7
+      },
+      "7": {
+        "temp": 10.46,
+        "apparent_temp": 10.11,
+        "humidity": 88.0,
+        "dew_point": 8.55,
+        "cloud": 51.9,
+        "opaque_cloud": 51.9,
+        "wind": 1.62,
+        "precip": 0.042,
+        "tourism_score": 4.5
+      },
+      "8": {
+        "temp": 11.32,
+        "apparent_temp": 11.03,
+        "humidity": 80.6,
+        "dew_point": 8.5,
+        "cloud": 72.6,
+        "opaque_cloud": 74.5,
+        "wind": 1.82,
+        "precip": 0.042,
+        "tourism_score": 4.2
+      },
+      "9": {
+        "temp": 14.85,
+        "apparent_temp": 14.85,
+        "humidity": 67.7,
+        "dew_point": 8.77,
+        "cloud": 54.2,
+        "opaque_cloud": 53.9,
+        "wind": 2.02,
+        "precip": 0.074,
+        "tourism_score": 6.4
+      },
+      "10": {
+        "temp": 16.71,
+        "apparent_temp": 16.71,
+        "humidity": 61.2,
+        "dew_point": 9.09,
+        "cloud": 52.3,
+        "opaque_cloud": 52.3,
+        "wind": 2.22,
+        "precip": 0.126,
+        "tourism_score": 7.2
+      },
+      "11": {
+        "temp": 17.61,
+        "apparent_temp": 17.61,
+        "humidity": 57.2,
+        "dew_point": 8.85,
+        "cloud": 36.5,
+        "opaque_cloud": 36.5,
+        "wind": 2.52,
+        "precip": 0.174,
+        "tourism_score": 7.8
+      },
+      "12": {
+        "temp": 18.84,
+        "apparent_temp": 18.84,
+        "humidity": 52.5,
+        "dew_point": 8.53,
+        "cloud": 28.4,
+        "opaque_cloud": 28.4,
+        "wind": 2.83,
+        "precip": 0.194,
+        "tourism_score": 8.3
+      },
+      "13": {
+        "temp": 19.62,
+        "apparent_temp": 19.62,
+        "humidity": 50.0,
+        "dew_point": 8.39,
+        "cloud": 64.8,
+        "opaque_cloud": 64.8,
+        "wind": 3.13,
+        "precip": 0.203,
+        "tourism_score": 7.5
+      },
+      "14": {
+        "temp": 19.55,
+        "apparent_temp": 19.55,
+        "humidity": 50.9,
+        "dew_point": 8.6,
+        "cloud": 26.5,
+        "opaque_cloud": 26.5,
+        "wind": 3.12,
+        "precip": 0.187,
+        "tourism_score": 8.5
+      },
+      "15": {
+        "temp": 19.35,
+        "apparent_temp": 19.35,
+        "humidity": 52.3,
+        "dew_point": 8.87,
+        "cloud": 28.1,
+        "opaque_cloud": 28.1,
+        "wind": 3.14,
+        "precip": 0.287,
+        "tourism_score": 8.4
+      },
+      "16": {
+        "temp": 19.14,
+        "apparent_temp": 19.14,
+        "humidity": 53.5,
+        "dew_point": 9.02,
+        "cloud": 66.5,
+        "opaque_cloud": 66.5,
+        "wind": 3.13,
+        "precip": 0.274,
+        "tourism_score": 7.4
+      },
+      "17": {
+        "temp": 16.99,
+        "apparent_temp": 16.99,
+        "humidity": 62.1,
+        "dew_point": 9.7,
+        "cloud": 44.8,
+        "opaque_cloud": 44.8,
+        "wind": 2.77,
+        "precip": 0.126,
+        "tourism_score": 7.5
+      },
+      "18": {
+        "temp": 16.13,
+        "apparent_temp": 16.13,
+        "humidity": 65.9,
+        "dew_point": 9.48,
+        "cloud": 53.5,
+        "opaque_cloud": 50.6,
+        "wind": 2.37,
+        "precip": 0.068,
+        "tourism_score": 7.1
+      },
+      "19": {
+        "temp": 15.36,
+        "apparent_temp": 15.36,
+        "humidity": 67.7,
+        "dew_point": 9.4,
+        "cloud": 64.2,
+        "opaque_cloud": 64.2,
+        "wind": 2.02,
+        "precip": 0.035,
+        "tourism_score": 6.5
+      },
+      "20": {
+        "temp": 14.78,
+        "apparent_temp": 14.78,
+        "humidity": 70.9,
+        "dew_point": 9.36,
+        "cloud": 63.5,
+        "opaque_cloud": 59.4,
+        "wind": 1.94,
+        "precip": 0.052,
+        "tourism_score": 6.4
+      },
+      "21": {
+        "temp": 13.75,
+        "apparent_temp": 13.75,
+        "humidity": 74.5,
+        "dew_point": 9.2,
+        "cloud": 66.1,
+        "opaque_cloud": 64.2,
+        "wind": 1.86,
+        "precip": 0.084,
+        "tourism_score": 5.5
+      },
+      "22": {
+        "temp": 12.52,
+        "apparent_temp": 12.4,
+        "humidity": 79.7,
+        "dew_point": 9.15,
+        "cloud": 72.9,
+        "opaque_cloud": 72.6,
+        "wind": 1.79,
+        "precip": 0.106,
+        "tourism_score": 4.6
+      },
+      "23": {
+        "temp": 12.06,
+        "apparent_temp": 11.93,
+        "humidity": 80.8,
+        "dew_point": 9.0,
+        "cloud": 74.5,
+        "opaque_cloud": 74.5,
+        "wind": 1.73,
+        "precip": 0.084,
+        "tourism_score": 4.4
+      }
+    },
+    "11": {
+      "0": {
+        "temp": 5.81,
+        "apparent_temp": 4.46,
+        "humidity": 73.5,
+        "dew_point": 1.47,
+        "cloud": 35.7,
+        "opaque_cloud": 63.0,
+        "wind": 2.28,
+        "precip": 0.017,
+        "tourism_score": 3.7
+      },
+      "1": {
+        "temp": 5.41,
+        "apparent_temp": 4.17,
+        "humidity": 75.9,
+        "dew_point": 1.46,
+        "cloud": 41.0,
+        "opaque_cloud": 67.3,
+        "wind": 2.15,
+        "precip": 0.02,
+        "tourism_score": 3.6
+      },
+      "2": {
+        "temp": 5.05,
+        "apparent_temp": 3.71,
+        "humidity": 78.1,
+        "dew_point": 1.74,
+        "cloud": 43.7,
+        "opaque_cloud": 71.0,
+        "wind": 2.21,
+        "precip": 0.01,
+        "tourism_score": 3.5
+      },
+      "3": {
+        "temp": 3.79,
+        "apparent_temp": 2.39,
+        "humidity": 80.1,
+        "dew_point": 1.15,
+        "cloud": 46.0,
+        "opaque_cloud": 74.7,
+        "wind": 2.26,
+        "precip": 0.01,
+        "tourism_score": 3.4
+      },
+      "4": {
+        "temp": 3.72,
+        "apparent_temp": 2.25,
+        "humidity": 82.2,
+        "dew_point": 1.28,
+        "cloud": 46.7,
+        "opaque_cloud": 77.7,
+        "wind": 2.33,
+        "precip": 0.013,
+        "tourism_score": 3.3
+      },
+      "5": {
+        "temp": 3.11,
+        "apparent_temp": 1.69,
+        "humidity": 83.2,
+        "dew_point": 1.1,
+        "cloud": 46.7,
+        "opaque_cloud": 79.7,
+        "wind": 2.15,
+        "precip": 0.01,
+        "tourism_score": 3.3
+      },
+      "6": {
+        "temp": 2.89,
+        "apparent_temp": 1.51,
+        "humidity": 82.6,
+        "dew_point": 0.86,
+        "cloud": 44.0,
+        "opaque_cloud": 77.7,
+        "wind": 1.97,
+        "precip": 0.01,
+        "tourism_score": 3.3
+      },
+      "7": {
+        "temp": 3.21,
+        "apparent_temp": 2.09,
+        "humidity": 82.6,
+        "dew_point": 0.87,
+        "cloud": 35.0,
+        "opaque_cloud": 35.0,
+        "wind": 1.77,
+        "precip": 0.01,
+        "tourism_score": 4.3
+      },
+      "8": {
+        "temp": 4.23,
+        "apparent_temp": 2.97,
+        "humidity": 77.6,
+        "dew_point": 1.23,
+        "cloud": 42.3,
+        "opaque_cloud": 69.3,
+        "wind": 2.1,
+        "precip": 0.01,
+        "tourism_score": 3.5
+      },
+      "9": {
+        "temp": 9.89,
+        "apparent_temp": 9.4,
+        "humidity": 56.8,
+        "dew_point": 1.55,
+        "cloud": 26.0,
+        "opaque_cloud": 36.3,
+        "wind": 2.47,
+        "precip": 0.013,
+        "tourism_score": 4.6
+      },
+      "10": {
+        "temp": 12.02,
+        "apparent_temp": 11.95,
+        "humidity": 53.7,
+        "dew_point": 2.79,
+        "cloud": 31.0,
+        "opaque_cloud": 31.0,
+        "wind": 2.8,
+        "precip": 0.013,
+        "tourism_score": 5.5
+      },
+      "11": {
+        "temp": 11.95,
+        "apparent_temp": 11.75,
+        "humidity": 52.3,
+        "dew_point": 2.38,
+        "cloud": 22.3,
+        "opaque_cloud": 29.0,
+        "wind": 3.26,
+        "precip": 0.017,
+        "tourism_score": 5.6
+      },
+      "12": {
+        "temp": 15.7,
+        "apparent_temp": 15.7,
+        "humidity": 38.7,
+        "dew_point": 1.26,
+        "cloud": 12.3,
+        "opaque_cloud": 9.3,
+        "wind": 3.74,
+        "precip": 0.023,
+        "tourism_score": 8.0
+      },
+      "13": {
+        "temp": 17.06,
+        "apparent_temp": 17.06,
+        "humidity": 38.3,
+        "dew_point": 2.3,
+        "cloud": 30.3,
+        "opaque_cloud": 30.3,
+        "wind": 4.2,
+        "precip": 0.017,
+        "tourism_score": 8.1
+      },
+      "14": {
+        "temp": 17.21,
+        "apparent_temp": 17.21,
+        "humidity": 37.5,
+        "dew_point": 2.11,
+        "cloud": 16.0,
+        "opaque_cloud": 8.0,
+        "wind": 4.01,
+        "precip": 0.013,
+        "tourism_score": 8.6
+      },
+      "15": {
+        "temp": 17.49,
+        "apparent_temp": 17.49,
+        "humidity": 35.1,
+        "dew_point": 1.28,
+        "cloud": 15.3,
+        "opaque_cloud": 7.3,
+        "wind": 3.83,
+        "precip": 0.027,
+        "tourism_score": 8.6
+      },
+      "16": {
+        "temp": 17.48,
+        "apparent_temp": 17.48,
+        "humidity": 34.6,
+        "dew_point": 1.01,
+        "cloud": 35.0,
+        "opaque_cloud": 35.0,
+        "wind": 3.63,
+        "precip": 0.01,
+        "tourism_score": 8.0
+      },
+      "17": {
+        "temp": 12.06,
+        "apparent_temp": 11.94,
+        "humidity": 55.5,
+        "dew_point": 3.25,
+        "cloud": 27.7,
+        "opaque_cloud": 33.3,
+        "wind": 3.27,
+        "precip": 0.007,
+        "tourism_score": 5.6
+      },
+      "18": {
+        "temp": 12.15,
+        "apparent_temp": 11.96,
+        "humidity": 48.8,
+        "dew_point": 1.73,
+        "cloud": 25.7,
+        "opaque_cloud": 23.3,
+        "wind": 2.89,
+        "precip": 0.007,
+        "tourism_score": 5.9
+      },
+      "19": {
+        "temp": 11.51,
+        "apparent_temp": 11.38,
+        "humidity": 51.8,
+        "dew_point": 1.63,
+        "cloud": 19.7,
+        "opaque_cloud": 19.7,
+        "wind": 2.57,
+        "precip": 0.003,
+        "tourism_score": 5.5
+      },
+      "20": {
+        "temp": 10.7,
+        "apparent_temp": 10.55,
+        "humidity": 53.5,
+        "dew_point": 1.3,
+        "cloud": 23.0,
+        "opaque_cloud": 30.3,
+        "wind": 2.59,
+        "precip": 0.003,
+        "tourism_score": 5.1
+      },
+      "21": {
+        "temp": 9.66,
+        "apparent_temp": 9.18,
+        "humidity": 57.5,
+        "dew_point": 1.39,
+        "cloud": 30.7,
+        "opaque_cloud": 37.0,
+        "wind": 2.56,
+        "precip": 0.003,
+        "tourism_score": 4.7
+      },
+      "22": {
+        "temp": 7.05,
+        "apparent_temp": 5.71,
+        "humidity": 65.5,
+        "dew_point": 1.13,
+        "cloud": 28.7,
+        "opaque_cloud": 49.7,
+        "wind": 2.53,
+        "precip": 0.007,
+        "tourism_score": 4.1
+      },
+      "23": {
+        "temp": 6.48,
+        "apparent_temp": 5.17,
+        "humidity": 69.6,
+        "dew_point": 1.3,
+        "cloud": 30.0,
+        "opaque_cloud": 55.7,
+        "wind": 2.38,
+        "precip": 0.007,
+        "tourism_score": 3.9
+      }
+    },
+    "12": {
+      "0": {
+        "temp": 3.2,
+        "apparent_temp": 2.36,
+        "humidity": 72.7,
+        "dew_point": -1.12,
+        "cloud": 42.3,
+        "opaque_cloud": 62.6,
+        "wind": 1.37,
+        "precip": 0.003,
+        "tourism_score": 3.7
+      },
+      "1": {
+        "temp": 2.82,
+        "apparent_temp": 2.02,
+        "humidity": 76.3,
+        "dew_point": -1.03,
+        "cloud": 40.3,
+        "opaque_cloud": 67.7,
+        "wind": 1.37,
+        "precip": 0.0,
+        "tourism_score": 3.6
+      },
+      "2": {
+        "temp": 2.43,
+        "apparent_temp": 1.63,
+        "humidity": 78.1,
+        "dew_point": -0.94,
+        "cloud": 48.4,
+        "opaque_cloud": 70.6,
+        "wind": 1.43,
+        "precip": 0.01,
+        "tourism_score": 3.5
+      },
+      "3": {
+        "temp": 2.3,
+        "apparent_temp": 1.56,
+        "humidity": 80.0,
+        "dew_point": -0.69,
+        "cloud": 47.1,
+        "opaque_cloud": 74.5,
+        "wind": 1.5,
+        "precip": 0.003,
+        "tourism_score": 3.4
+      },
+      "4": {
+        "temp": 2.01,
+        "apparent_temp": 1.23,
+        "humidity": 80.7,
+        "dew_point": -0.81,
+        "cloud": 44.5,
+        "opaque_cloud": 74.5,
+        "wind": 1.56,
+        "precip": 0.003,
+        "tourism_score": 3.4
+      },
+      "5": {
+        "temp": 1.71,
+        "apparent_temp": 1.09,
+        "humidity": 81.4,
+        "dew_point": -0.95,
+        "cloud": 50.6,
+        "opaque_cloud": 76.5,
+        "wind": 1.43,
+        "precip": 0.003,
+        "tourism_score": 3.4
+      },
+      "6": {
+        "temp": 1.38,
+        "apparent_temp": 0.79,
+        "humidity": 81.5,
+        "dew_point": -1.31,
+        "cloud": 51.3,
+        "opaque_cloud": 76.8,
+        "wind": 1.3,
+        "precip": 0.003,
+        "tourism_score": 3.4
+      },
+      "7": {
+        "temp": 1.22,
+        "apparent_temp": 0.59,
+        "humidity": 82.4,
+        "dew_point": -1.17,
+        "cloud": 51.9,
+        "opaque_cloud": 77.4,
+        "wind": 1.28,
+        "precip": 0.003,
+        "tourism_score": 3.3
+      },
+      "8": {
+        "temp": 2.82,
+        "apparent_temp": 1.93,
+        "humidity": 79.2,
+        "dew_point": 0.04,
+        "cloud": 48.1,
+        "opaque_cloud": 73.2,
+        "wind": 1.59,
+        "precip": 0.003,
+        "tourism_score": 3.5
+      },
+      "9": {
+        "temp": 6.57,
+        "apparent_temp": 5.85,
+        "humidity": 60.4,
+        "dew_point": -0.66,
+        "cloud": 31.3,
+        "opaque_cloud": 41.9,
+        "wind": 1.91,
+        "precip": 0.006,
+        "tourism_score": 4.3
+      },
+      "10": {
+        "temp": 7.44,
+        "apparent_temp": 6.54,
+        "humidity": 57.1,
+        "dew_point": 0.03,
+        "cloud": 28.7,
+        "opaque_cloud": 35.5,
+        "wind": 2.22,
+        "precip": 0.01,
+        "tourism_score": 4.5
+      },
+      "11": {
+        "temp": 7.72,
+        "apparent_temp": 6.42,
+        "humidity": 55.2,
+        "dew_point": -0.18,
+        "cloud": 32.3,
+        "opaque_cloud": 33.2,
+        "wind": 2.82,
+        "precip": 0.013,
+        "tourism_score": 4.5
+      },
+      "12": {
+        "temp": 12.2,
+        "apparent_temp": 11.89,
+        "humidity": 40.2,
+        "dew_point": -1.22,
+        "cloud": 13.2,
+        "opaque_cloud": 11.9,
+        "wind": 3.44,
+        "precip": 0.023,
+        "tourism_score": 6.1
+      },
+      "13": {
+        "temp": 13.1,
+        "apparent_temp": 12.78,
+        "humidity": 38.7,
+        "dew_point": -0.89,
+        "cloud": 14.8,
+        "opaque_cloud": 9.7,
+        "wind": 4.04,
+        "precip": 0.039,
+        "tourism_score": 6.5
+      },
+      "14": {
+        "temp": 13.4,
+        "apparent_temp": 13.13,
+        "humidity": 37.3,
+        "dew_point": -1.26,
+        "cloud": 12.6,
+        "opaque_cloud": 9.0,
+        "wind": 3.72,
+        "precip": 0.032,
+        "tourism_score": 6.7
+      },
+      "15": {
+        "temp": 13.97,
+        "apparent_temp": 13.84,
+        "humidity": 35.1,
+        "dew_point": -1.77,
+        "cloud": 12.3,
+        "opaque_cloud": 8.7,
+        "wind": 3.4,
+        "precip": 0.023,
+        "tourism_score": 7.0
+      },
+      "16": {
+        "temp": 13.99,
+        "apparent_temp": 13.84,
+        "humidity": 35.5,
+        "dew_point": -1.65,
+        "cloud": 12.9,
+        "opaque_cloud": 10.0,
+        "wind": 3.08,
+        "precip": 0.048,
+        "tourism_score": 7.0
+      },
+      "17": {
+        "temp": 7.99,
+        "apparent_temp": 6.47,
+        "humidity": 56.3,
+        "dew_point": 0.02,
+        "cloud": 31.3,
+        "opaque_cloud": 36.1,
+        "wind": 2.75,
+        "precip": 0.013,
+        "tourism_score": 4.5
+      },
+      "18": {
+        "temp": 8.09,
+        "apparent_temp": 6.82,
+        "humidity": 50.2,
+        "dew_point": -1.26,
+        "cloud": 26.5,
+        "opaque_cloud": 25.8,
+        "wind": 2.4,
+        "precip": 0.01,
+        "tourism_score": 4.7
+      },
+      "19": {
+        "temp": 8.01,
+        "apparent_temp": 7.01,
+        "humidity": 51.2,
+        "dew_point": -1.44,
+        "cloud": 26.1,
+        "opaque_cloud": 27.7,
+        "wind": 2.08,
+        "precip": 0.006,
+        "tourism_score": 4.6
+      },
+      "20": {
+        "temp": 7.72,
+        "apparent_temp": 6.97,
+        "humidity": 53.5,
+        "dew_point": -1.58,
+        "cloud": 31.0,
+        "opaque_cloud": 31.0,
+        "wind": 1.87,
+        "precip": 0.003,
+        "tourism_score": 4.5
+      },
+      "21": {
+        "temp": 6.5,
+        "apparent_temp": 5.73,
+        "humidity": 57.9,
+        "dew_point": -1.55,
+        "cloud": 31.6,
+        "opaque_cloud": 38.1,
+        "wind": 1.68,
+        "precip": 0.006,
+        "tourism_score": 4.3
+      },
+      "22": {
+        "temp": 4.09,
+        "apparent_temp": 3.25,
+        "humidity": 65.4,
+        "dew_point": -1.5,
+        "cloud": 39.4,
+        "opaque_cloud": 50.3,
+        "wind": 1.47,
+        "precip": 0.006,
+        "tourism_score": 4.0
+      },
+      "23": {
+        "temp": 3.8,
+        "apparent_temp": 2.96,
+        "humidity": 68.9,
+        "dew_point": -1.39,
+        "cloud": 41.9,
+        "opaque_cloud": 55.2,
+        "wind": 1.48,
+        "precip": 0.006,
+        "tourism_score": 3.9
+      }
+    }
+  },
+  "methodology": {
+    "source": "OneBuilding EPW/TMYx-CSWD typical meteorological year files; Page structure and scoring thresholds are generated from local climate-processing rules, not copied raw data.",
+    "temperature": "Monthly high/low use the average of daily highs/lows, matching the climate-page convention better than one-month extremes.",
+    "cloud_categories": [
+      [
+        "clear",
+        "晴天",
+        0,
+        20
+      ],
+      [
+        "mostly_clear",
+        "大部分晴天",
+        20,
+        40
+      ],
+      [
+        "partly_cloudy",
+        "部分多云",
+        40,
+        60
+      ],
+      [
+        "mostly_cloudy",
+        "大部分多云",
+        60,
+        80
+      ],
+      [
+        "overcast",
+        "阴天",
+        80,
+        101
+      ]
+    ],
+    "humidity_categories": [
+      [
+        "dry",
+        "干燥",
+        -100,
+        13
+      ],
+      [
+        "comfortable",
+        "舒适",
+        13,
+        16
+      ],
+      [
+        "humid",
+        "潮湿",
+        16,
+        18
+      ],
+      [
+        "muggy",
+        "闷热",
+        18,
+        21
+      ],
+      [
+        "oppressive",
+        "闷热难受",
+        21,
+        24
+      ],
+      [
+        "miserable",
+        "极为难受",
+        24,
+        100
+      ]
+    ],
+    "tourism_score": {
+      "analysis_hours": "08:00-21:00 local time",
+      "formula": "0.50 * apparent-temperature score + 0.25 * cloud score + 0.25 * precipitation score, averaged across daytime hours by month",
+      "temperature_thresholds": "Tourism: <10°C=0, 18°C=9, 24°C=10, 27°C=9, >=32°C=1; linear interpolation between thresholds.",
+      "cloud_thresholds": "Clear=10, mostly clear≈9, overcast=1; linear interpolation.",
+      "precip_thresholds": "No precipitation=10, trace≈9, >=1 mm/hour=0; linear interpolation."
+    }
+  }
+}

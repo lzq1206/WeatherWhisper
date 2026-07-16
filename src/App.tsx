@@ -151,7 +151,7 @@ function App() {
             <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.28em] text-cyan-200/80">
               <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1">WeatherWhisper</span>
               <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">China climate atlas page</span>
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">333 prefecture-level admin units</span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">339 prefecture-level / municipality / SAR entries</span>
             </div>
 
             <div className="mt-5 grid min-w-0 gap-6 xl:grid-cols-[1.15fr_.85fr] xl:items-end">
@@ -188,13 +188,13 @@ function App() {
                 <div className="flex items-center justify-between gap-4">
                   <div className="min-w-0">
                     <div className="text-[11px] uppercase tracking-[0.24em] text-slate-400">Admin-unit switcher</div>
-                    <div className="mt-1 break-words text-base font-bold text-white sm:text-lg">选择一个地级行政区</div>
+                    <div className="mt-1 break-words text-base font-bold text-white sm:text-lg">选择一个行政区气候页</div>
                   </div>
                   <CalendarDays className="text-cyan-300" size={18} />
                 </div>
 
                 <div className="mt-4 block">
-                  <span className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-slate-400">Search / 查找地级行政区</span>
+                  <span className="mb-2 block text-[11px] uppercase tracking-[0.24em] text-slate-400">Search / 查找行政区</span>
                   <div className="relative">
                     <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/6 px-3 py-2.5">
                       <Search size={16} className="text-slate-400" />
@@ -222,7 +222,7 @@ function App() {
                             <span className="ml-2 text-xs text-slate-400">{item.province || '其他地区'} · 气象站 {item.source_station_id || item.id}</span>
                           </button>
                         )) : (
-                          <div className="px-3 py-3 text-sm text-slate-400">没有匹配的地级行政区</div>
+                          <div className="px-3 py-3 text-sm text-slate-400">没有匹配的行政区</div>
                         )}
                       </div>
                     ) : null}

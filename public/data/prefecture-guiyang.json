@@ -20,7 +20,8 @@
     "source_station_wmo": "578160",
     "source_station_lat": 26.5897,
     "source_station_lon": 106.7276,
-    "station_match_quality": "direct"
+    "station_match_quality": "direct",
+    "catalog_type": "prefecture_level_admin_unit"
   },
   "yearly": {
     "avg_temp": 15.8,
@@ -49,7 +50,8 @@
     "division_code": "520100",
     "source_station_id": "578160",
     "source_station_name": "Guiyang",
-    "station_match_quality": "direct"
+    "station_match_quality": "direct",
+    "catalog_type": "prefecture_level_admin_unit"
   },
   "monthly": {
     "1": {
@@ -4205,11 +4207,12 @@
     },
     "prefecture_city_catalog": {
       "city_list_source": "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD%E5%9C%B0%E7%BA%A7%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%97%E8%A1%A8",
-      "station_source": "https://climate.onebuilding.org/WMO_Region_2_Asia/CHN_China/",
+      "station_source": "OneBuilding Asia index pages for China / Hong Kong / Macau",
       "admin_level": "地级市",
       "source_station_file": "CHN_GZ_Guiyang.578160_TMYx.2011-2025.zip",
       "source_station_wmo": "578160",
-      "station_match_quality": "direct"
+      "station_match_quality": "direct",
+      "catalog_type": "prefecture_level_admin_unit"
     }
   }
 }

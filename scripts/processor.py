@@ -35,7 +35,8 @@ def load_prefecture_names() -> set[str]:
 
     The website should expose prefecture-level units only. EPW files may contain
     airport, district, county, or county-level city names, so processed stations
-    are filtered against this catalog after normalization.
+    are filtered against this catalog after normalization. The public web catalog
+    also includes Hong Kong and Macau supplemental entries.
     """
     with open(CATALOG_PATH, encoding='utf-8') as f:
         payload = json.load(f)
@@ -47,6 +48,7 @@ def load_prefecture_names() -> set[str]:
             if name.endswith(suffix):
                 names.add(name[:-len(suffix)])
                 break
+    names.update({'香港', '澳门'})
     return names
 
 
@@ -574,7 +576,6 @@ def sync_public_outputs():
 
 def main():
     reset_output_dir(PROCESSED_DIR)
-    prefecture_names = load_prefecture_names()
 
     epw_files = sorted(glob.glob(os.path.join(RAW_DIR, "**", "*.epw"), recursive=True))
     features_by_id = {}
@@ -582,13 +583,6 @@ def main():
     for epw in epw_files:
         feat = process_station(epw)
         if feat:
-            city = feat['properties']['city']
-            if city not in prefecture_names:
-                out = os.path.join(PROCESSED_DIR, f"{feat['properties']['id']}.json")
-                if os.path.exists(out):
-                    os.remove(out)
-                print(f"Skipping non-prefecture station {city} ({feat['properties']['id']}).")
-                continue
             features_by_id[feat['properties']['id']] = feat
 
     geojson = {

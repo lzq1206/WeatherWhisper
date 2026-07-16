@@ -3,7 +3,7 @@
 WeatherWhisper is a China climate visualization site designed as a climate-comfort annual climate page.
 
 ## Current scope
-The site now uses a catalog of **333 mainland Chinese prefecture-level administrative units（地级行政区划单位）**: 293 prefecture-level cities, 7 prefectures, 30 autonomous prefectures and 3 leagues. The catalog deliberately excludes urban districts, counties, county-level cities, province-level municipalities and special administrative regions.
+The site now uses **339 climate-page entries**: 333 mainland Chinese prefecture-level administrative units（293 prefecture-level cities, 7 prefectures, 30 autonomous prefectures and 3 leagues）, plus Beijing, Tianjin, Shanghai, Chongqing, Hong Kong and Macau. The catalog excludes urban districts, counties and county-level cities.
 
 Core climate modules:
 
@@ -29,7 +29,7 @@ The repository uses locally processed EPW weather files from OneBuilding / Clima
 The climate atlas reference page is used for information architecture and scoring-threshold inspiration. The project does **not** copy climate atlas proprietary raw data.
 
 ## Processing method
-Run the full 333-unit rebuild:
+Run the full 339-entry rebuild:
 
 ```bash
 python3 scripts/build_prefecture_city_catalog.py
@@ -70,7 +70,7 @@ The 333-unit builder hard-stops unless all conditions pass:
 - province-level table counts equal parsed admin-unit counts
 - every map feature has one matching `public/data/prefecture-*.json` file
 
-Some admin units do not have direct OneBuilding EPW stations. In those cases, WeatherWhisper uses a documented same-province or nearby representative station and records the source in `station_match_quality`, `source_station_id`, and the audit CSV.
+The 2026-07-16 rebuild maps 180 entries directly to same-city stations and uses 187 unique station series overall. Some admin units do not have direct OneBuilding EPW stations; those entries use a documented same-province representative station. The website records this explicitly in `station_match_quality`, `source_station_id`, and the audit CSV rather than presenting fallback data as city-specific observations.
 
 ## Local development
 
