@@ -574,10 +574,40 @@ def sync_public_outputs():
                 fdst.write(fsrc.read())
 
 
+def epw_period_preference(path: str) -> int:
+    name = os.path.basename(path)
+    if '2011-2025' in name:
+        return 60
+    if '2009-2023' in name:
+        return 50
+    if '2007-2021' in name:
+        return 40
+    if '2004-2018' in name:
+        return 30
+    if 'TMYx' in name:
+        return 20
+    if 'CSWD' in name:
+        return 10
+    return 0
+
+
+def epw_station_id(path: str) -> str:
+    with open(path, 'r', encoding='utf-8', errors='ignore') as f:
+        parts = f.readline().strip().split(',')
+    return parts[5].strip() if len(parts) > 5 else os.path.basename(path)
+
+
 def main():
     reset_output_dir(PROCESSED_DIR)
 
-    epw_files = sorted(glob.glob(os.path.join(RAW_DIR, "**", "*.epw"), recursive=True))
+    all_epw_files = sorted(glob.glob(os.path.join(RAW_DIR, "**", "*.epw"), recursive=True))
+    best_epw_by_station = {}
+    for epw in all_epw_files:
+        station_id = epw_station_id(epw)
+        current = best_epw_by_station.get(station_id)
+        if current is None or epw_period_preference(epw) > epw_period_preference(current):
+            best_epw_by_station[station_id] = epw
+    epw_files = sorted(best_epw_by_station.values())
     features_by_id = {}
 
     for epw in epw_files:

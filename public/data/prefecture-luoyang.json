@@ -20,7 +20,7 @@
     "source_station_wmo": "570730",
     "source_station_lat": 34.667,
     "source_station_lon": 112.417,
-    "station_match_quality": "direct",
+    "station_match_quality": "direct_quality_override",
     "catalog_type": "prefecture_level_admin_unit"
   },
   "yearly": {
@@ -50,7 +50,7 @@
     "division_code": "410300",
     "source_station_id": "570730",
     "source_station_name": "Luoyang",
-    "station_match_quality": "direct",
+    "station_match_quality": "direct_quality_override",
     "catalog_type": "prefecture_level_admin_unit"
   },
   "monthly": {
@@ -4211,7 +4211,7 @@
       "admin_level": "地级市",
       "source_station_file": "CHN_HA_Luoyang.570730_TMYx.zip",
       "source_station_wmo": "570730",
-      "station_match_quality": "direct",
+      "station_match_quality": "direct_quality_override",
       "catalog_type": "prefecture_level_admin_unit"
     }
   }

@@ -41,8 +41,8 @@ RAW_DIR = ROOT / 'data' / 'raw'
 PROCESSED_DIR = ROOT / 'data' / 'processed'
 PUBLIC_DIR = ROOT / 'public' / 'data'
 CATALOG_DIR = ROOT / 'data' / 'prefecture_city_catalog'
-RUN_DATE = '20260716'
-AUDIT_DIR = ROOT / 'audits' / f'prefecture_admin_unit_expansion_{RUN_DATE}'
+RUN_DATE = '20260716v2'
+AUDIT_DIR = ROOT / 'audits' / 'station_quality_reaudit_20260716'
 
 PREFECTURE_LIST_URL = 'https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD%E5%9C%B0%E7%BA%A7%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%88%97%E8%A1%A8'
 ONEBUILDING_CHINA_URL = 'https://climate.onebuilding.org/WMO_Region_2_Asia/CHN_China/'
@@ -166,6 +166,20 @@ PROVINCE_STATION_CODES = {
     '西藏自治区': {'XJ'}, '陕西省': {'SN'}, '甘肃省': {'GS'},
     '青海省': {'QH'}, '宁夏回族自治区': {'NX'}, '新疆维吾尔自治区': {'XZ'},
     '香港特别行政区': {'HKI'}, '澳门特别行政区': {'MA'},
+}
+
+# Explicit choices backed by the 2026-07-16 multi-station quality audit.
+# These are deliberately narrow: an airport is not automatically preferable.
+PREFERRED_STATION_WMO_BY_CITY = {
+    # 599480 is much colder/wetter/cloudier than the nearby Phoenix airport
+    # series; 574941 is also the operational city airport record.
+    '三亚市': '574941',
+    # The JL-labelled 516330 file resolves to coordinates >3,000 km from Baicheng.
+    '白城市': '509360',
+    # 570730 is about 6 km from the city coordinate versus ~52 km for 570780.
+    '洛阳市': '570730',
+    # The prefecture seat is Kangding; the Garze station is ~256 km away.
+    '甘孜藏族自治州': '563740',
 }
 
 PROVINCE_FALLBACK_CITY = {
@@ -761,21 +775,51 @@ def find_station_by_candidates(
         item for item in inventory
         if not allowed_region_codes or item.region_code in allowed_region_codes
     ]
+    # Candidate order carries geographic intent (for example, Suzhou before
+    # Nanjing for Wuxi).  Preserve that order, then select the newest/best
+    # series among variants matching the same candidate.
     for candidate in candidates:
-        key = normalize_name(candidate)
-        hits = [item for item in pool if item.norm_name == key]
+        exact_key = normalize_name(candidate)
+        exact_wmos = {item.wmo for item in pool if item.norm_name == exact_key}
+        hits: dict[tuple[str, str], StationZip] = {}
+        for item in pool:
+            exact = item.norm_name == exact_key
+            word = station_word_match(candidate, item.station_name)
+            if not exact and not word:
+                continue
+            # When the catalog has an exact historical station, keep that WMO
+            # and upgrade only its period/version.  A different physical site
+            # requires an explicit audited override above.
+            if exact_wmos and item.wmo not in exact_wmos:
+                continue
+            key = (item.region_code, item.wmo)
+            current = hits.get(key)
+            if current is None or item.preference > current.preference:
+                hits[key] = item
         if hits:
-            return max(hits, key=lambda item: item.preference)
-    for candidate in candidates:
-        hits = [item for item in pool if station_word_match(candidate, item.station_name)]
-        if hits:
-            hits.sort(key=lambda item: (item.preference, -len(item.station_name)), reverse=True)
-            return hits[0]
+            return max(
+                hits.values(),
+                key=lambda item: (
+                    item.preference,
+                    int(item.norm_name == exact_key),
+                    -len(item.station_name),
+                ),
+            )
     return None
 
 
 def match_city(city: PrefectureCity, best_norm: dict[str, StationZip], best_wmo: dict[str, StationZip], inventory: list[StationZip]) -> tuple[StationZip, str]:
     region_codes = PROVINCE_STATION_CODES.get(city.province_zh)
+    preferred_wmo = PREFERRED_STATION_WMO_BY_CITY.get(city.city_zh)
+    if preferred_wmo:
+        preferred = [
+            item for item in inventory
+            if item.wmo == preferred_wmo
+            and (not region_codes or item.region_code in region_codes)
+        ]
+        if not preferred:
+            raise ValueError(f'Missing preferred station {preferred_wmo} for {city.city_zh}')
+        return max(preferred, key=lambda item: item.preference), 'direct_quality_override'
     direct_candidates = []
     for candidate in english_candidates(city):
         if candidate in CITY_STATION_ALIASES.get(city.city_zh, []):
@@ -962,7 +1006,7 @@ def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
     if not rows:
         return
     with open(path, 'w', encoding='utf-8', newline='') as f:
-        writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()), lineterminator='\n')
         writer.writeheader()
         writer.writerows(rows)
 
@@ -986,14 +1030,17 @@ def main() -> int:
     extracted = 0
     for idx, station in enumerate(sorted(selected_zips.values(), key=lambda item: item.file), start=1):
         try:
-            extracted += download_zip(station)
+            extracted_now = download_zip(station)
+            extracted += extracted_now
         except Exception as exc:
             print(f'[WARN] download failed: {station.file}: {exc}', file=sys.stderr)
-        # Deliberately keep climate downloads serial and paced. The script also
-        # skips already-cached EPW files, so reruns do not re-hit OneBuilding.
-        time.sleep(0.4)
-        if idx % 10 == 0:
-            time.sleep(4.0)
+            extracted_now = 0
+        # Deliberately keep actual climate downloads serial and paced. Cached
+        # files do not need throttling because they make no network request.
+        if extracted_now:
+            time.sleep(0.4)
+            if idx % 10 == 0:
+                time.sleep(4.0)
 
     run_processor()
     rows = create_prefecture_aliases(web_units, matches)
