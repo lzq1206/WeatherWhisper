@@ -62,6 +62,22 @@ interface HourData {
   tourism_score?: number;
 }
 
+interface DailyClimateData {
+  doy: number;
+  date: string;
+  temp_avg: number;
+  temp_max: number;
+  temp_min: number;
+  apparent_temp: number;
+  dew_point: number;
+  humidity: number;
+  cloud: number;
+  wind: number;
+  precip_31d: number;
+  wet_probability: number;
+  solar_kwh: number;
+}
+
 interface StationData {
   metadata: { city: string; state: string; country?: string; wmo: string; lat?: number; lon?: number; elev?: number };
   yearly: {
@@ -86,8 +102,12 @@ interface StationData {
     solar_energy: number;
     data_source?: string;
     method_note?: string;
+    climate_normal_period?: string;
+    temperature_source?: string;
+    gridded_source?: string;
   };
   monthly: Record<string, MonthData>;
+  daily_climatology?: DailyClimateData[];
   hourly_monthly?: Record<string, Record<string, HourData>>;
   methodology?: any;
 }
@@ -190,6 +210,7 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
   const precipChartRef = useRef<HTMLDivElement>(null);
   const humidityChartRef = useRef<HTMLDivElement>(null);
   const windChartRef = useRef<HTMLDivElement>(null);
+  const solarChartRef = useRef<HTMLDivElement>(null);
   const tourismChartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -212,6 +233,14 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
         precip_probability: value.precip_probability ?? 0,
       }));
   }, [data]);
+
+  const dailyClimate = data?.daily_climatology || [];
+  const dailyXAxis = dailyClimate.map(item => item.date);
+  const dailyAxisLabel = (value: string) => value.endsWith('-01') ? `${Number(value.slice(0, 2))}月` : '';
+  const selectedMonthArea = dailyClimate.length ? [[
+    { xAxis: `${String(selectedMonth).padStart(2, '0')}-01` },
+    { xAxis: `${String(selectedMonth).padStart(2, '0')}-${new Date(2021, selectedMonth, 0).getDate()}` },
+  ]] : [];
 
   const selectedIndex = Math.min(Math.max(selectedMonth, 1), 12) - 1;
   const selected = monthlySorted[selectedIndex];
@@ -242,23 +271,24 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
 
   useEffect(() => {
     if (!monthlySorted.length) return;
+    const useDaily = dailyClimate.length === 365;
+    const xData = useDaily ? dailyXAxis : MONTHS;
     return chartLifecycle(tempChartRef, {
       backgroundColor: 'transparent',
       animationDuration: 420,
       tooltip: { trigger: 'axis', backgroundColor: 'rgba(2,6,23,.94)', borderColor: 'rgba(148,163,184,.18)', textStyle: { color: '#fff' } },
       legend: { data: ['平均高温', '平均温度', '平均低温', '体感温度'], textStyle: { color: '#cbd5e1' }, top: 2 },
       grid: { left: 42, right: 24, top: 48, bottom: 34 },
-      xAxis: { type: 'category', data: MONTHS, axisLabel: { color: '#94a3b8' }, axisLine: { lineStyle: { color: 'rgba(148,163,184,.25)' } } },
+      xAxis: { type: 'category', data: xData, boundaryGap: false, axisLabel: { color: '#94a3b8', interval: 0, formatter: useDaily ? dailyAxisLabel : undefined }, axisLine: { lineStyle: { color: 'rgba(148,163,184,.25)' } } },
       yAxis: { type: 'value', name: '°C', nameTextStyle: { color: '#94a3b8' }, axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: 'rgba(148,163,184,.10)' } } },
       series: [
-        { name: '平均高温', type: 'line', smooth: true, data: monthlySorted.map(item => item.temp_max), lineStyle: { width: 3, color: '#ef4444' }, itemStyle: { color: '#ef4444' }, areaStyle: { opacity: 0.08, color: '#ef4444' } },
-        { name: '平均温度', type: 'line', smooth: true, data: monthlySorted.map(item => item.temp_avg), lineStyle: { width: 2, color: '#f59e0b' }, itemStyle: { color: '#f59e0b' } },
-        { name: '平均低温', type: 'line', smooth: true, data: monthlySorted.map(item => item.temp_min), lineStyle: { width: 3, color: '#3b82f6' }, itemStyle: { color: '#3b82f6' }, areaStyle: { opacity: 0.08, color: '#3b82f6' } },
-        { name: '体感温度', type: 'line', smooth: true, data: monthlySorted.map(item => item.apparent_temp_avg ?? item.temp_avg), lineStyle: { width: 2, color: '#f472b6', type: 'dashed' }, itemStyle: { color: '#f472b6' } },
+        { name: '平均高温', type: 'line', showSymbol: !useDaily, smooth: true, data: useDaily ? dailyClimate.map(item => item.temp_max) : monthlySorted.map(item => item.temp_max), lineStyle: { width: 3, color: '#ef4444' }, itemStyle: { color: '#ef4444' }, areaStyle: { opacity: 0.08, color: '#ef4444' } },
+        { name: '平均温度', type: 'line', showSymbol: !useDaily, smooth: true, data: useDaily ? dailyClimate.map(item => item.temp_avg) : monthlySorted.map(item => item.temp_avg), lineStyle: { width: 2, color: '#f59e0b' }, itemStyle: { color: '#f59e0b' } },
+        { name: '平均低温', type: 'line', showSymbol: !useDaily, smooth: true, data: useDaily ? dailyClimate.map(item => item.temp_min) : monthlySorted.map(item => item.temp_min), lineStyle: { width: 3, color: '#3b82f6' }, itemStyle: { color: '#3b82f6' }, areaStyle: { opacity: 0.08, color: '#3b82f6' } },
+        { name: '体感温度', type: 'line', showSymbol: false, smooth: true, data: useDaily ? dailyClimate.map(item => item.apparent_temp) : monthlySorted.map(item => item.apparent_temp_avg ?? item.temp_avg), lineStyle: { width: 2, color: '#f472b6', type: 'dashed' }, itemStyle: { color: '#f472b6' }, markArea: useDaily ? { silent: true, itemStyle: { color: 'rgba(34,211,238,.07)' }, data: selectedMonthArea } : undefined },
       ],
-      markLine: { symbol: 'none', data: [{ xAxis: MONTHS[selectedIndex] }] },
     });
-  }, [monthlySorted, selectedIndex]);
+  }, [monthlySorted, dailyClimate, selectedMonth]);
 
   useEffect(() => {
     if (!hourlyHeatmapData.length) return;
@@ -287,6 +317,16 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
 
   useEffect(() => {
     if (!monthlySorted.length) return;
+    if (dailyClimate.length === 365) {
+      return chartLifecycle(cloudChartRef, {
+        backgroundColor: 'transparent',
+        tooltip: { trigger: 'axis', backgroundColor: 'rgba(2,6,23,.94)', borderColor: 'rgba(148,163,184,.18)', textStyle: { color: '#fff' }, formatter: (params: any) => `${params[0].name}<br/>平均云量 ${params[0].value}%` },
+        grid: { left: 44, right: 22, top: 28, bottom: 34 },
+        xAxis: { type: 'category', data: dailyXAxis, boundaryGap: false, axisLabel: { color: '#94a3b8', interval: 0, formatter: dailyAxisLabel }, axisLine: { lineStyle: { color: 'rgba(148,163,184,.25)' } } },
+        yAxis: { type: 'value', min: 0, max: 100, name: '%', nameTextStyle: { color: '#94a3b8' }, axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: 'rgba(148,163,184,.10)' } } },
+        series: [{ name: '平均云量', type: 'line', showSymbol: false, smooth: true, data: dailyClimate.map(item => item.cloud), lineStyle: { width: 3, color: '#94a3b8' }, areaStyle: { opacity: 0.28, color: '#64748b' }, markArea: { silent: true, itemStyle: { color: 'rgba(34,211,238,.07)' }, data: selectedMonthArea } }],
+      });
+    }
     return chartLifecycle(cloudChartRef, {
       backgroundColor: 'transparent',
       tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, backgroundColor: 'rgba(2,6,23,.94)', borderColor: 'rgba(148,163,184,.18)', textStyle: { color: '#fff' } },
@@ -300,10 +340,27 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
         itemStyle: { color: CLOUD_COLORS[key] },
       })),
     });
-  }, [monthlySorted]);
+  }, [monthlySorted, dailyClimate, selectedMonth]);
 
   useEffect(() => {
     if (!monthlySorted.length) return;
+    if (dailyClimate.length === 365) {
+      return chartLifecycle(precipChartRef, {
+        backgroundColor: 'transparent',
+        tooltip: { trigger: 'axis', backgroundColor: 'rgba(2,6,23,.94)', borderColor: 'rgba(148,163,184,.18)', textStyle: { color: '#fff' } },
+        legend: { data: ['31日滑动降水量', '湿润日概率'], textStyle: { color: '#cbd5e1' }, top: 2 },
+        grid: { left: 46, right: 46, top: 50, bottom: 34 },
+        xAxis: { type: 'category', data: dailyXAxis, boundaryGap: false, axisLabel: { color: '#94a3b8', interval: 0, formatter: dailyAxisLabel }, axisLine: { lineStyle: { color: 'rgba(148,163,184,.25)' } } },
+        yAxis: [
+          { type: 'value', name: 'mm / 31日', nameTextStyle: { color: '#94a3b8' }, axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: 'rgba(148,163,184,.10)' } } },
+          { type: 'value', min: 0, max: 100, name: '%', nameTextStyle: { color: '#94a3b8' }, axisLabel: { color: '#94a3b8' }, splitLine: { show: false } },
+        ],
+        series: [
+          { name: '31日滑动降水量', type: 'line', showSymbol: false, smooth: true, data: dailyClimate.map(item => item.precip_31d), lineStyle: { width: 3, color: '#3b82f6' }, areaStyle: { opacity: 0.20, color: '#3b82f6' }, markArea: { silent: true, itemStyle: { color: 'rgba(34,211,238,.07)' }, data: selectedMonthArea } },
+          { name: '湿润日概率', type: 'line', yAxisIndex: 1, showSymbol: false, smooth: true, data: dailyClimate.map(item => item.wet_probability), lineStyle: { width: 2, color: '#22c55e' } },
+        ],
+      });
+    }
     return chartLifecycle(precipChartRef, {
       backgroundColor: 'transparent',
       tooltip: { trigger: 'axis', backgroundColor: 'rgba(2,6,23,.94)', borderColor: 'rgba(148,163,184,.18)', textStyle: { color: '#fff' } },
@@ -320,10 +377,28 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
         { name: '降水得分', type: 'line', yAxisIndex: 1, smooth: true, data: monthlySorted.map(item => (item.precip_score ?? 0) * 10), lineStyle: { width: 2, color: '#a78bfa', type: 'dashed' }, itemStyle: { color: '#a78bfa' } },
       ],
     });
-  }, [monthlySorted]);
+  }, [monthlySorted, dailyClimate, selectedMonth]);
 
   useEffect(() => {
     if (!monthlySorted.length) return;
+    if (dailyClimate.length === 365) {
+      return chartLifecycle(humidityChartRef, {
+        backgroundColor: 'transparent',
+        tooltip: { trigger: 'axis', backgroundColor: 'rgba(2,6,23,.94)', borderColor: 'rgba(148,163,184,.18)', textStyle: { color: '#fff' } },
+        legend: { data: ['相对湿度', '露点', '体感温度'], textStyle: { color: '#cbd5e1' }, top: 2 },
+        grid: { left: 46, right: 46, top: 52, bottom: 34 },
+        xAxis: { type: 'category', data: dailyXAxis, boundaryGap: false, axisLabel: { color: '#94a3b8', interval: 0, formatter: dailyAxisLabel }, axisLine: { lineStyle: { color: 'rgba(148,163,184,.25)' } } },
+        yAxis: [
+          { type: 'value', min: 0, max: 100, name: '%', nameTextStyle: { color: '#94a3b8' }, axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: 'rgba(148,163,184,.10)' } } },
+          { type: 'value', name: '°C', nameTextStyle: { color: '#94a3b8' }, axisLabel: { color: '#94a3b8' }, splitLine: { show: false } },
+        ],
+        series: [
+          { name: '相对湿度', type: 'line', showSymbol: false, smooth: true, data: dailyClimate.map(item => item.humidity), lineStyle: { width: 2, color: '#22d3ee' }, areaStyle: { opacity: 0.10, color: '#22d3ee' }, markArea: { silent: true, itemStyle: { color: 'rgba(34,211,238,.07)' }, data: selectedMonthArea } },
+          { name: '露点', type: 'line', yAxisIndex: 1, showSymbol: false, smooth: true, data: dailyClimate.map(item => item.dew_point), lineStyle: { width: 2, color: '#34d399' } },
+          { name: '体感温度', type: 'line', yAxisIndex: 1, showSymbol: false, smooth: true, data: dailyClimate.map(item => item.apparent_temp), lineStyle: { width: 3, color: '#f472b6' } },
+        ],
+      });
+    }
     return chartLifecycle(humidityChartRef, {
       backgroundColor: 'transparent',
       tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, backgroundColor: 'rgba(2,6,23,.94)', borderColor: 'rgba(148,163,184,.18)', textStyle: { color: '#fff' } },
@@ -343,10 +418,20 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
         { name: '体感温度', type: 'line', yAxisIndex: 1, smooth: true, data: monthlySorted.map(item => item.apparent_temp_avg ?? item.temp_avg), lineStyle: { width: 3, color: '#f472b6' }, itemStyle: { color: '#f472b6' } },
       ],
     });
-  }, [monthlySorted]);
+  }, [monthlySorted, dailyClimate, selectedMonth]);
 
   useEffect(() => {
     if (!monthlySorted.length) return;
+    if (dailyClimate.length === 365) {
+      return chartLifecycle(windChartRef, {
+        backgroundColor: 'transparent',
+        tooltip: { trigger: 'axis', backgroundColor: 'rgba(2,6,23,.94)', borderColor: 'rgba(148,163,184,.18)', textStyle: { color: '#fff' }, formatter: (params: any) => `${params[0].name}<br/>平均风速 ${params[0].value} m/s` },
+        grid: { left: 42, right: 24, top: 22, bottom: 46 },
+        xAxis: { type: 'category', data: dailyXAxis, boundaryGap: false, axisLabel: { color: '#94a3b8', interval: 0, formatter: dailyAxisLabel }, axisLine: { lineStyle: { color: 'rgba(148,163,184,.25)' } } },
+        yAxis: { type: 'value', name: 'm/s', nameTextStyle: { color: '#94a3b8' }, axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: 'rgba(148,163,184,.10)' } } },
+        series: [{ name: '风速', type: 'line', showSymbol: false, smooth: true, data: dailyClimate.map(item => item.wind), lineStyle: { width: 3, color: '#2dd4bf' }, areaStyle: { opacity: 0.14, color: '#2dd4bf' }, markArea: { silent: true, itemStyle: { color: 'rgba(34,211,238,.07)' }, data: selectedMonthArea } }],
+      });
+    }
     const directions = monthlySorted.map(item => item.wind_dir_text || '—');
     return chartLifecycle(windChartRef, {
       backgroundColor: 'transparent',
@@ -359,7 +444,19 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
       yAxis: { type: 'value', name: 'm/s', nameTextStyle: { color: '#94a3b8' }, axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: 'rgba(148,163,184,.10)' } } },
       series: [{ name: '风速', type: 'bar', data: monthlySorted.map(item => item.wind), barMaxWidth: 24, itemStyle: { color: 'rgba(45,212,191,.65)', borderRadius: [8, 8, 0, 0] }, label: { show: true, position: 'top', color: '#cbd5e1', fontSize: 10, formatter: (p: any) => directions[p.dataIndex] } }],
     });
-  }, [monthlySorted]);
+  }, [monthlySorted, dailyClimate, selectedMonth]);
+
+  useEffect(() => {
+    if (dailyClimate.length !== 365) return;
+    return chartLifecycle(solarChartRef, {
+      backgroundColor: 'transparent',
+      tooltip: { trigger: 'axis', backgroundColor: 'rgba(2,6,23,.94)', borderColor: 'rgba(148,163,184,.18)', textStyle: { color: '#fff' }, formatter: (params: any) => `${params[0].name}<br/>短波太阳能 ${params[0].value} kWh/m²/日` },
+      grid: { left: 48, right: 24, top: 22, bottom: 42 },
+      xAxis: { type: 'category', data: dailyXAxis, boundaryGap: false, axisLabel: { color: '#94a3b8', interval: 0, formatter: dailyAxisLabel }, axisLine: { lineStyle: { color: 'rgba(148,163,184,.25)' } } },
+      yAxis: { type: 'value', name: 'kWh/m²/日', nameTextStyle: { color: '#94a3b8' }, axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: 'rgba(148,163,184,.10)' } } },
+      series: [{ name: '短波太阳能', type: 'line', showSymbol: false, smooth: true, data: dailyClimate.map(item => item.solar_kwh), lineStyle: { width: 3, color: '#f59e0b' }, areaStyle: { opacity: 0.22, color: '#f59e0b' }, markArea: { silent: true, itemStyle: { color: 'rgba(34,211,238,.07)' }, data: selectedMonthArea } }],
+    });
+  }, [dailyClimate, selectedMonth]);
 
   useEffect(() => {
     if (!monthlySorted.length) return;
@@ -461,34 +558,42 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
       </div>
 
       <div className="mt-5 grid gap-5 xl:grid-cols-2">
-        <ChartCard eyebrow="1 · Temperature" title="平均高温 / 平均低温 / 平均体感" note="平均高低温按每日高低温再按月平均，避免把单月极端值误读为常态。">
+        <ChartCard eyebrow="1 · Temperature" title="逐日平均高温 / 低温 / 体感" note="主曲线是1991–2020逐日气候常年值，经15日环形移动平均平滑；月份内部不再只有一个离散点。浅色区为当前选择月份。">
           <div ref={tempChartRef} className="h-[260px] w-full sm:h-[320px]" />
         </ChartCard>
-        <ChartCard eyebrow="1b · Hourly temperature" title="一日内不同时段平均温度" note="横轴为月份，纵轴为小时；颜色使用固定的绝对摄氏温度色阶，不随城市或月份范围自动拉伸，便于像 climate atlas 一样跨城市比较冷热。">
+        <ChartCard eyebrow="1b · Typical-year hourly pattern" title="典型年一日内不同时段温度" note="这一张仍来自OneBuilding TMY的小时结构，仅用于观察日变化；它不是1991–2020多年平均，已与主气候常年曲线分开标注。">
           <div ref={hourlyChartRef} className="h-[360px] w-full sm:h-[420px]" />
         </ChartCard>
       </div>
 
       <div className="mt-5 grid gap-5 xl:grid-cols-2">
-        <ChartCard eyebrow="2 · Cloudiness" title="月度云量 / 晴天阴天结构" note="按每小时天空云量分为晴天、大部分晴天、部分多云、大部分多云、阴天，堆叠为月度比例。">
+        <ChartCard eyebrow="2 · Cloudiness" title="逐日平均云量" note="NASA POWER/MERRA-2 1991–2020逐日云量常年值（约50 km格点），经15日平滑；这里显示天空平均覆盖率，不等同于‘多云时长占比’。">
           <div ref={cloudChartRef} className="h-[280px] w-full sm:h-[330px]" />
         </ChartCard>
-        <ChartCard eyebrow="3 · Precipitation" title="降水概率和降水量" note="降水概率指当月湿润日占比，湿润日定义为日累计降水量 ≥ 1 mm；柱形为月累计降水量。">
+        <ChartCard eyebrow="3 · Precipitation" title="31日滑动降水量与湿润日概率" note="蓝线为以年内每一天为中心的31日平均累计降水，绿线为日降水≥1 mm的多年概率，因此能显示月份内部的雨季转折。">
           <div ref={precipChartRef} className="h-[280px] w-full sm:h-[330px]" />
         </ChartCard>
       </div>
 
       <div className="mt-5 grid gap-5 xl:grid-cols-2">
-        <ChartCard eyebrow="4 · Humidity & feel" title="湿度舒适水平与体感温度" note="湿度舒适水平按露点分组；体感温度结合高温热指数与低温风寒估算。">
+        <ChartCard eyebrow="4 · Humidity & feel" title="逐日湿度、露点与体感温度" note="站点覆盖合格时温度和露点来自NOAA GSOD，缺口与无站城市由ERA5-Land补足；体感温度结合温湿度和风速估算。">
           <div ref={humidityChartRef} className="h-[300px] w-full sm:h-[350px]" />
         </ChartCard>
-        <ChartCard eyebrow="5 · Wind" title="风速和风向" note="柱形显示月平均风速，柱顶文字为向量平均后的主导风向。">
+        <ChartCard eyebrow="5 · Wind" title="逐日平均风速" note="NASA POWER/MERRA-2 1991–2020年内逐日平均风速，经15日平滑；月度表仍给出典型年主导风向。">
           <div ref={windChartRef} className="h-[300px] w-full sm:h-[350px]" />
         </ChartCard>
       </div>
 
+      {dailyClimate.length === 365 ? (
+        <div className="mt-5">
+          <ChartCard eyebrow="6 · Solar energy" title="逐日地表短波太阳能" note="NASA POWER 1991–2020日均地表短波辐射，单位为kWh/m²/日；与日照时数不同，但可更直接反映到达地面的太阳能季节变化。">
+            <div ref={solarChartRef} className="h-[280px] w-full sm:h-[330px]" />
+          </ChartCard>
+        </div>
+      ) : null}
+
       <div className="mt-5 grid gap-5 xl:grid-cols-[1.2fr_.8fr]">
-        <ChartCard eyebrow="6 · Tourism score" title="旅游指数及组成" note="填充区域为旅游指数；红线为体感温度得分，蓝线为云量得分，绿线为降水得分；虚线为沙滩/泳池参考指数。">
+        <ChartCard eyebrow="7 · Tourism score" title="旅游指数及组成" note="旅游指数仍按月汇总，填充区域为综合分；温度、云量与降水底层输入已改为1991–2020气候常年值。">
           <div ref={tourismChartRef} className="h-[300px] w-full sm:h-[350px]" />
         </ChartCard>
         <section className="min-w-0 overflow-hidden rounded-[24px] border border-white/10 bg-black/20 p-4">
@@ -504,7 +609,9 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
             <p>综合公式：<span className="font-semibold text-white">0.50 × 体感温度得分 + 0.25 × 云量得分 + 0.25 × 降水得分</span>。</p>
             <p>温度得分按图示阈值线性插值：低于 10°C 为 0；18°C 为 9；24°C 为 10；27°C 为 9；32°C 及以上为 1。</p>
             <p>云量得分：完全晴朗 10，大部分晴朗约 9，阴天 1，中间线性下降。降水得分：无降水 10，微量降水约 9，≥1mm/h 为 0。</p>
-            <p className="text-xs text-slate-400">数据源：{data.yearly.data_source || 'OneBuilding EPW/TMYx-CSWD 本地处理'}。参考 climate atlas 的模块结构和阈值方法，不直接复制其专有原始数据。</p>
+            <p className="text-xs text-slate-400">数据源：{data.yearly.data_source || 'OneBuilding EPW/TMYx-CSWD 本地处理'}。</p>
+            {data.yearly.climate_normal_period ? <p className="text-xs text-slate-400">标准期：{data.yearly.climate_normal_period}。温度源：{data.yearly.temperature_source}。网格变量：{data.yearly.gridded_source}。</p> : null}
+            <p className="text-xs text-slate-400">页面采用相似的气候统计表达方式，但不抓取或复制WeatherSpark的专有原始数据。</p>
           </div>
         </section>
       </div>
