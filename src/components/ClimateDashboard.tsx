@@ -422,44 +422,46 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
 
   useEffect(() => {
     if (!monthlySorted.length) return;
-    if (dailyClimate.length === 365) {
-      return chartLifecycle(humidityChartRef, {
-        backgroundColor: 'transparent',
-        tooltip: { trigger: 'axis', backgroundColor: 'rgba(2,6,23,.94)', borderColor: 'rgba(148,163,184,.18)', textStyle: { color: '#fff' } },
-        legend: { data: ['相对湿度', '露点', '体感温度'], textStyle: { color: '#cbd5e1' }, top: 2 },
-        grid: { left: 46, right: 46, top: 52, bottom: 34 },
-        xAxis: { type: 'category', data: dailyXAxis, boundaryGap: false, axisLabel: { color: '#94a3b8', interval: 0, formatter: dailyAxisLabel }, axisLine: { lineStyle: { color: 'rgba(148,163,184,.25)' } } },
-        yAxis: [
-          { type: 'value', min: 0, max: 100, name: '%', nameTextStyle: { color: '#94a3b8' }, axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: 'rgba(148,163,184,.10)' } } },
-          { type: 'value', name: '°C', nameTextStyle: { color: '#94a3b8' }, axisLabel: { color: '#94a3b8' }, splitLine: { show: false } },
-        ],
-        series: [
-          { name: '相对湿度', type: 'line', showSymbol: false, smooth: true, data: dailyClimate.map(item => item.humidity), lineStyle: { width: 2, color: '#22d3ee' }, areaStyle: { opacity: 0.10, color: '#22d3ee' }, markArea: { silent: true, itemStyle: { color: 'rgba(34,211,238,.07)' }, data: selectedMonthArea } },
-          { name: '露点', type: 'line', yAxisIndex: 1, showSymbol: false, smooth: true, data: dailyClimate.map(item => item.dew_point), lineStyle: { width: 2, color: '#34d399' } },
-          { name: '体感温度', type: 'line', yAxisIndex: 1, showSymbol: false, smooth: true, data: dailyClimate.map(item => item.apparent_temp), lineStyle: { width: 3, color: '#f472b6' } },
-        ],
-      });
-    }
+    const stackKeys = [...HUMIDITY_KEYS].reverse();
+    const normalizedHumidity: Record<string, number[]> = Object.fromEntries(HUMIDITY_KEYS.map(key => [key, monthlySorted.map(item => {
+      const total = HUMIDITY_KEYS.reduce((sum, category) => sum + Number(item.humidity_comfort?.[category]?.pct ?? 0), 0);
+      return total > 0 ? Number(item.humidity_comfort?.[key]?.pct ?? 0) * 100 / total : 0;
+    })]));
+    const muggyOrWorse = monthlySorted.map((_, monthIndex) =>
+      HUMIDITY_KEYS.slice(3).reduce((sum, key) => sum + normalizedHumidity[key][monthIndex], 0)
+    );
     return chartLifecycle(humidityChartRef, {
       backgroundColor: 'transparent',
-      tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, backgroundColor: 'rgba(2,6,23,.94)', borderColor: 'rgba(148,163,184,.18)', textStyle: { color: '#fff' } },
-      legend: { data: [...HUMIDITY_KEYS.map(k => HUMIDITY_LABELS[k]), '体感温度'], textStyle: { color: '#cbd5e1' }, top: 2 },
-      grid: { left: 42, right: 44, top: 60, bottom: 34 },
-      xAxis: { type: 'category', data: MONTHS, axisLabel: { color: '#94a3b8' }, axisLine: { lineStyle: { color: 'rgba(148,163,184,.25)' } } },
-      yAxis: [
-        { type: 'value', min: 0, max: 100, name: '%', nameTextStyle: { color: '#94a3b8' }, axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: 'rgba(148,163,184,.10)' } } },
-        { type: 'value', name: '°C', nameTextStyle: { color: '#94a3b8' }, axisLabel: { color: '#94a3b8' }, splitLine: { show: false } },
-      ],
+      tooltip: {
+        trigger: 'axis',
+        backgroundColor: 'rgba(2,6,23,.94)',
+        borderColor: 'rgba(148,163,184,.18)',
+        textStyle: { color: '#fff' },
+        formatter: (params: any[]) => {
+          const categoryRows = HUMIDITY_KEYS.map(key => {
+            const item = params.find(p => p.seriesName === HUMIDITY_LABELS[key]);
+            return item ? `${item.marker}${item.seriesName} ${Number(item.value).toFixed(1)}%` : '';
+          }).filter(Boolean);
+          const line = params.find(p => p.seriesName === '闷热及以上');
+          return [params[0]?.name, ...categoryRows, line ? `<b>闷热及以上 ${Number(line.value).toFixed(1)}%</b>` : ''].filter(Boolean).join('<br/>');
+        },
+      },
+      legend: { data: [...HUMIDITY_KEYS.map(k => HUMIDITY_LABELS[k]), '闷热及以上'], textStyle: { color: '#cbd5e1' }, top: 2, itemWidth: 18, itemHeight: 10 },
+      grid: { left: 42, right: 24, top: 66, bottom: 34 },
+      xAxis: { type: 'category', data: MONTHS, boundaryGap: false, axisLabel: { color: '#94a3b8' }, axisLine: { lineStyle: { color: 'rgba(148,163,184,.25)' } } },
+      yAxis: { type: 'value', min: 0, max: 100, name: '%', nameTextStyle: { color: '#94a3b8' }, axisLabel: { color: '#94a3b8', formatter: '{value}%' }, splitLine: { lineStyle: { color: 'rgba(148,163,184,.10)' } } },
       series: [
-        ...HUMIDITY_KEYS.map(key => ({
-          name: HUMIDITY_LABELS[key], type: 'bar', stack: 'dewpoint', barMaxWidth: 28,
-          data: monthlySorted.map(item => item.humidity_comfort?.[key]?.pct ?? 0),
-          itemStyle: { color: HUMIDITY_COLORS[key] },
+        ...stackKeys.map(key => ({
+          name: HUMIDITY_LABELS[key], type: 'line', stack: 'dewpoint', smooth: 0.38, showSymbol: false,
+          data: normalizedHumidity[key],
+          lineStyle: { width: 0.6, color: HUMIDITY_COLORS[key] },
+          areaStyle: { opacity: 1, color: HUMIDITY_COLORS[key] },
+          emphasis: { focus: 'series' },
         })),
-        { name: '体感温度', type: 'line', yAxisIndex: 1, smooth: true, data: monthlySorted.map(item => item.apparent_temp_avg ?? item.temp_avg), lineStyle: { width: 3, color: '#f472b6' }, itemStyle: { color: '#f472b6' } },
+        { name: '闷热及以上', type: 'line', smooth: 0.38, showSymbol: false, data: muggyOrWorse.map(value => Number(value.toFixed(1))), lineStyle: { width: 2, color: '#0f172a' }, itemStyle: { color: '#0f172a' }, z: 10 },
       ],
     });
-  }, [monthlySorted, dailyClimate, selectedMonth]);
+  }, [monthlySorted]);
 
   useEffect(() => {
     if (!monthlySorted.length) return;
@@ -617,7 +619,7 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
       </div>
 
       <div className="mt-5 grid gap-5 xl:grid-cols-2">
-        <ChartCard eyebrow="4 · Humidity & feel" title="逐日湿度、露点与体感温度" note="站点覆盖合格时温度和露点来自NOAA GSOD，缺口与无站城市由ERA5-Land补足；体感温度结合温湿度和风速估算。">
+        <ChartCard eyebrow="4 · Humidity comfort" title="全年湿度舒适度分布" note="保持原有湿度图风格：依据典型年小时露点分成干燥、舒适、潮湿、闷热、闷热难受与极为难受六档，按月汇总后以平滑堆叠区域连接；黑线表示闷热及以上时段占比。">
           <div ref={humidityChartRef} className="h-[300px] w-full sm:h-[350px]" />
         </ChartCard>
         <ChartCard eyebrow="5 · Wind" title="逐日平均风速" note="NASA POWER/MERRA-2 1991–2020年内逐日平均风速，经15日平滑；月度表仍给出典型年主导风向。">
