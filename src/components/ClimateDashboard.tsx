@@ -205,6 +205,7 @@ function chartLifecycle(ref: React.RefObject<HTMLDivElement>, option: any) {
 
 const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selectedMonth, onClose }) => {
   const [data, setData] = useState<StationData | null>(null);
+  const summaryChartRef = useRef<HTMLDivElement>(null);
   const tempChartRef = useRef<HTMLDivElement>(null);
   const hourlyChartRef = useRef<HTMLDivElement>(null);
   const cloudChartRef = useRef<HTMLDivElement>(null);
@@ -520,6 +521,64 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
     });
   }, [monthlySorted, bestTourismMonth]);
 
+  useEffect(() => {
+    if (!monthlySorted.length) return;
+    const normalizeCategories = (keys: string[], getter: (item: MonthData, key: string) => number) =>
+      Object.fromEntries(keys.map(key => [key, monthlySorted.map(item => {
+        const total = keys.reduce((sum, category) => sum + getter(item, category), 0);
+        return total > 0 ? getter(item, key) * 100 / total : 0;
+      })])) as Record<string, number[]>;
+    const cloudBands = normalizeCategories(CLOUD_KEYS, (item, key) => Number(item.cloud_categories?.[key]?.pct ?? 0));
+    const humidityBands = normalizeCategories(HUMIDITY_KEYS, (item, key) => Number(item.humidity_comfort?.[key]?.pct ?? 0));
+    const clearerShare = monthlySorted.map((_, monthIndex) => CLOUD_KEYS.slice(0, 3).reduce((sum, key) => sum + cloudBands[key][monthIndex], 0));
+    const muggyShare = monthlySorted.map((_, monthIndex) => HUMIDITY_KEYS.slice(3).reduce((sum, key) => sum + humidityBands[key][monthIndex], 0));
+    const apparentTemps = monthlySorted.map(item => Number(item.apparent_temp_avg ?? item.temp_avg));
+    const tourismScores = monthlySorted.map(item => Number(item.tourism_score));
+    const tempFloor = Math.floor(Math.min(...apparentTemps) - 3);
+    const tempCeiling = Math.ceil(Math.max(...apparentTemps) + 3);
+    const sharedXAxis = [0, 1, 2, 3, 4].map(gridIndex => ({
+      type: 'category', gridIndex, data: MONTHS, boundaryGap: false,
+      axisLabel: { show: gridIndex === 4, color: '#94a3b8', fontSize: 11 },
+      axisTick: { show: false },
+      axisLine: { show: gridIndex === 4, lineStyle: { color: 'rgba(148,163,184,.28)' } },
+      splitLine: { show: true, lineStyle: { color: 'rgba(148,163,184,.08)' } },
+    }));
+    return chartLifecycle(summaryChartRef, {
+      backgroundColor: 'transparent',
+      animationDuration: 480,
+      tooltip: { trigger: 'axis', axisPointer: { type: 'line' }, backgroundColor: 'rgba(2,6,23,.96)', borderColor: 'rgba(148,163,184,.18)', textStyle: { color: '#fff' } },
+      axisPointer: { link: [{ xAxisIndex: 'all' }] },
+      grid: [
+        { left: 62, right: 24, top: '3%', height: '19%' },
+        { left: 62, right: 24, top: '25%', height: '13%' },
+        { left: 62, right: 24, top: '41%', height: '20%' },
+        { left: 62, right: 24, top: '64%', height: '13%' },
+        { left: 62, right: 24, top: '80%', height: '14%' },
+      ],
+      xAxis: sharedXAxis,
+      yAxis: [
+        { type: 'value', gridIndex: 0, min: 0, max: 100, name: '云量', nameLocation: 'middle', nameGap: 34, nameTextStyle: { color: '#cbd5e1', fontWeight: 700 }, axisLabel: { color: '#64748b', formatter: (v: number) => v === 0 || v === 100 ? `${v}%` : '' }, splitLine: { lineStyle: { color: 'rgba(148,163,184,.10)' } } },
+        { type: 'value', gridIndex: 1, min: 0, name: '降水', nameLocation: 'middle', nameGap: 34, nameTextStyle: { color: '#cbd5e1', fontWeight: 700 }, axisLabel: { color: '#64748b', formatter: (v: number) => v === 0 ? '0' : `${v}` }, splitLine: { lineStyle: { color: 'rgba(148,163,184,.10)' } } },
+        { type: 'value', gridIndex: 2, min: 0, max: 100, name: '湿度', nameLocation: 'middle', nameGap: 34, nameTextStyle: { color: '#cbd5e1', fontWeight: 700 }, axisLabel: { color: '#64748b', formatter: (v: number) => v === 0 || v === 100 ? `${v}%` : '' }, splitLine: { lineStyle: { color: 'rgba(148,163,184,.10)' } } },
+        { type: 'value', gridIndex: 3, min: tempFloor, max: tempCeiling, name: '体感', nameLocation: 'middle', nameGap: 34, nameTextStyle: { color: '#cbd5e1', fontWeight: 700 }, axisLabel: { color: '#64748b', formatter: '{value}°' }, splitLine: { lineStyle: { color: 'rgba(148,163,184,.10)' } } },
+        { type: 'value', gridIndex: 4, min: 0, max: 10, name: '旅游', nameLocation: 'middle', nameGap: 34, nameTextStyle: { color: '#cbd5e1', fontWeight: 700 }, axisLabel: { color: '#64748b', formatter: (v: number) => v === 0 || v === 10 ? `${v}` : '' }, splitLine: { lineStyle: { color: 'rgba(148,163,184,.10)' } } },
+      ],
+      series: [
+        ...CLOUD_KEYS.map(key => ({ name: CLOUD_LABELS[key], type: 'line', xAxisIndex: 0, yAxisIndex: 0, stack: 'summary-cloud', smooth: 0.35, showSymbol: false, data: cloudBands[key], lineStyle: { width: 0.5, color: CLOUD_COLORS[key] }, areaStyle: { opacity: 1, color: CLOUD_COLORS[key] } })),
+        { name: '较晴朗', type: 'line', xAxisIndex: 0, yAxisIndex: 0, smooth: 0.35, showSymbol: false, data: clearerShare, lineStyle: { width: 1.8, color: '#0f172a' }, z: 10 },
+        { name: '月降水量', type: 'line', xAxisIndex: 1, yAxisIndex: 1, smooth: 0.35, showSymbol: false, data: monthlySorted.map(item => item.precip), lineStyle: { width: 2.2, color: '#22c55e' }, areaStyle: { opacity: 0.26, color: '#22c55e' }, markPoint: { symbolSize: 42, label: { color: '#e2e8f0', formatter: (p: any) => `${p.value}mm` }, data: [{ type: 'max', name: '峰值降水' }] } },
+        ...[...HUMIDITY_KEYS].reverse().map(key => ({ name: HUMIDITY_LABELS[key], type: 'line', xAxisIndex: 2, yAxisIndex: 2, stack: 'summary-humidity', smooth: 0.35, showSymbol: false, data: humidityBands[key], lineStyle: { width: 0.5, color: HUMIDITY_COLORS[key] }, areaStyle: { opacity: 1, color: HUMIDITY_COLORS[key] } })),
+        { name: '闷热及以上', type: 'line', xAxisIndex: 2, yAxisIndex: 2, smooth: 0.35, showSymbol: false, data: muggyShare, lineStyle: { width: 1.8, color: '#0f172a' }, z: 10 },
+        { name: '平均体感温度', type: 'line', xAxisIndex: 3, yAxisIndex: 3, smooth: 0.35, showSymbol: false, data: apparentTemps, lineStyle: { width: 2.4, color: '#f97316' }, areaStyle: { opacity: 0.28, color: '#fb923c' }, markArea: { silent: true, data: [
+          [{ yAxis: tempFloor, itemStyle: { color: 'rgba(59,130,246,.12)' }, label: { show: true, color: '#93c5fd', formatter: '偏凉' } }, { yAxis: 18 }],
+          [{ yAxis: 18, itemStyle: { color: 'rgba(245,158,11,.12)' }, label: { show: true, color: '#fde68a', formatter: '温和' } }, { yAxis: 27 }],
+          [{ yAxis: 27, itemStyle: { color: 'rgba(239,68,68,.14)' }, label: { show: true, color: '#fca5a5', formatter: '热' } }, { yAxis: tempCeiling }],
+        ] } },
+        { name: '旅游指数', type: 'line', xAxisIndex: 4, yAxisIndex: 4, smooth: 0.35, showSymbol: false, data: tourismScores, lineStyle: { width: 2.4, color: '#14b8a6' }, areaStyle: { opacity: 0.28, color: '#14b8a6' }, markPoint: { symbolSize: 40, label: { color: '#e2e8f0', formatter: (p: any) => Number(p.value).toFixed(1) }, data: [{ type: 'max', name: '最佳' }, { type: 'min', name: '最低' }] } },
+      ],
+    });
+  }, [monthlySorted]);
+
   if (!data || !monthlySorted.length) {
     return (
       <section className="rounded-[28px] border border-white/10 bg-white/6 backdrop-blur-2xl p-6 shadow-[0_24px_80px_rgba(0,0,0,.30)]">
@@ -600,6 +659,35 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
         ))}
       </div>
 
+      <div className="mt-5">
+        <ChartCard eyebrow="0 · Annual overview" title="全年气候与旅游总览" note="从上到下依次汇总云量类别、月降水量、湿度舒适度、平均体感温度和旅游指数，使用同一月份轴快速查看全年季节变化。">
+          <div ref={summaryChartRef} className="h-[680px] w-full sm:h-[760px]" />
+        </ChartCard>
+      </div>
+
+      <div className="mt-5 grid gap-5 xl:grid-cols-[1.2fr_.8fr]">
+        <ChartCard eyebrow="0b · Tourism score" title="旅游指数及组成" note="旅游指数按月汇总，填充区域为综合分；同时展示温度、云量、降水与沙滩/泳池分项。">
+          <div ref={tourismChartRef} className="h-[300px] w-full sm:h-[350px]" />
+        </ChartCard>
+        <section className="min-w-0 overflow-hidden rounded-[24px] border border-white/10 bg-black/20 p-4">
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <div>
+              <div className="text-[11px] uppercase tracking-[0.24em] text-slate-400">Methodology</div>
+              <h3 className="mt-1 text-lg font-bold text-white">旅游指数计算方法</h3>
+            </div>
+            <Compass size={18} className="text-teal-300" />
+          </div>
+          <div className="space-y-3 text-sm leading-7 text-slate-300/90">
+            <p>分析时段：每天 <span className="font-semibold text-white">08:00–21:00</span> 的小时数据，先算小时得分，再按月平均。</p>
+            <p>综合公式：<span className="font-semibold text-white">0.50 × 体感温度得分 + 0.25 × 云量得分 + 0.25 × 降水得分</span>。</p>
+            <p>温度得分按图示阈值线性插值：低于 10°C 为 0；18°C 为 9；24°C 为 10；27°C 为 9；32°C 及以上为 1。</p>
+            <p>云量得分：完全晴朗 10，大部分晴朗约 9，阴天 1，中间线性下降。降水得分：无降水 10，微量降水约 9，≥1mm/h 为 0。</p>
+            <p className="text-xs text-slate-400">数据源：{data.yearly.data_source || 'OneBuilding EPW/TMYx-CSWD 本地处理'}。</p>
+            {data.yearly.climate_normal_period ? <p className="text-xs text-slate-400">标准期：{data.yearly.climate_normal_period}。温度源：{data.yearly.temperature_source}。网格变量：{data.yearly.gridded_source}。</p> : null}
+          </div>
+        </section>
+      </div>
+
       <div className="mt-5 grid gap-5 xl:grid-cols-2">
         <ChartCard eyebrow="1 · Temperature" title="逐日平均高温 / 低温 / 体感" note="主曲线是1991–2020逐日气候常年值，经15日环形移动平均平滑；月份内部不再只有一个离散点。浅色区为当前选择月份。">
           <div ref={tempChartRef} className="h-[260px] w-full sm:h-[320px]" />
@@ -610,7 +698,7 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
       </div>
 
       <div className="mt-5 grid gap-5 xl:grid-cols-2">
-        <ChartCard eyebrow="2 · Cloudiness" title="晴天至阴天的全年分布" note="参考WeatherSpark的五档表达：晴天0–20%、大部分晴天20–40%、部分多云40–60%、大部分多云60–80%、阴天80–100%。本站基于NASA POWER/MERRA-2 1991–2020逐日平均天空覆盖率分类，再按年内日期统计并作15日平滑；黑线为晴天至部分多云合计（云量<60%）。因数据时间分辨率不同，这里表示天气日占比，不等同于WeatherSpark的逐小时占比。">
+        <ChartCard eyebrow="2 · Cloudiness" title="晴天至阴天的全年分布" note="云量按晴天0–20%、大部分晴天20–40%、部分多云40–60%、大部分多云60–80%、阴天80–100%五档展示。本站基于NASA POWER/MERRA-2 1991–2020逐日平均天空覆盖率分类，再按年内日期统计并作15日平滑；黑线为晴天至部分多云合计（云量<60%）。">
           <div ref={cloudChartRef} className="h-[280px] w-full sm:h-[330px]" />
         </ChartCard>
         <ChartCard eyebrow="3 · Precipitation" title="31日滑动降水量与湿润日概率" note="蓝线为以年内每一天为中心的31日平均累计降水，绿线为日降水≥1 mm的多年概率，因此能显示月份内部的雨季转折。">
@@ -634,30 +722,6 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
           </ChartCard>
         </div>
       ) : null}
-
-      <div className="mt-5 grid gap-5 xl:grid-cols-[1.2fr_.8fr]">
-        <ChartCard eyebrow="7 · Tourism score" title="旅游指数及组成" note="旅游指数仍按月汇总，填充区域为综合分；温度、云量与降水底层输入已改为1991–2020气候常年值。">
-          <div ref={tourismChartRef} className="h-[300px] w-full sm:h-[350px]" />
-        </ChartCard>
-        <section className="min-w-0 overflow-hidden rounded-[24px] border border-white/10 bg-black/20 p-4">
-          <div className="mb-3 flex items-center justify-between gap-3">
-            <div>
-              <div className="text-[11px] uppercase tracking-[0.24em] text-slate-400">Methodology</div>
-              <h3 className="mt-1 text-lg font-bold text-white">旅游指数计算方法</h3>
-            </div>
-            <Compass size={18} className="text-teal-300" />
-          </div>
-          <div className="space-y-3 text-sm leading-7 text-slate-300/90">
-            <p>分析时段：每天 <span className="font-semibold text-white">08:00–21:00</span> 的小时数据，先算小时得分，再按月平均。</p>
-            <p>综合公式：<span className="font-semibold text-white">0.50 × 体感温度得分 + 0.25 × 云量得分 + 0.25 × 降水得分</span>。</p>
-            <p>温度得分按图示阈值线性插值：低于 10°C 为 0；18°C 为 9；24°C 为 10；27°C 为 9；32°C 及以上为 1。</p>
-            <p>云量得分：完全晴朗 10，大部分晴朗约 9，阴天 1，中间线性下降。降水得分：无降水 10，微量降水约 9，≥1mm/h 为 0。</p>
-            <p className="text-xs text-slate-400">数据源：{data.yearly.data_source || 'OneBuilding EPW/TMYx-CSWD 本地处理'}。</p>
-            {data.yearly.climate_normal_period ? <p className="text-xs text-slate-400">标准期：{data.yearly.climate_normal_period}。温度源：{data.yearly.temperature_source}。网格变量：{data.yearly.gridded_source}。</p> : null}
-            <p className="text-xs text-slate-400">页面采用相似的气候统计表达方式，但不抓取或复制WeatherSpark的专有原始数据。</p>
-          </div>
-        </section>
-      </div>
 
       <div className="mt-5 grid gap-5 xl:grid-cols-[1.05fr_.95fr]">
         <section className="min-w-0 overflow-hidden rounded-[24px] border border-white/10 bg-black/20 p-4">
