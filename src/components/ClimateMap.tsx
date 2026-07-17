@@ -42,7 +42,7 @@ const ClimateMap: React.FC<ClimateMapProps> = ({ onStationSelect, selectedMonth,
   const [metric, setMetric] = useState('avg_temp');
 
   useEffect(() => {
-    fetch(`${BASE_PATH}/data/stations.geojson`)
+    fetch(`${BASE_PATH}data/stations.geojson`)
       .then(res => res.json())
       .then((json: { features?: StationFeature[] }) => {
         const unique = new globalThis.Map<string, StationFeature>();

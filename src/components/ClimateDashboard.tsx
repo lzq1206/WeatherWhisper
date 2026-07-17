@@ -108,6 +108,7 @@ interface StationData {
   };
   monthly: Record<string, MonthData>;
   daily_climatology?: DailyClimateData[];
+  cloud_category_climatology?: Record<string, string>;
   hourly_monthly?: Record<string, Record<string, HourData>>;
   methodology?: any;
 }
@@ -215,7 +216,7 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
 
   useEffect(() => {
     if (!stationId) return;
-    fetch(`${BASE_PATH}/data/${stationId}.json`)
+    fetch(`${BASE_PATH}data/${stationId}.json`)
       .then(res => res.json())
       .then(setData)
       .catch(err => console.error('Failed to load station data:', err));
@@ -235,8 +236,19 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
   }, [data]);
 
   const dailyClimate = data?.daily_climatology || [];
+  const dailyCloudCategories = useMemo(() => {
+    const source = data?.cloud_category_climatology;
+    if (!source) return null;
+    const parsed = Object.fromEntries(CLOUD_KEYS.map(key => [key, String(source[key] || '').split(',').map(Number)]));
+    return CLOUD_KEYS.every(key => parsed[key].length === 365 && parsed[key].every(Number.isFinite)) ? parsed : null;
+  }, [data]);
   const dailyXAxis = dailyClimate.map(item => item.date);
-  const dailyAxisLabel = (value: string) => value.endsWith('-01') ? `${Number(value.slice(0, 2))}月` : '';
+  const compactDailyAxis = typeof window !== 'undefined' && window.innerWidth < 640;
+  const dailyAxisLabel = (value: string) => {
+    if (!value.endsWith('-01')) return '';
+    const month = Number(value.slice(0, 2));
+    return compactDailyAxis && month % 2 === 0 ? '' : `${month}月`;
+  };
   const selectedMonthArea = dailyClimate.length ? [[
     { xAxis: `${String(selectedMonth).padStart(2, '0')}-01` },
     { xAxis: `${String(selectedMonth).padStart(2, '0')}-${new Date(2021, selectedMonth, 0).getDate()}` },
@@ -317,14 +329,43 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
 
   useEffect(() => {
     if (!monthlySorted.length) return;
-    if (dailyClimate.length === 365) {
+    const hasDailyCloudCategories = dailyClimate.length === 365 && dailyCloudCategories;
+    if (hasDailyCloudCategories) {
+      const clearerShare = dailyClimate.map((_, index) =>
+        CLOUD_KEYS.slice(0, 3).reduce((sum, key) => sum + Number(dailyCloudCategories[key][index] ?? 0), 0)
+      );
       return chartLifecycle(cloudChartRef, {
         backgroundColor: 'transparent',
-        tooltip: { trigger: 'axis', backgroundColor: 'rgba(2,6,23,.94)', borderColor: 'rgba(148,163,184,.18)', textStyle: { color: '#fff' }, formatter: (params: any) => `${params[0].name}<br/>平均云量 ${params[0].value}%` },
-        grid: { left: 44, right: 22, top: 28, bottom: 34 },
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: 'rgba(2,6,23,.94)',
+          borderColor: 'rgba(148,163,184,.18)',
+          textStyle: { color: '#fff' },
+          formatter: (params: any[]) => {
+            const categories = params.filter(p => CLOUD_KEYS.some(key => CLOUD_LABELS[key] === p.seriesName));
+            const clearer = params.find(p => p.seriesName === '较晴朗');
+            return [params[0]?.name, ...categories.map(p => `${p.marker}${p.seriesName} ${Number(p.value).toFixed(1)}%`), clearer ? `<b>较晴朗 ${Number(clearer.value).toFixed(1)}%</b>` : ''].filter(Boolean).join('<br/>');
+          },
+        },
+        legend: { data: [...CLOUD_KEYS.map(k => CLOUD_LABELS[k]), '较晴朗'], textStyle: { color: '#cbd5e1' }, top: 2, itemWidth: 18, itemHeight: 10 },
+        grid: { left: 44, right: 22, top: 62, bottom: 34 },
         xAxis: { type: 'category', data: dailyXAxis, boundaryGap: false, axisLabel: { color: '#94a3b8', interval: 0, formatter: dailyAxisLabel }, axisLine: { lineStyle: { color: 'rgba(148,163,184,.25)' } } },
         yAxis: { type: 'value', min: 0, max: 100, name: '%', nameTextStyle: { color: '#94a3b8' }, axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: 'rgba(148,163,184,.10)' } } },
-        series: [{ name: '平均云量', type: 'line', showSymbol: false, smooth: true, data: dailyClimate.map(item => item.cloud), lineStyle: { width: 3, color: '#94a3b8' }, areaStyle: { opacity: 0.28, color: '#64748b' }, markArea: { silent: true, itemStyle: { color: 'rgba(34,211,238,.07)' }, data: selectedMonthArea } }],
+        series: [
+          ...CLOUD_KEYS.map((key, index) => ({
+            name: CLOUD_LABELS[key],
+            type: 'line',
+            stack: 'cloud-category',
+            showSymbol: false,
+            smooth: 0.22,
+            data: dailyCloudCategories[key],
+            lineStyle: { width: 0.6, color: CLOUD_COLORS[key] },
+            areaStyle: { opacity: 1, color: CLOUD_COLORS[key] },
+            emphasis: { focus: 'series' },
+            ...(index === 0 ? { markArea: { silent: true, itemStyle: { color: 'rgba(34,211,238,.05)' }, data: selectedMonthArea } } : {}),
+          })),
+          { name: '较晴朗', type: 'line', showSymbol: false, smooth: 0.22, data: clearerShare.map(value => Number(value.toFixed(1))), lineStyle: { width: 2, color: '#0f172a' }, itemStyle: { color: '#0f172a' }, z: 10 },
+        ],
       });
     }
     return chartLifecycle(cloudChartRef, {
@@ -340,7 +381,7 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
         itemStyle: { color: CLOUD_COLORS[key] },
       })),
     });
-  }, [monthlySorted, dailyClimate, selectedMonth]);
+  }, [monthlySorted, dailyClimate, dailyCloudCategories, selectedMonth]);
 
   useEffect(() => {
     if (!monthlySorted.length) return;
@@ -567,7 +608,7 @@ const ClimateDashboard: React.FC<ClimateDashboardProps> = ({ stationId, selected
       </div>
 
       <div className="mt-5 grid gap-5 xl:grid-cols-2">
-        <ChartCard eyebrow="2 · Cloudiness" title="逐日平均云量" note="NASA POWER/MERRA-2 1991–2020逐日云量常年值（约50 km格点），经15日平滑；这里显示天空平均覆盖率，不等同于‘多云时长占比’。">
+        <ChartCard eyebrow="2 · Cloudiness" title="晴天至阴天的全年分布" note="参考WeatherSpark的五档表达：晴天0–20%、大部分晴天20–40%、部分多云40–60%、大部分多云60–80%、阴天80–100%。本站基于NASA POWER/MERRA-2 1991–2020逐日平均天空覆盖率分类，再按年内日期统计并作15日平滑；黑线为晴天至部分多云合计（云量<60%）。因数据时间分辨率不同，这里表示天气日占比，不等同于WeatherSpark的逐小时占比。">
           <div ref={cloudChartRef} className="h-[280px] w-full sm:h-[330px]" />
         </ChartCard>
         <ChartCard eyebrow="3 · Precipitation" title="31日滑动降水量与湿润日概率" note="蓝线为以年内每一天为中心的31日平均累计降水，绿线为日降水≥1 mm的多年概率，因此能显示月份内部的雨季转折。">

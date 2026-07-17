@@ -9,8 +9,8 @@ Inputs:
 Outputs:
   - patched public/data/prefecture-*.json
   - matching data/processed/prefecture-*.json when present
-  - audits/climate_normals_1991_2020_20260716/summary.json
-  - audits/climate_normals_1991_2020_20260716/city_source_audit.csv
+  - audits/climate_normals_1991_2020_20260717/summary.json
+  - audits/climate_normals_1991_2020_20260717/city_source_audit.csv
 
 The raw API cache defaults to /tmp so generated source downloads are not added to
 the repository.  Use --cache-dir to retain a reproducible frozen cache elsewhere.
@@ -47,6 +47,15 @@ POWER_PARAMS = [
     "CLOUD_AMT",
     "ALLSKY_SFC_SW_DWN",
 ]
+
+CLOUD_CATEGORY_KEYS = ("clear", "mostly_clear", "partly_cloudy", "mostly_cloudy", "overcast")
+CLOUD_CATEGORY_LABELS = {
+    "clear": "晴天",
+    "mostly_clear": "大部分晴天",
+    "partly_cloudy": "部分多云",
+    "mostly_cloudy": "大部分多云",
+    "overcast": "阴天",
+}
 
 MONTH_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 CUM_DAYS = [0]
@@ -127,6 +136,28 @@ def knots_to_mps(value: Any) -> float | None:
 def mean(values: Iterable[float | None]) -> float | None:
     clean = [float(v) for v in values if v is not None and not math.isnan(float(v))]
     return statistics.fmean(clean) if clean else None
+
+
+def cloud_category(cloud_pct: float) -> str:
+    """Classify daily mean sky cover using WeatherSpark-style 20-point bands."""
+    if cloud_pct < 20:
+        return "clear"
+    if cloud_pct < 40:
+        return "mostly_clear"
+    if cloud_pct < 60:
+        return "partly_cloudy"
+    if cloud_pct < 80:
+        return "mostly_cloudy"
+    return "overcast"
+
+
+def rounded_distribution(values: dict[str, float], digits: int = 1) -> dict[str, float]:
+    """Round a five-part percentage distribution while retaining an exact 100% sum."""
+    result: dict[str, float] = {}
+    for key in CLOUD_CATEGORY_KEYS[:-1]:
+        result[key] = round(float(values.get(key, 0)), digits)
+    result[CLOUD_CATEGORY_KEYS[-1]] = round(100.0 - sum(result.values()), digits)
+    return result
 
 
 def circular_smooth(values: list[float | None], window: int = 15) -> list[float | None]:
@@ -263,7 +294,11 @@ def aggregate_power(payload: dict[str, Any]) -> dict[str, Any]:
     }
     by_doy: dict[str, list[list[float]]] = {value: [[] for _ in range(365)] for value in key_map.values()}
     wet_by_doy: list[list[float]] = [[] for _ in range(365)]
+    cloud_category_by_doy: dict[str, list[list[float]]] = {
+        key: [[] for _ in range(365)] for key in CLOUD_CATEGORY_KEYS
+    }
     month_values: dict[int, dict[str, list[float]]] = defaultdict(lambda: defaultdict(list))
+    monthly_cloud_categories: dict[int, dict[str, list[float]]] = defaultdict(lambda: defaultdict(list))
     annual_month_precip: dict[tuple[int, int], float] = defaultdict(float)
     dates = sorted(parameters["T2M"])
     for compact_date in dates:
@@ -281,14 +316,29 @@ def aggregate_power(payload: dict[str, Any]) -> dict[str, Any]:
                     annual_month_precip[(year, month)] += value
         precip = valid_number(parameters["PRECTOTCORR"].get(compact_date))
         wet_by_doy[doy - 1].append(1.0 if (precip or 0) >= 1 else 0.0)
+        cloud = valid_number(parameters["CLOUD_AMT"].get(compact_date))
+        if cloud is not None and cloud > -900:
+            category = cloud_category(cloud)
+            for key in CLOUD_CATEGORY_KEYS:
+                indicator = 1.0 if key == category else 0.0
+                cloud_category_by_doy[key][doy - 1].append(indicator)
+                monthly_cloud_categories[month][key].append(indicator)
     profiles = {key: [mean(values) for values in slots] for key, slots in by_doy.items()}
     profiles["wet_probability"] = [(mean(values) or 0) * 100 for values in wet_by_doy]
+    profiles["cloud_categories"] = {
+        key: [(mean(values) or 0) * 100 for values in cloud_category_by_doy[key]]
+        for key in CLOUD_CATEGORY_KEYS
+    }
     monthly: dict[int, dict[str, float | None]] = {}
     for month in range(1, 13):
         monthly[month] = {key: mean(month_values[month][key]) for key in key_map.values()}
         monthly[month]["precipitation_sum"] = mean([annual_month_precip[(year, month)] for year in range(1991, 2021)])
         month_wet = [value for doy, values in enumerate(wet_by_doy, 1) if month_day(doy)[0] == month for value in values]
         monthly[month]["wet_probability"] = (mean(month_wet) or 0) * 100
+        monthly[month]["cloud_categories"] = {
+            key: (mean(monthly_cloud_categories[month][key]) or 0) * 100
+            for key in CLOUD_CATEGORY_KEYS
+        }
     coordinates = payload.get("geometry", {}).get("coordinates", [])
     return {"profiles": profiles, "monthly": monthly, "grid_lat": coordinates[1] if len(coordinates) > 1 else None, "grid_lon": coordinates[0] if coordinates else None, "grid_elevation": coordinates[2] if len(coordinates) > 2 else None}
 
@@ -349,6 +399,10 @@ def build_city(payload: dict[str, Any], era: dict[str, Any], noaa: dict[str, Any
     smooth = {key: circular_smooth(values, 15) for key, values in base.items() if key not in ("precip", "wind_dir")}
     smooth["wind_dir"] = base["wind_dir"]
     smooth["precip_31d"] = circular_rolling_sum(base["precip"], 31)
+    cloud_category_profiles = {
+        key: circular_smooth(era["profiles"]["cloud_categories"][key], 15)
+        for key in CLOUD_CATEGORY_KEYS
+    }
 
     daily_climatology = []
     for idx in range(365):
@@ -389,6 +443,14 @@ def build_city(payload: dict[str, Any], era: dict[str, Any], noaa: dict[str, Any
         item["cloud"] = round(float(profile_month_mean(base["cloud"], month) or 0), 1)
         item["opaque_cloud"] = item["cloud"]
         item["sunny_rate"] = round(100 - item["cloud"], 1)
+        monthly_category_distribution = rounded_distribution({
+            key: float(era["monthly"][month]["cloud_categories"][key] or 0)
+            for key in CLOUD_CATEGORY_KEYS
+        })
+        item["cloud_categories"] = {
+            key: {"label": CLOUD_CATEGORY_LABELS[key], "pct": monthly_category_distribution[key]}
+            for key in CLOUD_CATEGORY_KEYS
+        }
         item["solar"] = round(float(profile_month_mean(base["solar_kwh"], month) or 0) * MONTH_DAYS[month - 1] * 1000, 1)
         temp_score, cloud_score, precip_score = tourism_components(item["apparent_temp_avg"], item["cloud"], item["precip_probability"])
         item["tourism_temp_score"] = round(temp_score, 1)
@@ -418,15 +480,23 @@ def build_city(payload: dict[str, Any], era: dict[str, Any], noaa: dict[str, Any
     yearly["best_time"] = yearly["best_tourism_months"]
     yearly["tourism_peak_month"] = tourism_ranking[0][1]
     yearly["data_source"] = "1991–2020 climate normals: NOAA GSOD station observations for temperature/dew point when coverage passes audit; NASA POWER/MERRA-2 daily reanalysis for cloud, precipitation, wind, solar energy and gap-free city coverage"
-    yearly["method_note"] = "Daily curves are 15-day circular-smoothed 1991–2020 day-of-year normals. Rainfall is a centered rolling 31-day climatological accumulation. The hourly month-by-hour heatmap remains a separately labelled OneBuilding TMY reference."
+    yearly["method_note"] = "Daily curves are 15-day circular-smoothed 1991–2020 day-of-year normals. Cloud categories classify each historical day's mean sky cover into five 20-percentage-point bands before calculating day-of-year frequencies. Rainfall is a centered rolling 31-day climatological accumulation. The hourly month-by-hour heatmap remains a separately labelled OneBuilding TMY reference."
     yearly["climate_normal_period"] = "1991-2020"
     yearly["temperature_source"] = f"NOAA GSOD station {payload['metadata'].get('source_station_wmo', payload['metadata'].get('wmo'))}" if use_station else "NASA POWER/MERRA-2 gridded reanalysis"
     yearly["gridded_source"] = "NASA POWER/MERRA-2 daily meteorology (approximately 0.5° grid), 1991–2020"
 
     payload["daily_climatology"] = daily_climatology
+    payload["cloud_category_climatology"] = {
+        key: ",".join(
+            f"{rounded_distribution({category_key: float(cloud_category_profiles[category_key][idx] or 0) for category_key in CLOUD_CATEGORY_KEYS})[key]:.1f}"
+            for idx in range(365)
+        )
+        for key in CLOUD_CATEGORY_KEYS
+    }
     payload["methodology"]["climate_normals"] = {
         "period": "1991-2020",
         "daily_smoothing": "15-day centered circular moving mean",
+        "cloud_categories": "Daily mean sky cover classified as clear 0-<20%, mostly clear 20-<40%, partly cloudy 40-<60%, mostly cloudy 60-<80%, and overcast 80-100%; category frequencies use a 15-day centered circular window across 1991-2020.",
         "rainfall": "31-day centered rolling accumulation of mean daily precipitation",
         "temperature_dew_point": yearly["temperature_source"],
         "gridded_variables": yearly["gridded_source"],
@@ -500,7 +570,7 @@ def main() -> None:
     args = parse_args()
     root = Path(args.root)
     cache = Path(args.cache_dir)
-    audit_dir = root / "audits" / "climate_normals_1991_2020_20260716"
+    audit_dir = root / "audits" / "climate_normals_1991_2020_20260717"
     audit_dir.mkdir(parents=True, exist_ok=True)
     cities = load_catalog(root, set(args.only))
     if not cities:
@@ -609,10 +679,18 @@ def main() -> None:
         }.items())),
         "unique_daily_climate_curves": len(set(curve_signatures.values())),
         "daily_point_failures": [row["catalog_id"] for row in audits if row["daily_points"] != 365],
+        "cloud_category_daily_sum_failures": [
+            row_id for row_id, payload in updated_payloads.items()
+            if any(abs(sum(float(payload["cloud_category_climatology"][key].split(",")[idx]) for key in CLOUD_CATEGORY_KEYS) - 100) > 0.11 for idx in range(365))
+        ],
+        "cloud_category_monthly_sum_failures": [
+            row_id for row_id, payload in updated_payloads.items()
+            if any(abs(sum(float(payload["monthly"][str(month)]["cloud_categories"][key]["pct"]) for key in CLOUD_CATEGORY_KEYS) - 100) > 0.11 for month in range(1, 13))
+        ],
         "bounds_failures": [row["catalog_id"] for row in audits if not (-45 <= row["annual_temp_c"] <= 35 and 0 <= row["annual_precip_mm"] <= 12000 and 0 <= row["annual_cloud_pct"] <= 100)],
     }
     (audit_dir / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    if errors or summary["daily_point_failures"] or summary["bounds_failures"]:
+    if errors or summary["daily_point_failures"] or summary["cloud_category_daily_sum_failures"] or summary["cloud_category_monthly_sum_failures"] or summary["bounds_failures"]:
         raise SystemExit(f"Climate normal build failed validation: {summary}")
 
 

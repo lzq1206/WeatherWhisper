@@ -51,7 +51,7 @@ function App() {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   useEffect(() => {
-    fetch(`${BASE_PATH}/data/stations.geojson`)
+    fetch(`${BASE_PATH}data/stations.geojson`)
       .then(res => res.json())
       .then((json: { features?: StationFeature[] }) => {
         const unique = new Map<string, StationListItem>();
